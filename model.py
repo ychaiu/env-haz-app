@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-class HazardType(db.Model):
+class Hazard(db.Model):
 	"""Table of hazard categories."""
 
 	__tablename__ = "hazards"
@@ -85,7 +85,7 @@ class Photo(db.Model):
 	def __repr__(self):
 		"""Helpful representation of object when printed."""
 
-		return f"<eventvote_id : {self.photo_id}, caption: {self.caption}>" 
+		return f"<photo_id : {self.photo_id}, caption: {self.caption}>" 
 
 class User(db.Model):
 	"""User information"""
@@ -107,7 +107,7 @@ class User(db.Model):
 	def __repr__(self):
 		"""Helpful representation of object when printed."""
 
-		return f"<user_id : {self.photo_id}, name: {self.first_name} {self.last_name}>" 
+		return f"<user_id : {self.user_id}, name: {self.first_name} {self.last_name}>" 
 
 class Comment(db.Model):
 	"""Comments added by users to each event."""
@@ -127,7 +127,7 @@ class Comment(db.Model):
 	def __repr__(self):
 		"""Helpful representation of object when printed."""
 
-		return f"<comment_id : {self.photo_id}, user_id: {self.user_id}, comment: {self.comment}>" 
+		return f"<comment_id : {self.comment_id}, user_id: {self.user_id}, comment: {self.comment}>" 
 
 ##############################################################################
 # Helper functions
@@ -135,7 +135,7 @@ class Comment(db.Model):
 def connect_to_db(app):
     """Connect the database to our Flask app."""
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///envhazapp'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///env-haz-app'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
