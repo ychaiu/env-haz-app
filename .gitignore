@@ -1,3 +1,2 @@
 env/
-server/static/config
-src/config
+client/src/config
