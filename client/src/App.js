@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import './App.css';
 import Map from './components/map/map';
 import NavBar from './components/navbar/navbar';
+import eventFormContainer from './containers/eventFormContainer'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-          my main app component
           <NavBar />
           <Map />
+          <eventFormContainer />
       </div>
     );
   }
