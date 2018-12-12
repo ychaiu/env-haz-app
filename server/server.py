@@ -1,16 +1,24 @@
-from flask import (Flask, render_template, redirect, request, flash, session)
+from flask import (Flask, render_template, redirect, request, jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
-from model import connect_to_db
-
+from model import connect_to_db, Hazard
 
 app = Flask(__name__)
 app.secret_key = "ABC"
 
-@app.route("/")
-def homepage():
-    """Render the homepage"""
+# @app.route("/")
+# def homepage():
+#     """Render the homepage"""
 
-    return render_template("homepage.html")
+#     return render_template("index.html")
+
+@app.route("/hazardSelection.json")
+def haz_selections():
+    """Return json of hazard types"""
+
+    haz_selections = Hazard.query.all()
+    print(type(Hazard))
+    return jsonify({'haz_selections':haz_selections})
+
 
 if __name__ == "__main__":
     app.debug = True
