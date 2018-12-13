@@ -16,9 +16,11 @@ def haz_selections():
     """Return json of hazard types"""
 
     haz_selections = Hazard.query.all()
-    print(type(Hazard))
-    return jsonify({'haz_selections':haz_selections})
+    hazlist = []
+    for haz in haz_selections:
+        hazlist.append(haz.haz_type)
 
+    return jsonify(hazlist)
 
 if __name__ == "__main__":
     app.debug = True
