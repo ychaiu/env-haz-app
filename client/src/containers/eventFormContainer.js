@@ -63,27 +63,9 @@ class EventFormContainer extends Component {
         return (
             <form className="eventFormContainer" onSubmit={this.handleFormSubmit}>
                 <SingleInput 
-                inputType={'text'}
-                title={'Event Title'}
-                name={'name'}
-                controlFunc={this.handleFullNameChange}
-                content={this.state.ownerName}
-                placeholder={'Type title of event here'} />
-                <Select
-                name={'Hazard Type'}
-                placeholder={'Categorize the Hazard'}
-                controlFunc={this.handleHazardRangeSelect}
-                options={this.state.hazardSelection}
-                selectedOption={this.state.hazardSelection} />
-
-                <TextArea
-                title={'Please write a brief description '}
-                rows={5}
-                resize={false}
-                content={this.state.description}
-                name={'currentPetInfo'}
-                controlFunc={this.handleDescriptionChange}
-                placeholder={'Please be thorough in your descriptions'} />
+                type={'text'}
+                title=
+     
                 <input type="submit" className="btn-primary float-right" value="Submit" />
             <button className="btn btn-link float-left"
             onClick={this.handleClearForm}>Clear form</button>
