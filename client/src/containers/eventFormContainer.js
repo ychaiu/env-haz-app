@@ -8,45 +8,82 @@ class EventFormContainer extends Component {
         super(props);
         this.state = {
             eventTitle: '',
-            hazardSelection: '',
+            hazardSelections: [],
+            selectedHaz: '',
             eventDescription: ''
-        };
+        },
+
+        // alternatively, can write functions with fat arrow, which in
+        // ES6 automatically binds
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleClearForm = this.handleClearForm.bind(this);
     }
     componentDidMount() {
-        fetch('./whatisthis.json')
+        fetch('localhost:5000/hazardSelection.json')
             .then(results => results.json())
             .then(data => {
                 this.setState({
-                    eventTitle: data.eventTitle,
-                    hazardSelection: data.hazardSelection,
-                    eventDescription: data.eventDescription
+                    // eventTitle: data.eventTitle,
+                    hazardSelections: data.hazlist
+                    // eventDescription: data.eventDescription
                 });
 
             });
     }
 
-    handleFullNameChange(evt) {
-        this.setState({ userName: evt.target.value });
+    handleFormSubmit(evt) {
+        evt.preventDefault()
+        this.handleClearForm(evt);
+
+    //   fetch('http://example.com',{
+    //     method: "POST",
+    //     body: JSON.stringify(userData),
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json'
+    //     },
+    //   }).then(response => {
+    //     response.json().then(data =>{
+    //       console.log("Successful" + data);
+    //     })
+    // })
+
     }
 
-    handl
-
-    handleFormSubmit() {
-
-    }
-
-    handleClearForm() {
-
+    handleClearForm(evt) {
+        evt.preventDefault();
+        this.setState({
+            eventTitle: '',
+            selectedHaz: '',
+            eventDescription: ''
+        });
     }
 
     render() {
         return (
             <form className="eventFormContainer" onSubmit={this.handleFormSubmit}>
-                <SingleInput />
-                <Select />
-                <TextArea />
+                <SingleInput 
+                inputType={'text'}
+                title={'Event Title'}
+                name={'name'}
+                controlFunc={this.handleFullNameChange}
+                content={this.state.ownerName}
+                placeholder={'Type title of event here'} />
+                <Select
+                name={'Hazard Type'}
+                placeholder={'Categorize the Hazard'}
+                controlFunc={this.handleHazardRangeSelect}
+                options={this.state.hazardSelection}
+                selectedOption={this.state.hazardSelection} />
+
+                <TextArea
+                title={'Please write a brief description '}
+                rows={5}
+                resize={false}
+                content={this.state.description}
+                name={'currentPetInfo'}
+                controlFunc={this.handleDescriptionChange}
+                placeholder={'Please be thorough in your descriptions'} />
                 <input type="submit" className="btn-primary float-right" value="Submit" />
             <button className="btn btn-link float-left"
             onClick={this.handleClearForm}>Clear form</button>
