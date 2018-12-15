@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Map from './components/map/map';
 import NavBar from './components/navbar/navbar';
-import eventFormContainer from './containers/eventFormContainer'
+import EventFormContainer from './containers/eventFormContainer'
 
 class App extends Component {
   render() {
@@ -10,7 +10,7 @@ class App extends Component {
       <div className="App">
           <NavBar />
           <Map />
-          <eventFormContainer />
+          <EventFormContainer />
       </div>
     );
   }
