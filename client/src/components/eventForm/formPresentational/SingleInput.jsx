@@ -12,8 +12,9 @@ const SingleInput = (props) => {
                 name={props.name}
                 type={props.type}
                 value={props.value}
-                onChange={props.handleSingleInputChange}
+                onChange={props.handleChange}
                 placeholder={props.placeholder}
+                className="form-control"
             />
         </div>
     )
