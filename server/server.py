@@ -20,7 +20,7 @@ def haz_selections():
     for haz in haz_selections:
         hazlist.append(haz.haz_type)
 
-    return jsonify(hazlist)
+    return jsonify({'haz_type': hazlist})
 
 if __name__ == "__main__":
     app.debug = True
