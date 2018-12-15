@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Select = (props) => (  
+const Select = (props) => {  
   return(
     <div className="form-group">
       <label htmlFor={props.name}>{props.title}</label>
@@ -23,7 +23,7 @@ const Select = (props) => (
       })}
       </select>
     </div>
-  )
+  );
 }
 
 export default Select;
