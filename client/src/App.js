@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
-import Map from './components/map/map';
-import NavBar from './components/navbar/navbar';
-import EventFormContainer from './containers/eventFormContainer'
+import Map from './components/map/map.jsx';
+import NavBar from './components/navbar/navbar.jsx';
+import EventFormContainer from './containers/eventFormContainer.jsx';
+import About from './components/about/about.jsx';
+
 
 class App extends Component {
   render() {
@@ -10,7 +11,7 @@ class App extends Component {
       <div className="App">
           <NavBar />
           <Map />
-          <EventFormContainer />
+          <About />
       </div>
     );
   }

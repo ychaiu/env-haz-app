@@ -12,6 +12,7 @@ class EventFormContainer extends Component {
                 eventTitle: '',
                 selectedHaz: '',
                 dateTimeSeen: '',
+                dateTimeStart: '',
                 eventDescription: ''
             },
 
@@ -23,7 +24,8 @@ class EventFormContainer extends Component {
         // ES6 automatically binds
         this.handleEventTitle = this.handleEventTitle.bind(this);
         this.handleSelectedHaz = this.handleSelectedHaz.bind(this);
-        this.handleDateTime = this.handleDateTime.bind(this);
+        this.handleDateTimeSeen = this.handleDateTimeSeen.bind(this);
+        this.handleDateTimeStart = this.handleDateTimeStart.bind(this);
         this.handleEventDescription = this.handleEventDescription.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleClearForm = this.handleClearForm.bind(this);
@@ -45,9 +47,16 @@ class EventFormContainer extends Component {
         }), () => console.log(this.state.newEvent))
     }
 
-    handleDateTime(date) {
+    handleDateTimeSeen(date) {
         this.setState (prevState => ({ newEvent:
             {...prevState.newEvent, dateTimeSeen: date
+            }
+        }), () => console.log(this.state.newEvent))
+    }
+
+    handleDateTimeStart(date) {
+        this.setState (prevState => ({ newEvent:
+            {...prevState.newEvent, dateTimeStart: date
             }
         }), () => console.log(this.state.newEvent))
     }
@@ -116,7 +125,13 @@ class EventFormContainer extends Component {
                         name = {'dateTimeSeen'}
                         title = {'Date and Time Seen'}
                         value = {this.state.newEvent.dateTimeSeen}
-                        handleChange = {this.handleDateTime}
+                        handleChange = {this.handleDateTimeSeen}
+                    />
+                    <DateTimeInput
+                        name = {'dateTimeStart'}
+                        title = {'When Did This Event Start?'}
+                        value = {this.state.newEvent.dateTimeStart}
+                        handleChange = {this.handleDateTimeStart}
                     />
                     <TextArea
                         title={'Description'}
