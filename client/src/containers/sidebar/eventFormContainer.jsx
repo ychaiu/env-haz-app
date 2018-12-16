@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import SingleInput from '../components/eventForm/formPresentational/SingleInput';
-import Select from '../components/eventForm/formPresentational/Select';
-import DateTimeInput from '../components/eventForm/formPresentational/DateTime';
-import TextArea from '../components/eventForm/formPresentational/TextArea';
+import SingleInput from '../../components/eventForm/formPresentational/SingleInput';
+import Select from '../../components/eventForm/formPresentational/Select';
+import DateTimeInput from '../../components/eventForm/formPresentational/DateTime';
+import TextArea from '../../components/eventForm/formPresentational/TextArea';
 
 class EventFormContainer extends Component {
     constructor(props) {
@@ -12,6 +12,7 @@ class EventFormContainer extends Component {
                 eventTitle: '',
                 selectedHaz: '',
                 dateTimeSeen: '',
+                dateTimeStart: '',
                 eventDescription: ''
             },
 
@@ -23,7 +24,8 @@ class EventFormContainer extends Component {
         // ES6 automatically binds
         this.handleEventTitle = this.handleEventTitle.bind(this);
         this.handleSelectedHaz = this.handleSelectedHaz.bind(this);
-        this.handleDateTime = this.handleDateTime.bind(this);
+        this.handleDateTimeSeen = this.handleDateTimeSeen.bind(this);
+        this.handleDateTimeStart = this.handleDateTimeStart.bind(this);
         this.handleEventDescription = this.handleEventDescription.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleClearForm = this.handleClearForm.bind(this);
@@ -45,9 +47,16 @@ class EventFormContainer extends Component {
         }), () => console.log(this.state.newEvent))
     }
 
-    handleDateTime(date) {
+    handleDateTimeSeen(date) {
         this.setState (prevState => ({ newEvent:
             {...prevState.newEvent, dateTimeSeen: date
+            }
+        }), () => console.log(this.state.newEvent))
+    }
+
+    handleDateTimeStart(date) {
+        this.setState (prevState => ({ newEvent:
+            {...prevState.newEvent, dateTimeStart: date
             }
         }), () => console.log(this.state.newEvent))
     }
@@ -101,7 +110,7 @@ class EventFormContainer extends Component {
                         title = {'Event Title'}
                         name = {'eventTitle'}
                         value = {this.state.newEvent.eventTitle}
-                        placeholder = {'Brief Title'}
+                        placeholder = {'Enter a Title'}
                         handleChange = {this.handleEventTitle}
                     />
                     <Select 
@@ -109,15 +118,24 @@ class EventFormContainer extends Component {
                         name = {'hazardSelections'}
                         options = {this.state.hazardOptions}
                         value = {this.state.newEvent.selectedHaz}
-                        placeholder = {'Select Hazard Type'}
+                        placeholder = {'Select Type'}
                         handleChange = {this.handleSelectedHaz}
                     />
                     <DateTimeInput
                         name = {'dateTimeSeen'}
-                        title = {'Date and Time Seen'}
+                        title = {'When Did You See This?'}
                         value = {this.state.newEvent.dateTimeSeen}
-                        handleChange = {this.handleDateTime}
+                        handleChange = {this.handleDateTimeSeen}
+                        placeholder = {'Select a Date and Time'}
                     />
+
+                    <DateTimeInput
+                        name = {'dateTimeStart'}
+                        title = {'When Did This Event Start? (Optional)'}
+                        value = {this.state.newEvent.dateTimeStart}
+                        handleChange = {this.handleDateTimeStart}
+                    />
+
                     <TextArea
                         title={'Description'}
                         name = {'eventDescription'}

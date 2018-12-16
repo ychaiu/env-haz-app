@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
-import './App.css';
-import Map from './components/map/map';
-import NavBar from './components/navbar/navbar';
-import EventFormContainer from './containers/eventFormContainer'
+// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Map from './components/map/map.jsx';
+import NavBar from './components/navbar/navbar.jsx';
+import SideBar from './containers/sidebar/sideBar.jsx'
+
+// const routes = [
+//   { path: '/report-event',
+//     exact: true,
+//     sidebar: () => <EventFormContainer />,
+//     main: () => <Map />
+//   }
+// ]
 
 class App extends Component {
   render() {
@@ -10,7 +18,7 @@ class App extends Component {
       <div className="App">
           <NavBar />
           <Map />
-          <EventFormContainer />
+          <SideBar />
       </div>
     );
   }
