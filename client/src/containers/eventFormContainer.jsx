@@ -61,6 +61,13 @@ class EventFormContainer extends Component {
         }), () => console.log(this.state.newEvent))
     }
 
+    // handlePhotoUpload(evt) { 
+    //     let value = evt.target.files[0]
+    //     this.setState (prevState => ({ newEvent:
+    //         {...prevstate.newEvent, selectedFile: value}
+    //     })
+    // }
+
     handleEventDescription(evt) {
         let value = evt.target.value;
         this.setState (prevState => ({ newEvent: 
@@ -110,7 +117,7 @@ class EventFormContainer extends Component {
                         title = {'Event Title'}
                         name = {'eventTitle'}
                         value = {this.state.newEvent.eventTitle}
-                        placeholder = {'Brief Title'}
+                        placeholder = {'Enter a Title'}
                         handleChange = {this.handleEventTitle}
                     />
                     <Select 
@@ -118,7 +125,7 @@ class EventFormContainer extends Component {
                         name = {'hazardSelections'}
                         options = {this.state.hazardOptions}
                         value = {this.state.newEvent.selectedHaz}
-                        placeholder = {'Select Hazard Type'}
+                        placeholder = {'Select Type'}
                         handleChange = {this.handleSelectedHaz}
                     />
                     <DateTimeInput

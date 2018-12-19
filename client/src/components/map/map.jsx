@@ -8,7 +8,7 @@ const customStyle = mapStyle.styleArray;
 
 // const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-class SimpleMap extends Component {
+class Map extends Component {
     static defaultProps = {
         center: {
             lat: 37.803115,
@@ -16,6 +16,34 @@ class SimpleMap extends Component {
         },
         zoom: 14
     };
+
+  handleApiLoaded (map,maps) {
+    let marker;
+    map.addListener('click', function(e){
+      placeMarkerAndPanTo(e.latLng,map);
+    });
+    function placeMarkerAndPanTo(latLng,map) {
+
+      if (marker) {
+        marker.setPosition(latLng);
+      }
+      else {
+        let marker = new maps.Marker({
+          position: latLng,
+          map:map
+        });
+      }
+      map.panTo(latLng);
+    }
+  }
+
+//   renderMarkers(map, maps) {
+//   let marker = new maps.Marker({
+//     position: {lat: 37.803115,lng: -122.257976},
+//     map: map,
+//     title: 'Hello World!'
+//   });
+// }
 
   render() {
     return (
@@ -26,8 +54,11 @@ class SimpleMap extends Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
           options={{styles: customStyle}}
+          onClick ={this.coordsOnClick}
+          onGoogleApiLoaded={({map, maps}) => this.handleApiLoaded(map,maps)}
+          yesIWantToUseGoogleMapApiInternals={ true }
         >
-        < /GoogleMapReact>
+        </GoogleMapReact>
       </div>
     );
   }
@@ -36,4 +67,4 @@ class SimpleMap extends Component {
 
 
 
-export default SimpleMap;
+export default Map;
