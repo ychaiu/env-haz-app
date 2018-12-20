@@ -19,31 +19,23 @@ class Map extends Component {
 
   handleApiLoaded (map,maps) {
     let marker;
-    map.addListener('click', function(e){
-      placeMarkerAndPanTo(e.latLng,map);
-    });
-    function placeMarkerAndPanTo(latLng,map) {
-
+    function placeMarkerAndPanTo(latLng) {
       if (marker) {
         marker.setPosition(latLng);
       }
       else {
-        let marker = new maps.Marker({
+        marker = new maps.Marker({
           position: latLng,
           map:map
         });
       }
       map.panTo(latLng);
     }
-  }
 
-//   renderMarkers(map, maps) {
-//   let marker = new maps.Marker({
-//     position: {lat: 37.803115,lng: -122.257976},
-//     map: map,
-//     title: 'Hello World!'
-//   });
-// }
+    map.addListener('click', function(e){
+      placeMarkerAndPanTo(e.latLng,map);
+    });
+  }
 
   render() {
     return (
@@ -54,7 +46,6 @@ class Map extends Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
           options={{styles: customStyle}}
-          onClick ={this.coordsOnClick}
           onGoogleApiLoaded={({map, maps}) => this.handleApiLoaded(map,maps)}
           yesIWantToUseGoogleMapApiInternals={ true }
         >
