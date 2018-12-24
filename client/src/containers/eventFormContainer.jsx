@@ -20,8 +20,6 @@ class EventFormContainer extends Component {
                 "Chemical exposure", "Hazardous waste", "Food safety"]
         }
 
-        // alternatively, can write functions with fat arrow, which in
-        // ES6 automatically binds
         this.handleEventTitle = this.handleEventTitle.bind(this);
         this.handleSelectedHaz = this.handleSelectedHaz.bind(this);
         this.handleDateTimeSeen = this.handleDateTimeSeen.bind(this);
@@ -77,22 +75,24 @@ class EventFormContainer extends Component {
     }
 
     handleFormSubmit(evt) {
-        evt.preventDefault()
-        this.handleClearForm(evt);
+        evt.preventDefault();
+        let formData = this.state.newEvent;
 
-    //   fetch('http://example.com',{
-    //     method: "POST",
-    //     body: JSON.stringify(userData),
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //     },
-    //   }).then(response => {
-    //     response.json().then(data =>{
-    //       console.log("Successful" + data);
-    //     })
-    // })
+      fetch('http://localhost:5000/api/submit_event_data.json',{
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      }).then(response => {
+        response.json().then(data =>{
+          console.log("Successful" + data);
+        })
+    })
 
+    //as part of the submit, add the lat long props here as: this.props.lat etc
+    this.handleClearForm(evt);
     }
 
     handleClearForm(evt) {

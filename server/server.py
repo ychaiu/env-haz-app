@@ -22,6 +22,14 @@ def haz_selections():
 
     return jsonify({'haz_type': hazlist})
 
+@app.route("/api/submit_event_data.json", methods=['GET', 'POST'])
+def get_event_data():
+    """Get event form data and post to database."""
+
+    content = request.json
+    print(content)
+    return jsonify(content)
+
 if __name__ == "__main__":
     app.debug = True
     app.jinja_env.auto_reload = app.debug
