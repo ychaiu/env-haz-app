@@ -77,8 +77,8 @@ class EventFormContainer extends Component {
     handleFormSubmit(evt) {
         evt.preventDefault();
         let formData = this.state.newEvent;
-
-      fetch('http://localhost:5000/api/submit_event_data.json',{
+        
+      fetch('http://localhost:5000/api/submit_event_data',{
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
@@ -87,12 +87,12 @@ class EventFormContainer extends Component {
         },
       }).then(response => {
         response.json().then(data =>{
-          console.log("Successful" + data);
+          console.log("Successful " + data);
         })
     })
 
     //as part of the submit, add the lat long props here as: this.props.lat etc
-    this.handleClearForm(evt);
+    //this.handleClearForm(evt);
     }
 
     handleClearForm(evt) {
