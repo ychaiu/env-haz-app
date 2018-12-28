@@ -6,8 +6,6 @@ import mapStyle from './mapStyle';
 const key = config.mapKey;
 const customStyle = mapStyle.styleArray;
 
-// const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
 class Map extends Component {
     static defaultProps = {
         center: {
@@ -15,7 +13,7 @@ class Map extends Component {
             lng: -122.257976 
         },
         zoom: 14
-    };
+    }; 
 
   handleApiLoaded (map,maps) {
     let marker;
@@ -30,12 +28,17 @@ class Map extends Component {
         });
       }
       map.panTo(latLng);
+      // this.props.handleNewMarkerCoords(latLng);
     }
 
     map.addListener('click', function(e){
       placeMarkerAndPanTo(e.latLng,map);
     });
+
   }
+
+
+
 
   render() {
     return (
@@ -45,10 +48,11 @@ class Map extends Component {
           bootstrapURLKeys={{ key: key }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
-          options={{styles: customStyle}}
+          options ={{styles: customStyle}}
           onGoogleApiLoaded={({map, maps}) => this.handleApiLoaded(map,maps)}
           yesIWantToUseGoogleMapApiInternals={ true }
         >
+        {this.handleNewMarkerCoords}
         </GoogleMapReact>
       </div>
     );
