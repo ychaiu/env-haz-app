@@ -35,8 +35,8 @@ class Event(db.Model):
 	description = db.Column(db.String(500), nullable = False)
 	last_edited = db.Column(db.DateTime, nullable=False)
 	last_edited_user = db.Column(db.Integer, nullable=False)
-	latitude = db.Column(db.Integer, nullable=False)
-	longitude = db.Column(db.Integer, nullable=False)
+	latitude = db.Column(db.Float, nullable=False)
+	longitude = db.Column(db.Float, nullable=False)
 
 	user = db.relationship('User')
 	hazard = db.relationship('Hazard')
