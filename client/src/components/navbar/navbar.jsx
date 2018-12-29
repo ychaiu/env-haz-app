@@ -18,7 +18,6 @@ class NavBar extends Component {
                                 <Link to="/report-event" class="nav-link">Report</Link>
                             </li>
                         </ul>
-                        ))}
                     </div>
                     <Route path="/about" component={About} />
                     <Route path="/report-event" component={EventFormContainer} />

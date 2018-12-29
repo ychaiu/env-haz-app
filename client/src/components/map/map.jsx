@@ -6,6 +6,22 @@ import mapStyle from './mapStyle';
 const key = config.mapKey;
 const customStyle = mapStyle.styleArray;
 
+const loadMarkers = (map, maps) => {
+  fetch('http://localhost:5000/api/render_markers.json')
+    .then(function(response) {
+      return response.json();
+      })
+    .then(function(data) {
+      for(let i = 0; i < data.length; i++) {
+        let eventObj = data[i];
+        let marker = new maps.Marker({
+          position: new maps.LatLng(eventObj.latitude, eventObj.longitude),
+          map:map
+        });
+      }
+    });
+}
+
 class Map extends Component {
     static defaultProps = {
         center: {
@@ -34,15 +50,11 @@ class Map extends Component {
     map.addListener('click', function(e){
       placeMarkerAndPanTo(e.latLng,map);
     });
-
+    loadMarkers(map,maps);
   }
-
-
-
 
   render() {
     return (
-      // Important! Always set the container height explicitly
       <div className="float-right d-inline-block" style={{ height: '100vh', width: '75%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: key }}
@@ -58,8 +70,5 @@ class Map extends Component {
     );
   }
 }
-
-
-
 
 export default Map;
