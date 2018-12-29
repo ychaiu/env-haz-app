@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import config from '../../config/config';
 import mapStyle from './mapStyle';
+import * as clusterMarkerImg from '../../../public/img/clusterMarkers/m2.png'
 
 const key = config.mapKey;
+
 const customStyle = mapStyle.styleArray;
 
 const loadMarkers = (map, maps) => {
@@ -51,6 +53,9 @@ class Map extends Component {
       placeMarkerAndPanTo(e.latLng,map);
     });
     loadMarkers(map,maps);
+
+    // let markerCluster = new MarkerClusterer(map, markers,
+    //         {imagePath: clusterMarkerImg});
   }
 
   render() {
