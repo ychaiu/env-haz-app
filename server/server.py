@@ -43,13 +43,30 @@ def get_event_data():
                 latitude = 37.803115,
                 longitude = -122.257976)
 
-    print(new_event)
     db.session.add(new_event)
     db.session.commit()
+    
     return 'Success'
 
-    # {'eventTitle': 'lll', 'selectedHaz': '', 'dateTimeSeen': '', 'dateTimeStart': '', 'eventDescription': ''}
+@app.route("/api/render_markers.json", methods=['GET', 'POST'])
+def render_markers():
 
+    events = Event.query.all()
+    event_list = []
+    for event in events:
+        event_object = {
+            'event_title' : event.event_title,
+            'datetime_seen' : event.datetime_seen,
+            'event_start' : event.event_start,
+            'event_end' : event.event_end,
+            'description' : event.description,
+            'last_edited' : event.last_edited,
+            'last_edited_user' : event.last_edited_user,
+            'latitude' : event.latitude,
+            'longitude' : event.longitude
+        }
+        event_list.append(event_object)
+    return jsonify(event_list)
 
 
 if __name__ == "__main__":
