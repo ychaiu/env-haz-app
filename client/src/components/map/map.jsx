@@ -20,32 +20,31 @@ const loadMarkers = (map, maps) => {
           position: new maps.LatLng(eventObj.latitude, eventObj.longitude),
           map: map,
         })
+        const contentString = 
+        `<div>
+        <h3>${eventObj.event_title}</h3>
+        <b>Last Reported: </b> ${eventObj.datetime_seen}<br>
+        <b>Description: </b> ${eventObj.description}
+        </div>`
+
         let infowindow = new maps.InfoWindow({
-          content: 'content'
-        });
+          content: contentString,
+          maxWidth: 200
+        })
         marker.addListener('click', function(){
           infowindow.open(map,marker);
         })
       }
-      })
+    })
 }
-
-// const loadInfoWindow = (map, maps) => {
-//   let infowindow = new maps.InfoWindow({
-//     content: 'content'
-//   });
-//   marker.addListener('click', function(){
-//   infowindow.open(map,marker);
-//   })
-// }
 
 class Map extends Component {
     static defaultProps = {
         center: {
-            lat: 37.803115,
-            lng: -122.257976 
+            lat: 37.761150,
+            lng: -122.452 
         },
-        zoom: 14
+        zoom: 12
     }; 
 
   handleApiLoaded (map,maps) {
