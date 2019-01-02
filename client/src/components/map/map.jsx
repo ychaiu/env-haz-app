@@ -84,7 +84,7 @@ class Map extends Component {
 
   render() {
     return (
-      <div className= "float-right d-inline-block" style={{ height: '100vh', width: '100%', position: 'fixed' }}>
+      <div className= "float-right d-inline-block" style={{ top: '55px', width: '100%', position: 'fixed', bottom: '0px' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: key }}
           defaultCenter={this.props.center}
