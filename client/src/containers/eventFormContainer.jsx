@@ -109,52 +109,56 @@ class EventFormContainer extends Component {
 
     render() {
         return (
-            <div className="container-fluid">
-                <form className="float-left" onSubmit={this.handleFormSubmit}>
-                <h5>Report an Event</h5>
-                    <SingleInput 
-                        type = {'text'}
-                        title = {'Event Title'}
-                        name = {'eventTitle'}
-                        value = {this.state.newEvent.eventTitle}
-                        placeholder = {'Enter a Title'}
-                        handleChange = {this.handleEventTitle}
-                    />
-                    <Select 
-                        title = {'Hazard Type'}
-                        name = {'hazardSelections'}
-                        options = {this.state.hazardOptions}
-                        value = {this.state.newEvent.selectedHaz}
-                        placeholder = {'Select Type'}
-                        handleChange = {this.handleSelectedHaz}
-                    />
-                    <DateTimeInput
-                        name = {'dateTimeSeen'}
-                        title = {'Date and Time Seen'}
-                        value = {this.state.newEvent.dateTimeSeen}
-                        handleChange = {this.handleDateTimeSeen}
-                    />
-                    <DateTimeInput
-                        name = {'dateTimeStart'}
-                        title = {'When Did This Event Start?'}
-                        value = {this.state.newEvent.dateTimeStart}
-                        handleChange = {this.handleDateTimeStart}
-                    />
-                    <TextArea
-                        title={'Description'}
-                        name = {'eventDescription'}
-                        rows = {10}
-                        value = {this.state.newEvent.eventDescription}
-                        handleChange = {this.handleEventDescription}
-                        placeholder = {"Describe the event"}
-                    />
-                    <input type="submit" className="btn-primary float-right" value="Submit" 
-                    />
-                    <button className="btn btn-link float-left"
-                    onClick={this.handleClearForm}>Clear form
-                    </button>
-                </form>
-            </div>
+                <div id="sidebar">
+                    <div className="sidebar-header">
+                        <h3>Report an Event</h3>
+                    </div>
+                    <div className="container">
+                        <form onSubmit={this.handleFormSubmit}>
+                            <SingleInput 
+                                type = {'text'}
+                                title = {'Event Title'}
+                                name = {'eventTitle'}
+                                value = {this.state.newEvent.eventTitle}
+                                placeholder = {'Enter a Title'}
+                                handleChange = {this.handleEventTitle}
+                            />
+                            <Select 
+                                title = {'Hazard Type'}
+                                name = {'hazardSelections'}
+                                options = {this.state.hazardOptions}
+                                value = {this.state.newEvent.selectedHaz}
+                                placeholder = {'Select Type'}
+                                handleChange = {this.handleSelectedHaz}
+                            />
+                            <DateTimeInput
+                                name = {'dateTimeSeen'}
+                                title = {'Date and Time Seen'}
+                                value = {this.state.newEvent.dateTimeSeen}
+                                handleChange = {this.handleDateTimeSeen}
+                            />
+                            <DateTimeInput
+                                name = {'dateTimeStart'}
+                                title = {'When Did This Event Start?'}
+                                value = {this.state.newEvent.dateTimeStart}
+                                handleChange = {this.handleDateTimeStart}
+                            />
+                            <TextArea
+                                title={'Description'}
+                                name = {'eventDescription'}
+                                rows = {10}
+                                value = {this.state.newEvent.eventDescription}
+                                handleChange = {this.handleEventDescription}
+                                placeholder = {"Describe the event"}
+                            />
+                            <input type="submit" className="btn-primary float-right" value="Submit" 
+                            />
+                            <button className="btn btn-link float-left"
+                            onClick={this.handleClearForm}>Clear form
+                            </button>
+                        </form>
+                    </div>
+                </div>
         );
     }
 }

@@ -27,7 +27,7 @@ const loadMarkers = (map, maps, icons) => {
         let eventObj = data[i];
         let marker = new maps.Marker({
           position: new maps.LatLng(eventObj.latitude, eventObj.longitude),
-          // icon: icons[`${eventObj.haz_id}`],
+          icon: icons[`${eventObj.haz_id}`],
           map: map
         });
         const contentString = 
@@ -84,7 +84,7 @@ class Map extends Component {
 
   render() {
     return (
-      <div className="float-right d-inline-block" style={{ height: '100vh', width: '75%' }}>
+      <div className= "float-right d-inline-block" style={{ height: '100vh', width: '100%', position: 'fixed' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: key }}
           defaultCenter={this.props.center}
