@@ -56,6 +56,7 @@ def render_markers():
     for event in events:
         event_object = {
             'event_title' : event.event_title,
+            'haz_id' : event.haz_id,
             'datetime_seen' : event.datetime_seen,
             'event_start' : event.event_start,
             'event_end' : event.event_end,

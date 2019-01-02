@@ -8,25 +8,34 @@ const key = config.mapKey;
 
 const customStyle = mapStyle.styleArray;
 
-const loadMarkers = (map, maps) => {
+const loadMarkers = (map, maps, icons) => {
   fetch('http://localhost:5000/api/render_markers.json')
     .then(function(response) {
       return response.json();
       })
     .then(function(data) {
       for(let i = 0; i < data.length; i++) {
+        const icons = {
+          '1': 'https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-orange.png',
+          '2': 'https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-blue.png',
+          '3': 'https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-purple.png',
+          '4': 'https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322119/map-marker-dark-green.png',
+          '5': 'https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-yellow.png',
+          '6': 'https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-red.png',
+          '7': 'https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-light-green.png'
+        }
         let eventObj = data[i];
         let marker = new maps.Marker({
           position: new maps.LatLng(eventObj.latitude, eventObj.longitude),
-          map: map,
-        })
+          // icon: icons[`${eventObj.haz_id}`],
+          map: map
+        });
         const contentString = 
         `<div>
         <h3>${eventObj.event_title}</h3>
         <b>Last Reported: </b> ${eventObj.datetime_seen}<br>
         <b>Description: </b> ${eventObj.description}
         </div>`
-
         let infowindow = new maps.InfoWindow({
           content: contentString,
           maxWidth: 200
