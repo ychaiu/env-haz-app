@@ -9,7 +9,7 @@ class Hazard(db.Model):
 
 	__tablename__ = "hazards"
 
-	haz_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+	haz_id = db.Column(db.Integer, autoincrement=True, primary_key=True, nullable=False)
 	haz_type = db.Column(db.String(30), nullable=False)
 
 	event = db.relationship('Event')
@@ -27,12 +27,12 @@ class Event(db.Model):
 	event_id = db.Column(db.Integer, autoincrement=True, primary_key=True, nullable=False)
 	user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
 	haz_id = db.Column(db.Integer, db.ForeignKey('hazards.haz_id'), nullable=False)
-	event_title = db.Column(db.String(50), nullable = False)
+	event_title = db.Column(db.String(100), nullable = False)
 	active = db.Column(db.Boolean, nullable=False)
 	datetime_seen = db.Column(db.DateTime, nullable=False)
 	event_start = db.Column(db.Date, nullable=True)
 	event_end = db.Column(db.Date, nullable=True)
-	description = db.Column(db.String(500), nullable = False)
+	description = db.Column(db.String(1000), nullable = False)
 	last_edited = db.Column(db.DateTime, nullable=False)
 	last_edited_user = db.Column(db.Integer, nullable=False)
 	latitude = db.Column(db.Float, nullable=False)
