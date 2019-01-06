@@ -5,11 +5,17 @@ from model import Event, Hazard, User, connect_to_db, db
 from datetime import datetime
 from server import app
 
+def delete_old_data():
+    """Delete existing data to prevent duplicates."""
+
+    Event.query.delete()
+    User.query.delete()
+    Hazard.query.delete()
+
 def load_dummy_user():
     """Load a dummy user."""
 
     # Delete existing rows to prevent duplicates
-    User.query.delete
 
     user = User(first_name = "Yessenia",
                 last_name = "Chaiu Zhang",
@@ -24,7 +30,6 @@ def load_seed_hazard_types():
     """Load hazard types from hazard_types.csv"""
 
     # Delete existing rows to prevent duplicates
-    Hazard.query.delete
 
     for row in open("seed_data/hazard_types.csv"):
         row = row.rstrip()
@@ -38,7 +43,6 @@ def load_seed_events():
     """Load sample events from seed_events.csv"""
 
     # Delete existing rows to prevent duplicates
-    Event.query.delete()
 
     for row in open("seed_data/seed_events.csv"):
         row = row.rstrip()
@@ -68,6 +72,7 @@ def load_seed_events():
 
 if __name__ == '__main__':
     connect_to_db(app)
+    delete_old_data()
     load_dummy_user()
     load_seed_hazard_types()
     load_seed_events()

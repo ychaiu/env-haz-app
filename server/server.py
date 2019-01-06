@@ -13,7 +13,7 @@ CORS(app)
 
 #     return render_template("index.html")
 
-@app.route("/hazardSelection.json")
+@app.route("/api/hazardSelection.json")
 def haz_selections():
     """Return json of hazard types"""
 
@@ -40,9 +40,9 @@ def get_event_data():
                 description = content['eventDescription'],
                 last_edited = '2018-12-31 00:00:00',
                 last_edited_user = 1,
-                latitude = 37.803115,
-                longitude = -122.257976)
-
+                latitude = content['latitude'],
+                longitude = content['longitude']
+                )
     db.session.add(new_event)
     db.session.commit()
     
