@@ -3,6 +3,8 @@ import SingleInput from '../components/eventForm/formPresentational/SingleInput'
 import Select from '../components/eventForm/formPresentational/Select';
 import DateTimeInput from '../components/eventForm/formPresentational/DateTime';
 import TextArea from '../components/eventForm/formPresentational/TextArea';
+import ImageUpload from '../components/eventForm/formPresentational/ImageUpload';
+
 
 class EventFormContainer extends Component {
     constructor(props) {
@@ -66,7 +68,7 @@ class EventFormContainer extends Component {
     //     })
     // }
 
-    handleEventDescription(evt) {
+    handleEventDescription(evt, props) {
         let value = evt.target.value;
         this.setState (prevState => ({ newEvent: 
             {...prevState.newEvent, eventDescription: value
@@ -77,22 +79,26 @@ class EventFormContainer extends Component {
     handleFormSubmit(evt) {
         evt.preventDefault();
         let formData = this.state.newEvent;
-        
-      fetch('http://localhost:5000/api/submit_event_data',{
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-      }).then(response => {
-        response.json().then(data =>{
-          console.log("Successful " + data);
-        })
-    })
+        formData['latitude'] = this.props.newMarker.lat
+        formData['longitude'] = this.props.newMarker.lng
 
-    //as part of the submit, add the lat long props here as: this.props.lat etc
-    //this.handleClearForm(evt);
+        console.log(formData);
+
+        fetch('http://localhost:5000/api/submit_event_data',{
+            method: "POST",
+            body: JSON.stringify(formData),
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                response.json()
+                .then(data =>{
+                    console.log("Successful " + data);
+                })
+            })
+    this.handleClearForm(evt);
     }
 
     handleClearForm(evt) {
@@ -102,7 +108,10 @@ class EventFormContainer extends Component {
                 eventTitle: '',
                 selectedHaz: '',
                 dateTimeSeen: '',
-                eventDescription: ''
+                dateTimeStart: '',
+                eventDescription: '',
+                latitude: '',
+                longitude: ''
             }
         });
     }
@@ -112,6 +121,9 @@ class EventFormContainer extends Component {
                 <div id="sidebar">
                     <div className="sidebar-header">
                         <h3>Report an Event</h3>
+                    </div>
+                    <div>
+                        <p>Click on your area of interest to place a marker. Fill in the form below to submit details about the hazard.</p>
                     </div>
                     <div className="container">
                         <form onSubmit={this.handleFormSubmit}>
@@ -143,6 +155,7 @@ class EventFormContainer extends Component {
                                 value = {this.state.newEvent.dateTimeStart}
                                 handleChange = {this.handleDateTimeStart}
                             />
+                            <ImageUpload />
                             <TextArea
                                 title={'Description'}
                                 name = {'eventDescription'}

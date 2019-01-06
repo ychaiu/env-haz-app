@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import config from '../../config/config';
 import mapStyle from './mapStyle';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { withRouter } from "react-router";
+
+
 // import * as clusterMarkerImg from '../../../public/img/clusterMarkers/m2.png'
 
 const key = config.mapKey;
 
 const customStyle = mapStyle.styleArray;
 
-const loadMarkers = (map, maps, icons) => {
+const loadMarkers = (map, maps) => {
   fetch('http://localhost:5000/api/render_markers.json')
     .then(function(response) {
       return response.json();
@@ -31,11 +35,11 @@ const loadMarkers = (map, maps, icons) => {
           map: map
         });
         const contentString = 
-        `<div>
-        <h3>${eventObj.event_title}</h3>
-        <b>Last Reported: </b> ${eventObj.datetime_seen}<br>
-        <b>Description: </b> ${eventObj.description}
-        </div>`
+        `
+          <h3>${eventObj.event_title}</h3><br>
+          <b>Last Reported: </b> ${eventObj.datetime_seen}<br><br>
+          <b>Description: </b> ${eventObj.description}
+          `
         let infowindow = new maps.InfoWindow({
           content: contentString,
           maxWidth: 200
@@ -47,7 +51,13 @@ const loadMarkers = (map, maps, icons) => {
     })
 }
 
+
 class Map extends Component {
+    constructor(props) {
+      super(props);
+      this.handleApiLoaded = this.handleApiLoaded.bind(this)
+    }
+
     static defaultProps = {
         center: {
             lat: 37.761150,
@@ -56,33 +66,46 @@ class Map extends Component {
         zoom: 12
     }; 
 
-  handleApiLoaded (map,maps) {
+  handleApiLoaded (map, maps) {
     let newMarker;
-    function placeMarkerAndPanTo(latLng) {
-      if (newMarker) {
-        newMarker.setPosition(latLng);
+    // check if on "Report" route
+      const placeMarkerAndPanTo = (latLng) => {
+        if (this.props.location.pathname === "/report-event") {
+          if (newMarker) {
+            newMarker.setPosition(latLng);
+          }
+          else {
+            newMarker = new maps.Marker({
+              position: latLng,
+              map:map
+            });
+          }
+          map.panTo(latLng);
+          let lat = latLng.lat();
+          let lng = latLng.lng();
+          this.props.handleCoordinates({newMarker:
+                                        {'lat': lat, 'lng': lng}
+                                      });
+        }
       }
-      else {
-        newMarker = new maps.Marker({
-          position: latLng,
-          map:map
-        });
+      if (this.props.location.pathname !== "/report-event") {
+        if (newMarker) {
+           newMarker.setMap(null);
+        }
       }
-      map.panTo(latLng);
-      // this.props.handleNewMarkerCoords(latLng);
-    }
 
-    map.addListener('click', function(e){
+    map.addListener('click', (e) => {
       placeMarkerAndPanTo(e.latLng,map);
     });
 
-    loadMarkers(map,maps);
+  loadMarkers(map, maps);
 
     // let markerCluster = new MarkerClusterer(map, markers,
     //         {imagePath: clusterMarkerImg});
   }
 
   render() {
+    console.log(this.props.location.pathname);
     return (
       <div className= "float-right d-inline-block" style={{ top: '55px', width: '100%', position: 'fixed', bottom: '0px' }}>
         <GoogleMapReact
@@ -93,11 +116,10 @@ class Map extends Component {
           onGoogleApiLoaded={({map, maps}) => this.handleApiLoaded(map,maps)}
           yesIWantToUseGoogleMapApiInternals={ true }
         >
-        {this.handleNewMarkerCoords}
         </GoogleMapReact>
       </div>
     );
   }
 }
 
-export default Map;
+export default withRouter(Map);
