@@ -7,7 +7,6 @@ const SingleInput = (props) => {
                 {props.title}
             </label>
             <input
-                className="form-input"
                 id={props.name}
                 name={props.name}
                 type={props.type}

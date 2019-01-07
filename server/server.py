@@ -70,6 +70,12 @@ def render_markers():
     return jsonify(event_list)
 
 
+@app.route("/api/image_files", methods=['GET', 'POST'])
+def get_image_files():
+    """When a user uploads a photo, show a preview through this route."""
+
+
+
 if __name__ == "__main__":
     app.debug = True
     app.jinja_env.auto_reload = app.debug
