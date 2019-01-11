@@ -51,7 +51,7 @@ class Map extends Component {
       super(props);
       // this.handleApiLoaded = this.handleApiLoaded.bind(this);
       this.state = {
-        markers: "something"
+        markers: null
       };
   }
 
@@ -63,50 +63,54 @@ class Map extends Component {
     zoom: 12
   }; 
 
-  componentWillMount() {
+  componentDidMount() {
     fetch('http://localhost:5000/api/render_markers.json')
       .then(response => response.json())
       .then(data => this.setState({markers: data}))
   }
 
   handleApiLoaded(map, maps) {
-    let newMarker;
-      const placeMarkerAndPanTo = (latLng) => {
-        // only allow user to place a marker if report-event component is shown
-        if (this.props.location.pathname === "/report-event") {
+    if (this.state.markers !== null) {
+      let newMarker;
+        const placeMarkerAndPanTo = (latLng) => {
+          // only allow user to place a marker if report-event component is shown
+          if (this.props.location.pathname === "/report-event") {
+            if (newMarker) {
+              newMarker.setPosition(latLng);
+            }
+            else {
+              newMarker = new maps.Marker({
+                position: latLng,
+                map:map
+              });
+            }
+            map.panTo(latLng);
+            let lat = latLng.lat();
+            let lng = latLng.lng();
+            this.props.handleCoordinates({newMarker:
+                                          {'lat': lat, 'lng': lng, 'map': map}
+                                        });
+          }
+        }
+        if (this.props.location.pathname !== "/report-event") {
           if (newMarker) {
-            newMarker.setPosition(latLng);
+             newMarker.setMap(null);
           }
-          else {
-            newMarker = new maps.Marker({
-              position: latLng,
-              map:map
-            });
-          }
-          map.panTo(latLng);
-          let lat = latLng.lat();
-          let lng = latLng.lng();
-          this.props.handleCoordinates({newMarker:
-                                        {'lat': lat, 'lng': lng, 'map': map}
-                                      });
         }
-      }
-      if (this.props.location.pathname !== "/report-event") {
-        if (newMarker) {
-           newMarker.setMap(null);
-        }
-      }
 
-    map.addListener('click', (e) => {
-      placeMarkerAndPanTo(e.latLng,map);
-    });
-  let data = this.state;
-  loadMarkers(data, map, maps);
+      map.addListener('click', (e) => {
+        placeMarkerAndPanTo(e.latLng,map);
+      });
+    let data = this.state;
+    loadMarkers(data, map, maps);
 
-    // let markerCluster = new MarkerClusterer(map, markers,
-    //         {imagePath: clusterMarkerImg});
+      // let markerCluster = new MarkerClusterer(map, markers,
+      //         {imagePath: clusterMarkerImg});
+    }
   }
 
+
+  
   render() {
     return (
       <div className= "float-right d-inline-block" style={{ top: '55px', width: '100%', position: 'fixed', bottom: '0px' }}>
