@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import Map from './components/map/map.jsx';
 import NavBar from './components/navbar/navbar.jsx';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { faSpinner, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+
+library.add(fab, faSpinner, faCheckSquare)
 
 class App extends Component {
     constructor(props) {
@@ -12,14 +14,11 @@ class App extends Component {
       this.state = {
           newMarker: {
               lat: '',
-              lng: '',
-              map: '',
+              lng: ''
           }
       }
       this.handleCoordinates = this.handleCoordinates.bind(this)
     }
-
-  library.add(faSpinner)
 
    handleCoordinates(newMarker) {
     this.setState(newMarker)
