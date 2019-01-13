@@ -26,10 +26,9 @@ const icons = {
   "7":
     "https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-light-green.png"
 };
+let prevInfoWindow = false;
 
 const loadMarkers = (data, map, maps) => {
-  console.log("load markers");
-  console.log(data);
   for (let i = 0; i < data.length; i++) {
     let eventObj = data[i];
     let marker = new maps.Marker({
@@ -42,15 +41,20 @@ const loadMarkers = (data, map, maps) => {
       <b>Last Reported: </b> ${eventObj.datetime_seen}<br><br>
       <b>Description: </b> ${eventObj.description}
       `;
-    let infowindow = new maps.InfoWindow({
-      content: contentString,
-      maxWidth: 200
-    });
-    marker.addListener("click", function() {
+
+    marker.addListener('click', function () {
+      let infowindow = new maps.InfoWindow({
+        content: contentString,
+        maxWidth: 200
+      });
+      if (prevInfoWindow) {
+        prevInfoWindow.close();
+      }
+      prevInfoWindow = infowindow;
       infowindow.open(map, marker);
     });
   }
-};
+}
 
 class Map extends Component {
   constructor(props) {
@@ -94,7 +98,7 @@ class Map extends Component {
         let lat = latLng.lat();
         let lng = latLng.lng();
         this.props.handleCoordinates({
-          newMarker: { lat: lat, lng: lng, map: map }
+          newMarker: { lat: lat, lng: lng }
         });
       }
     };
@@ -111,7 +115,7 @@ class Map extends Component {
     // let markerCluster = new MarkerClusterer(map, markers,
     //         {imagePath: clusterMarkerImg});
   }
-
+  
   render() {
     const isMarkersLoaded = this.state.markers;
     return (
@@ -138,8 +142,8 @@ class Map extends Component {
             />
           </div>
         ) : (
-          <LoadingSpinner />
-        )}
+            <LoadingSpinner />
+          )}
       </div>
     );
   }
