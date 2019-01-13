@@ -7,17 +7,17 @@ class NavBar extends Component {
     render() {
         return (
                 <div>
-                    <div class="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <a class="navbar-brand mb-0 h1" href="/">HAZMAP</a>
-                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                             <li class="nav-item active">
-                                <Link to="/about" class="nav-link">About</Link>
+                    <div className="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <a className="navbar-brand mb-0 h1" href="/">HAZMAP</a>
+                        <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+                             <li className="nav-item active">
+                                <Link to="/about" className="nav-link">About</Link>
                             </li>
-                            <li class="nav-item active">
-                                <Link to="/report-event" class="nav-link">Report</Link>
+                            <li className="nav-item active">
+                                <Link to="/report-event" className="nav-link">Report</Link>
                             </li>
-                            <li class="nav-item active">
-                                <Link to="/report-event" class="nav-link">Take Action</Link>
+                            <li className="nav-item active">
+                                <Link to="/report-event" className="nav-link">Take Action</Link>
                             </li>
 
                         </ul>

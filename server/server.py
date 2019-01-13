@@ -39,6 +39,7 @@ def get_event_data():
                 # event_end = '2018-12-31',
                 description = content['eventDescription'],
                 last_edited = '2018-12-31 00:00:00',
+                #datetime python builtin
                 last_edited_user = 1,
                 latitude = content['latitude'],
                 longitude = content['longitude']
@@ -46,7 +47,19 @@ def get_event_data():
     db.session.add(new_event)
     db.session.commit()
     
-    return 'Success'
+    new_marker = {
+            'event_title' : new_event.event_title,
+            'haz_id' : new_event.haz_id,
+            'datetime_seen' : new_event.datetime_seen,
+            'event_start' : new_event.event_start,
+            'description' : new_event.description,
+            'last_edited' : new_event.last_edited,
+            'last_edited_user' : new_event.last_edited_user,
+            'latitude' : new_event.latitude,
+            'longitude' : new_event.longitude
+    }
+
+    return jsonify(new_marker)
 
 @app.route("/api/render_markers.json", methods=['GET', 'POST'])
 def render_markers():

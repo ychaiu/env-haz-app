@@ -4,9 +4,9 @@ import NavBar from './components/navbar/navbar.jsx';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
-import { faSpinner, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-library.add(fab, faSpinner, faCheckSquare)
+library.add(fab, faSpinner)
 
 class App extends Component {
     constructor(props) {
@@ -14,14 +14,14 @@ class App extends Component {
       this.state = {
           newMarker: {
               lat: '',
-              lng: ''
-          }
+              lng: '',
+          },
       }
-      this.handleCoordinates = this.handleCoordinates.bind(this)
+      this.handleCoordinates = this.handleCoordinates.bind(this);
     }
 
    handleCoordinates(newMarker) {
-    this.setState(newMarker)
+    this.setState(newMarker);
    }
 
   render() {
@@ -40,4 +40,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default (App);

@@ -5,6 +5,9 @@ import mapStyle from "./mapStyle";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import LoadingSpinner from "./loadingSpinner";
+import { newMarkerRefreshAction } from '../../redux/actions/newMarkerRefreshAction';
+import { connect } from 'react-redux';
+
 
 // import * as clusterMarkerImg from '../../../public/img/clusterMarkers/m2.png'
 
@@ -57,14 +60,6 @@ const loadMarkers = (data, map, maps) => {
 }
 
 class Map extends Component {
-  constructor(props) {
-    super(props);
-    // this.handleApiLoaded = this.handleApiLoaded.bind(this);
-    this.state = {
-      markers: null
-    };
-  }
-
   static defaultProps = {
     center: {
       lat: 37.76115,
@@ -76,16 +71,31 @@ class Map extends Component {
   componentDidMount() {
     fetch("http://localhost:5000/api/render_markers.json")
       .then(response => response.json())
-      .then(data => this.setState({ markers: data }));
+      .then(data => this.props.newMarkerRefreshAction(data));
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (!this.props.markers) {
+      return
+    } 
+    if (this.props.markers.length !== newProps.markers.length) {
+      let numMarkers = this.props.markers.length - newProps.markers.length
+      let addMarkers = newProps.markers.slice(numMarkers)
+      loadMarkers(addMarkers, this.map, this.maps)
+    }
   }
 
   handleApiLoaded(map, maps) {
-    let data = this.state.markers;
+    let data = this.props.markers;
+    this.map = map;
+    this.maps = maps;
     loadMarkers(data, map, maps);
     let newMarker;
     const placeMarkerAndPanTo = latLng => {
       // only allow user to place a marker if report-event component is shown
       if (this.props.location.pathname === "/report-event") {
+        console.log("apiloaded")
+
         if (newMarker) {
           newMarker.setPosition(latLng);
         } else {
@@ -107,17 +117,15 @@ class Map extends Component {
         newMarker.setMap(null);
       }
     }
-
     map.addListener("click", e => {
       placeMarkerAndPanTo(e.latLng, map);
     });
-
     // let markerCluster = new MarkerClusterer(map, markers,
     //         {imagePath: clusterMarkerImg});
   }
   
   render() {
-    const isMarkersLoaded = this.state.markers;
+    const isMarkersLoaded = this.props.markers;
     return (
       <div>
         {isMarkersLoaded ? (
@@ -139,7 +147,8 @@ class Map extends Component {
                 this.handleApiLoaded(map, maps)
               }
               yesIWantToUseGoogleMapApiInternals={true}
-            />
+            >
+            </GoogleMapReact>
           </div>
         ) : (
             <LoadingSpinner />
@@ -149,4 +158,15 @@ class Map extends Component {
   }
 }
 
-export default withRouter(Map);
+const mapStateToProps = state => {
+  console.log('hello',state);
+  return {
+    markers: state.mapReducers.markers,
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  newMarkerRefreshAction: (markers) => dispatch(newMarkerRefreshAction(markers))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps) (withRouter(Map));
