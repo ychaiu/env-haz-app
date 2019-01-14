@@ -1,5 +1,4 @@
 export default (state={}, action) => {
-    console.log(action);
     switch (action.type) {
         case 'NEW_MARKER_REFRESH_ACTION':
             return {

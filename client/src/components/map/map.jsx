@@ -2,33 +2,18 @@ import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 import config from "../../config/config";
 import mapStyle from "./mapStyle";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import LoadingSpinner from "./loadingSpinner";
-import { newMarkerRefreshAction } from '../../redux/actions/newMarkerRefreshAction';
-import { connect } from 'react-redux';
-
+import { newMarkerRefreshAction } from "../../redux/actions/newMarkerRefreshAction";
+import { connect } from "react-redux";
+import icons from "./mapIcons";
 
 // import * as clusterMarkerImg from '../../../public/img/clusterMarkers/m2.png'
 
 const key = config.mapKey;
+
 const customStyle = mapStyle.styleArray;
-const icons = {
-  "1":
-    "https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-orange.png",
-  "2":
-    "https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-blue.png",
-  "3":
-    "https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-purple.png",
-  "4":
-    "https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322119/map-marker-dark-green.png",
-  "5":
-    "https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-yellow.png",
-  "6":
-    "https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-red.png",
-  "7":
-    "https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-light-green.png"
-};
+
 let prevInfoWindow = false;
 
 const loadMarkers = (data, map, maps) => {
@@ -159,7 +144,6 @@ class Map extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('hello',state);
   return {
     markers: state.mapReducers.markers,
   }
