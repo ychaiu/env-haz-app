@@ -4,12 +4,13 @@ import Select from '../components/eventForm/formPresentational/Select';
 import DateTimeInput from '../components/eventForm/formPresentational/DateTime';
 import TextArea from '../components/eventForm/formPresentational/TextArea';
 // import ImageUpoad from '../components/eventForm/formPresentational/ImageUpload';
-import FormErrors from '../components/eventForm/formPresentational/FormErrors';
+import Button from '../components/eventForm/formPresentational/Button';
+import { FormErrors } from '../components/eventForm/formPresentational/FormErrors';
 import { newMarkerPostAction } from '../redux/actions/newMarkerPostAction';
 import { connect } from 'react-redux';
 
 class EventFormContainer extends Component {
-    constructor(props) {
+    constructor(props) { 
         super(props);
         this.state = {
             newEvent: {
@@ -23,7 +24,7 @@ class EventFormContainer extends Component {
                 dateTimeSeenValid: false,
                 eventDescriptionValid: false,
                 formValid: false,
-                formErrors: { eventTitle: '', selectedHaz: '', dateTimeSeen: '', eventDescription: '' }
+                formErrors: { eventTitle: '', selectedHaz: '', dateTimeSeen: '', eventDescription: '' },
             },
 
             hazardOptions: ["Air", "Water", "Noise", "Pest",
@@ -48,7 +49,7 @@ class EventFormContainer extends Component {
 
         switch (fieldName) {
             case 'eventTitle':
-                eventTitleValid = value.length <= 100;
+                eventTitleValid = value.length >= 100;
                 //this is a JS conditional statement. after ?, first statement executed if true, second is false
                 fieldValidationErrors.eventTitle = eventTitleValid ? '' : 'Title should not exceed 100 characters';
                 break;
@@ -61,29 +62,31 @@ class EventFormContainer extends Component {
                 fieldValidationErrors.dateTimeSeen = dateTimeSeenValid ? '' : 'Please estimate the date and time that you witnessed this event';
                 break;
             case 'eventDescription':
-                eventDescriptionValid = value.length <= 1000;
+                eventDescriptionValid = value.length >= 1000;
                 fieldValidationErrors.eventDescription = eventDescriptionValid ? '' : 'Description should not exceed 1000 characters';
                 break;
             default:
                 break;
         }
         this.setState({
-            newEvent:{formErrors: fieldValidationErrors,
-            eventTitleValid: eventTitleValid,
-            selectedHazValid: selectedHazValid,
-            dateTimeSeenValid: dateTimeSeenValid,
-            eventDescriptionValid: eventDescriptionValid},
+            newEvent: {
+                formErrors: fieldValidationErrors,
+                eventTitleValid: eventTitleValid,
+                selectedHazValid: selectedHazValid,
+                dateTimeSeenValid: dateTimeSeenValid,
+                eventDescriptionValid: eventDescriptionValid
+            },
         }, this.validateForm);
     }
 
     validateForm() {
-        console.log(this.state);
         this.setState({
-            formValid: this.state.newEvent.eventTitleValid &&
+            newEvent: {formValid: this.state.newEvent.eventTitleValid &&
                 this.state.newEvent.selectedHazValid &&
                 this.state.newEvent.dateTimeSeenValid &&
                 this.state.newEvent.eventDescriptionValid
-        });
+        }});
+        console.log(this.state);
     }
 
     handleEventTitle(evt) {
@@ -150,7 +153,6 @@ class EventFormContainer extends Component {
     }
 
     handleFormSubmit(evt) {
-        console.log(this.state);
         evt.preventDefault();
         let formData = this.state.newEvent;
         formData['latitude'] = this.props.newMarker.lat
@@ -187,13 +189,12 @@ class EventFormContainer extends Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div id="sidebar">
                 <div className="sidebar-header">
                     <h3>Report an Event</h3>
                 </div>
-                <div>
+                <div className ="form-summary-text">
                     <p>Click on your area of interest to place a marker. Fill in the form below to submit details about the hazard.</p>
                 </div>
                 <div className="container">
@@ -238,20 +239,29 @@ class EventFormContainer extends Component {
                             handleChange={this.handleEventDescription}
                             placeholder={"Describe the event"}
                         />
-                        <input type="submit" className="btn-primary float-right" value="Submit"
-                        disabled={!this.state.newEvent.formValid}
+                        <Button
+                            action={this.handleFormSubmit}
+                            type={"primary"}
+                            title={"Submit"}
+                            style= {buttonStyle}
+                            disabled= {!this.state.newEvent.formValid}
                         />
-                        <button className="btn btn-link float-left"
-                            onClick={this.handleClearForm}
-                        >
-                            Clear form
-                        </button>
+                        <Button
+                            action={this.handleClearForm}
+                            type={"secondary"}
+                            title={"Clear Form"}
+                            style={buttonStyle}
+                        />
                     </form>
                 </div>
             </div>
         );
     }
 }
+
+const buttonStyle = {
+    margin: "10px 10px 10px 10px"
+};
 
 const mapDispatchToProps = dispatch => ({
     newMarkerPostAction: (newMarker) => dispatch(newMarkerPostAction(newMarker))

@@ -16,33 +16,33 @@ const customStyle = mapStyle.styleArray;
 
 let prevInfoWindow = false;
 
-const loadMarkers = (data, map, maps) => {
-  for (let i = 0; i < data.length; i++) {
-    let eventObj = data[i];
-    let marker = new maps.Marker({
-      position: new maps.LatLng(eventObj.latitude, eventObj.longitude),
-      icon: icons[`${eventObj.haz_id}`],
-      map: map
-    });
-    const contentString = `
-      <h3>${eventObj.event_title}</h3><br>
-      <b>Last Reported: </b> ${eventObj.datetime_seen}<br><br>
-      <b>Description: </b> ${eventObj.description}
-      `;
+// const loadMarkers = (data, map, maps) => {
+//   for (let i = 0; i < data.length; i++) {
+//     let eventObj = data[i];
+//     let marker = new maps.Marker({
+//       position: new maps.LatLng(eventObj.latitude, eventObj.longitude),
+//       icon: icons[`${eventObj.haz_id}`],
+//       map: map
+//     });
+//     const contentString = `
+//       <h3>${eventObj.event_title}</h3><br>
+//       <b>Last Reported: </b> ${eventObj.datetime_seen}<br><br>
+//       <b>Description: </b> ${eventObj.description}
+//       `;
 
-    marker.addListener('click', function () {
-      let infowindow = new maps.InfoWindow({
-        content: contentString,
-        maxWidth: 200
-      });
-      if (prevInfoWindow) {
-        prevInfoWindow.close();
-      }
-      prevInfoWindow = infowindow;
-      infowindow.open(map, marker);
-    });
-  }
-}
+//     marker.addListener('click', function () {
+//       let infowindow = new maps.InfoWindow({
+//         content: contentString,
+//         maxWidth: 200
+//       });
+//       if (prevInfoWindow) {
+//         prevInfoWindow.close();
+//       }
+//       prevInfoWindow = infowindow;
+//       infowindow.open(map, marker);
+//     });
+//   }
+// }
 
 class Map extends Component {
   static defaultProps = {
@@ -56,17 +56,45 @@ class Map extends Component {
   componentDidMount() {
     fetch("http://localhost:5000/api/render_markers.json")
       .then(response => response.json())
-      .then(data => this.props.newMarkerRefreshAction(data));
+      .then(data => this.props.newMarkerRefreshAction(data))
   }
 
   componentWillReceiveProps(newProps) {
     if (!this.props.markers) {
       return
-    } 
+    }
     if (this.props.markers.length !== newProps.markers.length) {
       let numMarkers = this.props.markers.length - newProps.markers.length
       let addMarkers = newProps.markers.slice(numMarkers)
-      loadMarkers(addMarkers, this.map, this.maps)
+      this.loadMarkers(addMarkers, this.map, this.maps)
+    }
+  }
+
+  loadMarkers = (data, map, maps) => {
+    for (let i = 0; i < data.length; i++) {
+      let eventObj = data[i];
+      let marker = new maps.Marker({
+        position: new maps.LatLng(eventObj.latitude, eventObj.longitude),
+        icon: icons[`${eventObj.haz_id}`],
+        map: map
+      });
+      const contentString = `
+      <h3>${eventObj.event_title}</h3><br>
+      <b>Last Reported: </b> ${eventObj.datetime_seen}<br><br>
+      <b>Description: </b> ${eventObj.description}
+      `;
+
+      marker.addListener('click', function () {
+        let infowindow = new maps.InfoWindow({
+          content: contentString,
+          maxWidth: 200
+        });
+        if (prevInfoWindow) {
+          prevInfoWindow.close();
+        }
+        prevInfoWindow = infowindow;
+        infowindow.open(map, marker);
+      });
     }
   }
 
@@ -74,7 +102,7 @@ class Map extends Component {
     let data = this.props.markers;
     this.map = map;
     this.maps = maps;
-    loadMarkers(data, map, maps);
+    this.loadMarkers(data, map, maps);
     let newMarker;
     const placeMarkerAndPanTo = latLng => {
       // only allow user to place a marker if report-event component is shown
@@ -108,7 +136,7 @@ class Map extends Component {
     // let markerCluster = new MarkerClusterer(map, markers,
     //         {imagePath: clusterMarkerImg});
   }
-  
+
   render() {
     const isMarkersLoaded = this.props.markers;
     return (
@@ -153,4 +181,4 @@ const mapDispatchToProps = dispatch => ({
   newMarkerRefreshAction: (markers) => dispatch(newMarkerRefreshAction(markers))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps) (withRouter(Map));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Map));
