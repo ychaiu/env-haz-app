@@ -1,5 +1,7 @@
 .loading-spinner {
     position: absolute;
-    left: 60%;
+    left: 55%;
     top: 45%;
+    font-size: 5em;
 }
+

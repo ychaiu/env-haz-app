@@ -1,48 +1,19 @@
-import React, { Component } from "react";
-import GoogleMapReact from "google-map-react";
-import config from "../../config/config";
-import mapStyle from "./mapStyle";
-import { withRouter } from "react-router";
-import LoadingSpinner from "./loadingSpinner";
-import { newMarkerRefreshAction } from "../../redux/actions/newMarkerRefreshAction";
-import { connect } from "react-redux";
-import icons from "./mapIcons";
+import React, { Component } from 'react';
+import GoogleMapReact from 'google-map-react';
+import config from '../../config/config';
+import mapStyle from './mapStyle';
+import { withRouter } from 'react-router';
+import LoadingSpinner from './loadingSpinner';
+import { newMarkerRefreshAction } from '../../redux/actions/newMarkerRefreshAction';
+import { connect } from 'react-redux';
+import icons from './mapIcons';
+import $ from 'jquery';
 
 // import * as clusterMarkerImg from '../../../public/img/clusterMarkers/m2.png'
 
 const key = config.mapKey;
 
 const customStyle = mapStyle.styleArray;
-
-let prevInfoWindow = false;
-
-// const loadMarkers = (data, map, maps) => {
-//   for (let i = 0; i < data.length; i++) {
-//     let eventObj = data[i];
-//     let marker = new maps.Marker({
-//       position: new maps.LatLng(eventObj.latitude, eventObj.longitude),
-//       icon: icons[`${eventObj.haz_id}`],
-//       map: map
-//     });
-//     const contentString = `
-//       <h3>${eventObj.event_title}</h3><br>
-//       <b>Last Reported: </b> ${eventObj.datetime_seen}<br><br>
-//       <b>Description: </b> ${eventObj.description}
-//       `;
-
-//     marker.addListener('click', function () {
-//       let infowindow = new maps.InfoWindow({
-//         content: contentString,
-//         maxWidth: 200
-//       });
-//       if (prevInfoWindow) {
-//         prevInfoWindow.close();
-//       }
-//       prevInfoWindow = infowindow;
-//       infowindow.open(map, marker);
-//     });
-//   }
-// }
 
 class Map extends Component {
   static defaultProps = {
@@ -71,6 +42,7 @@ class Map extends Component {
   }
 
   loadMarkers = (data, map, maps) => {
+    let prevInfoWindow = false;
     for (let i = 0; i < data.length; i++) {
       let eventObj = data[i];
       let marker = new maps.Marker({
@@ -78,10 +50,13 @@ class Map extends Component {
         icon: icons[`${eventObj.haz_id}`],
         map: map
       });
-      const contentString = `
+
+      const contentString = 
+      `
       <h3>${eventObj.event_title}</h3><br>
       <b>Last Reported: </b> ${eventObj.datetime_seen}<br><br>
-      <b>Description: </b> ${eventObj.description}
+      <b>Description: </b> ${eventObj.description}<br><br>
+      <button type="button" id= "button-link">View Comments</a>
       `;
 
       marker.addListener('click', function () {
@@ -94,7 +69,14 @@ class Map extends Component {
         }
         prevInfoWindow = infowindow;
         infowindow.open(map, marker);
-      });
+        this.infowindow = infowindow;
+
+        maps.event.addListenerOnce(infowindow, 'domready', function () {
+          let btn = $('button-link');
+          btn.on('click', function()           
+                       { console.log("hello") });
+        })
+      });  
     }
   }
 

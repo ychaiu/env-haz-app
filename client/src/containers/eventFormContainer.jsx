@@ -19,14 +19,13 @@ class EventFormContainer extends Component {
                 dateTimeSeen: '',
                 dateTimeStart: '',
                 eventDescription: '',
-                eventTitleValid: false,
-                seletedHazValid: false,
-                dateTimeSeenValid: false,
-                eventDescriptionValid: false,
-                formValid: false,
-                formErrors: { eventTitle: '', selectedHaz: '', dateTimeSeen: '', eventDescription: '' },
+                // eventTitleValid: false,
+                // seletedHazValid: false,
+                // dateTimeSeenValid: false,
+                // eventDescriptionValid: false,
+                // formValid: false,
             },
-
+            // formErrors: { eventTitle: '', selectedHaz: '', dateTimeSeen: '', eventDescription: '' },
             hazardOptions: ["Air", "Water", "Noise", "Pest",
                 "Chemical exposure", "Hazardous waste", "Food safety"],
         }
@@ -38,79 +37,79 @@ class EventFormContainer extends Component {
         this.handleEventDescription = this.handleEventDescription.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleClearForm = this.handleClearForm.bind(this);
+        // this.validateField = this.validateField.bind(this);
+        // this.validateForm = this.validateForm.bind(this);
     }
 
-    validateField(fieldName, value) {
-        let fieldValidationErrors = this.state.newEvent.formErrors;
-        let eventTitleValid = this.state.newEvent.eventTitleValid;
-        let selectedHazValid = this.state.newEvent.selectedHazValid;
-        let dateTimeSeenValid = this.state.newEvent.dateTimeSeenValid;
-        let eventDescriptionValid = this.state.newEvent.eventDescriptionValid;
+    // validateField(fieldName, value) {       
+    //     let fieldValidationErrors = this.state.formErrors;
+    //     let eventTitleValid = this.state.newEvent.eventTitleValid;
+    //     let selectedHazValid = this.state.newEvent.selectedHazValid;
+    //     let dateTimeSeenValid = this.state.newEvent.dateTimeSeenValid;
+    //     let eventDescriptionValid = this.state.newEvent.eventDescriptionValid;
 
-        switch (fieldName) {
-            case 'eventTitle':
-                eventTitleValid = value.length >= 100;
-                //this is a JS conditional statement. after ?, first statement executed if true, second is false
-                fieldValidationErrors.eventTitle = eventTitleValid ? '' : 'Title should not exceed 100 characters';
-                break;
-            case 'selectedHaz':
-                selectedHazValid = value !== '';
-                fieldValidationErrors.selectedHaz = selectedHazValid ? '' : 'Please select one hazard category';
-                break;
-            case 'dateTimeSeen':
-                dateTimeSeenValid = value !== '';
-                fieldValidationErrors.dateTimeSeen = dateTimeSeenValid ? '' : 'Please estimate the date and time that you witnessed this event';
-                break;
-            case 'eventDescription':
-                eventDescriptionValid = value.length >= 1000;
-                fieldValidationErrors.eventDescription = eventDescriptionValid ? '' : 'Description should not exceed 1000 characters';
-                break;
-            default:
-                break;
-        }
-        this.setState({
-            newEvent: {
-                formErrors: fieldValidationErrors,
-                eventTitleValid: eventTitleValid,
-                selectedHazValid: selectedHazValid,
-                dateTimeSeenValid: dateTimeSeenValid,
-                eventDescriptionValid: eventDescriptionValid
-            },
-        }, this.validateForm);
-    }
+    //     switch (fieldName) {
+    //         case 'eventTitle':
+    //             eventTitleValid = value.length <= 100;
+    //             //this is a JS conditional statement. after ?, first statement executed if true, second is false
+    //             fieldValidationErrors.eventTitle = eventTitleValid ? '' : 'Title should not exceed 100 characters';
+    //             break;
+    //         case 'selectedHaz':
+    //             selectedHazValid = value.length > 0;
+    //             fieldValidationErrors.selectedHaz = selectedHazValid ? '' : 'Please select one hazard category';
+    //             break;
+    //         case 'dateTimeSeen':
+    //             dateTimeSeenValid = value.length > 0;
+    //             fieldValidationErrors.dateTimeSeen = dateTimeSeenValid ? '' : 'Please estimate the date and time that you witnessed this event';
+    //             break;
+    //         case 'eventDescription':
+    //             eventDescriptionValid = value.length <= 1000;
+    //             fieldValidationErrors.eventDescription = eventDescriptionValid ? '' : 'Description should not exceed 1000 characters';
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //     this.setState({
+    //         newEvent: {
+    //             formErrors: fieldValidationErrors,
+    //             eventTitleValid: eventTitleValid,
+    //             selectedHazValid: selectedHazValid,
+    //             dateTimeSeenValid: dateTimeSeenValid,
+    //             eventDescriptionValid: eventDescriptionValid
+    //         },
+    //         formErrors: fieldValidationErrors,
+    //     }, this.validateForm);
+    // }
 
-    validateForm() {
-        this.setState({
-            newEvent: {formValid: this.state.newEvent.eventTitleValid &&
-                this.state.newEvent.selectedHazValid &&
-                this.state.newEvent.dateTimeSeenValid &&
-                this.state.newEvent.eventDescriptionValid
-        }});
-        console.log(this.state);
-    }
+    // validateForm() {
+    //     this.setState({
+    //         newEvent: {formValid: this.state.newEvent.eventTitleValid &&
+    //             this.state.newEvent.selectedHazValid &&
+    //             this.state.newEvent.dateTimeSeenValid &&
+    //             this.state.newEvent.eventDescriptionValid
+    //     }});
+    // }
 
     handleEventTitle(evt) {
         let value = evt.target.value;
+        let name = evt.target.name;
         this.setState(prevState => ({
             newEvent:
             {
-                ...prevState.newEvent, eventTitle: value
+                ...prevState.newEvent, [name]: value
             }
-        }), () => {
-            this.validateField('eventTitle', value)
-        });
+        }), );
     }
 
     handleSelectedHaz(evt) {
         let value = evt.target.value;
+        let name = evt.target.name;
         this.setState(prevState => ({
             newEvent:
             {
-                ...prevState.newEvent, selectedHaz: value
+                ...prevState.newEvent, [name]: value
             }
-        }), () => {
-            this.validateField('selectedHaz', value)
-        });
+        }), );
     }
 
     handleDateTimeSeen(date) {
@@ -119,9 +118,7 @@ class EventFormContainer extends Component {
             {
                 ...prevState.newEvent, dateTimeSeen: date
             }
-        }), () => {
-            this.validateField('dateTimeSeen', date)
-        });
+        }), );
     }
 
     handleDateTimeStart(date) {
@@ -130,7 +127,7 @@ class EventFormContainer extends Component {
             {
                 ...prevState.newEvent, dateTimeStart: date
             }
-        }));
+        }), );
     }
 
     // handlePhotoUpload(evt) { 
@@ -142,14 +139,13 @@ class EventFormContainer extends Component {
 
     handleEventDescription(evt) {
         let value = evt.target.value;
+        let name = evt.target.name;
         this.setState(prevState => ({
             newEvent:
             {
-                ...prevState.newEvent, eventDescription: value
+                ...prevState.newEvent, [name]: value
             }
-        }), () => {
-            this.validateField('eventDescription', value)
-        });
+        }), );
     }
 
     handleFormSubmit(evt) {
@@ -198,9 +194,6 @@ class EventFormContainer extends Component {
                     <p>Click on your area of interest to place a marker. Fill in the form below to submit details about the hazard.</p>
                 </div>
                 <div className="container">
-                    <div className="panel panel-default">
-                        <FormErrors formErrors={this.state.newEvent.formErrors} />
-                    </div>
                     <form onSubmit={this.handleFormSubmit}>
                         <SingleInput
                             type={'text'}
@@ -209,11 +202,10 @@ class EventFormContainer extends Component {
                             value={this.state.newEvent.eventTitle}
                             placeholder={'Enter a Title'}
                             handleChange={this.handleEventTitle}
-                            required
                         />
                         <Select
                             title={'Hazard Type'}
-                            name={'hazardSelections'}
+                            name={'selectedHaz'}
                             options={this.state.hazardOptions}
                             value={this.state.newEvent.selectedHaz}
                             placeholder={'Select Type'}
