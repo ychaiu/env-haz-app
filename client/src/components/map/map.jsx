@@ -72,7 +72,7 @@ class Map extends Component {
         this.infowindow = infowindow;
 
         maps.event.addListenerOnce(infowindow, 'domready', function () {
-          let btn = $('button-link');
+          let btn = $('#button-link');
           btn.on('click', function()           
                        { console.log("hello") });
         })
