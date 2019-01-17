@@ -73,12 +73,16 @@ class Map extends Component {
 
         maps.event.addListenerOnce(infowindow, 'domready', function () {
           let btn = $('#button-link');
-          btn.on('click', function()           
-                       { console.log("hello") });
+          btn.on('click', showComments);
         })
       });  
     }
   }
+
+  const showComments = () =>(
+    <div>
+      hello
+    </div>);
 
   handleApiLoaded(map, maps) {
     let data = this.props.markers;
