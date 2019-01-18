@@ -232,17 +232,17 @@ class EventFormContainer extends Component {
                             placeholder={"Describe the event"}
                         />
                         <Button
+                            action={this.handleClearForm}
+                            type={"secondary"}
+                            title={"Clear Form"}
+                            style={buttonStyle}
+                        />
+                        <Button
                             action={this.handleFormSubmit}
                             type={"primary"}
                             title={"Submit"}
                             style= {buttonStyle}
                             disabled= {!this.state.newEvent.formValid}
-                        />
-                        <Button
-                            action={this.handleClearForm}
-                            type={"secondary"}
-                            title={"Clear Form"}
-                            style={buttonStyle}
                         />
                     </form>
                 </div>
