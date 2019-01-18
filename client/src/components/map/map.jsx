@@ -5,15 +5,58 @@ import mapStyle from './mapStyle';
 import { withRouter } from 'react-router';
 import LoadingSpinner from './loadingSpinner';
 import { newMarkerRefreshAction } from '../../redux/actions/newMarkerRefreshAction';
+import { renderCommentsAction } from '../../redux/actions/renderCommentsAction';
 import { connect } from 'react-redux';
 import icons from './mapIcons';
 import $ from 'jquery';
 
-// import * as clusterMarkerImg from '../../../public/img/clusterMarkers/m2.png'
-
 const key = config.mapKey;
 
 const customStyle = mapStyle.styleArray;
+
+let prevInfoWindow = false;
+const loadMarkers = (data, map, maps) => {
+  for (let i = 0; i < data.length; i++) {
+    let eventObj = data[i];
+    let marker = new maps.Marker({
+      position: new maps.LatLng(eventObj.latitude, eventObj.longitude),
+      icon: icons[`${eventObj.haz_id}`],
+      map: map
+    });
+
+    const contentString = 
+    `
+    <h3>${eventObj.event_title}</h3><br>
+    <b>Last Reported: </b> ${eventObj.datetime_seen}<br><br>
+    <b>Description: </b> ${eventObj.description}<br><br>
+    <button type="button" id= "button-link">View Comments</a>
+    `;
+
+    marker.addListener('click', function () {
+      let infowindow = new maps.InfoWindow({
+        content: contentString,
+        maxWidth: 200
+      });
+      if (prevInfoWindow) {
+        prevInfoWindow.close();
+      }
+      prevInfoWindow = infowindow;
+      infowindow.open(map, marker);
+      this.infowindow = infowindow;
+
+      maps.event.addListenerOnce(infowindow, 'domready', function () {
+        let btn = $('#button-link');
+        btn.on('click', showComments);
+      })
+
+      const showComments = (evt) => {
+        evt.preventDefault();
+        console.log("show comments");
+      }
+    });  
+  }
+}
+
 
 class Map extends Component {
   static defaultProps = {
@@ -37,64 +80,22 @@ class Map extends Component {
     if (this.props.markers.length !== newProps.markers.length) {
       let numMarkers = this.props.markers.length - newProps.markers.length
       let addMarkers = newProps.markers.slice(numMarkers)
-      this.loadMarkers(addMarkers, this.map, this.maps)
+      loadMarkers(addMarkers, this.map, this.maps)
     }
   }
-
-  loadMarkers = (data, map, maps) => {
-    let prevInfoWindow = false;
-    for (let i = 0; i < data.length; i++) {
-      let eventObj = data[i];
-      let marker = new maps.Marker({
-        position: new maps.LatLng(eventObj.latitude, eventObj.longitude),
-        icon: icons[`${eventObj.haz_id}`],
-        map: map
-      });
-
-      const contentString = 
-      `
-      <h3>${eventObj.event_title}</h3><br>
-      <b>Last Reported: </b> ${eventObj.datetime_seen}<br><br>
-      <b>Description: </b> ${eventObj.description}<br><br>
-      <button type="button" id= "button-link">View Comments</a>
-      `;
-
-      marker.addListener('click', function () {
-        let infowindow = new maps.InfoWindow({
-          content: contentString,
-          maxWidth: 200
-        });
-        if (prevInfoWindow) {
-          prevInfoWindow.close();
-        }
-        prevInfoWindow = infowindow;
-        infowindow.open(map, marker);
-        this.infowindow = infowindow;
-
-        maps.event.addListenerOnce(infowindow, 'domready', function () {
-          let btn = $('#button-link');
-          btn.on('click', showComments);
-        })
-      });  
-    }
-  }
-
-  const showComments = () =>(
-    <div>
-      hello
-    </div>);
 
   handleApiLoaded(map, maps) {
     let data = this.props.markers;
+    let commentState = this.props.commentState;
+    console.log(commentState)
     this.map = map;
     this.maps = maps;
-    this.loadMarkers(data, map, maps);
+    loadMarkers(data, map, maps);
+    
     let newMarker;
     const placeMarkerAndPanTo = latLng => {
       // only allow user to place a marker if report-event component is shown
-      if (this.props.location.pathname === "/report-event") {
-        console.log("apiloaded")
-
+      if (this.props.location.pathname === "/report-event") {  
         if (newMarker) {
           newMarker.setPosition(latLng);
         } else {
@@ -116,15 +117,15 @@ class Map extends Component {
         newMarker.setMap(null);
       }
     }
+
     map.addListener("click", e => {
       placeMarkerAndPanTo(e.latLng, map);
     });
-    // let markerCluster = new MarkerClusterer(map, markers,
-    //         {imagePath: clusterMarkerImg});
   }
 
   render() {
     const isMarkersLoaded = this.props.markers;
+
     return (
       <div>
         {isMarkersLoaded ? (
@@ -153,18 +154,21 @@ class Map extends Component {
             <LoadingSpinner />
           )}
       </div>
+
     );
   }
 }
 
+// access states in store
 const mapStateToProps = state => {
   return {
-    markers: state.mapReducers.markers,
+    markers: state.mapReducers.markers
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   newMarkerRefreshAction: (markers) => dispatch(newMarkerRefreshAction(markers))
 })
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Map));
