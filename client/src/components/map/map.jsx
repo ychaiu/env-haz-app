@@ -52,13 +52,7 @@ const loadMarkers = (data, map, maps, commentState) => {
 
       const showComments = (evt) => {
         evt.preventDefault();
-        console.log(commentState);
-        // this.props.renderCommentsAction(true);
-
-        if (commentState === false) {
-
-        }
-
+        this.props.renderCommentsAction(true);
       }
     });  
   }
@@ -129,7 +123,7 @@ class Map extends Component {
   }
 
   renderComments() {
-    if(this.props.commentState === false) {
+    if(this.props.commentState === true) {
       return (
         <Comment />
       );
