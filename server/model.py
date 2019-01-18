@@ -41,8 +41,8 @@ class Event(db.Model):
 	user = db.relationship('User')
 	hazard = db.relationship('Hazard')
 	event = db.relationship('EventVote')
-	photo = db.relationship('Photo')
-	comment = db.relationship('Comment')
+	# photo = db.relationship('Photo')
+	# comment = db.relationship('Comment')
 
 	def __repr__(self):
 		"""Helpful representation of object when printed."""
@@ -101,8 +101,8 @@ class User(db.Model):
 
 	event = db.relationship('Event')
 	eventvote = db.relationship('EventVote')
-	photo = db.relationship('Photo')
-	comment = db.relationship('Comment')
+	# photo = db.relationship('Photo')
+	# comment = db.relationship('Comment')
 
 	def __repr__(self):
 		"""Helpful representation of object when printed."""

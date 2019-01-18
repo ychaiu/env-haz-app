@@ -24,7 +24,7 @@ def haz_selections():
 
     return jsonify({'haz_type': hazlist})
 
-@app.route("/api/submit_event_data", methods=['GET', 'POST'])
+@app.route("/api/submit_event_data", methods=['POST'])
 def get_event_data():
     """Get event form data and post to database."""
 
@@ -61,7 +61,7 @@ def get_event_data():
 
     return jsonify(new_marker)
 
-@app.route("/api/render_markers.json", methods=['GET', 'POST'])
+@app.route("/api/render_markers.json", methods=['GET'])
 def render_markers():
 
     events = Event.query.all()
@@ -83,6 +83,14 @@ def render_markers():
         event_list.append(event_object)
     return jsonify(event_list)
 
+@app.route("/api/render_comments/<event_id>", methods =['GET'])
+def render_comments(event_id):
+
+    comments = Comment.query.filter(Comment.event_id == event_id).all()
+    comment_list = []
+    for comment in comments:
+        comment_list.append(comment.comment)
+    return jsonify({'comments': comment_list})
 
 @app.route("/api/image_files", methods=['GET', 'POST'])
 def get_image_files():
