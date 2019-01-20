@@ -4,6 +4,7 @@ import NavBar from './components/navbar/navbar.jsx';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 library.add(fab, faSpinner)
 

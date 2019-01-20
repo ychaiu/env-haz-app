@@ -1,21 +1,20 @@
 """Utility file to seed env-haz-app database from files in seed_data"""
 
 from sqlalchemy import func
-from model import Event, Hazard, User, connect_to_db, db
-from datetime import datetime
+from model import Event, Hazard, User, Comment, connect_to_db, db
+# from datetime import datetime
 from server import app
 
 def delete_old_data():
     """Delete existing data to prevent duplicates."""
 
+    Comment.query.delete()
     Event.query.delete()
     User.query.delete()
     Hazard.query.delete()
 
 def load_dummy_user():
     """Load a dummy user."""
-
-    # Delete existing rows to prevent duplicates
 
     user = User(first_name = "Yessenia",
                 last_name = "Chaiu Zhang",
@@ -29,8 +28,6 @@ def load_dummy_user():
 def load_seed_hazard_types():
     """Load hazard types from hazard_types.csv"""
 
-    # Delete existing rows to prevent duplicates
-
     for row in open("seed_data/hazard_types.csv"):
         row = row.rstrip()
         hazard = Hazard(haz_type = row)
@@ -41,8 +38,6 @@ def load_seed_hazard_types():
 
 def load_seed_events():
     """Load sample events from seed_events.csv"""
-
-    # Delete existing rows to prevent duplicates
 
     for row in open("seed_data/seed_events.csv"):
         row = row.rstrip()
@@ -68,7 +63,19 @@ def load_seed_events():
     db.session.commit()
     print("Successfully seeded into the events table!")
 
+def load_seed_comments():
+    """Load sample events from seed_events.csv"""
 
+    for row in open("seed_data/seed_comments.csv"):
+        row = row.rstrip()
+        user_id, event_id, comment = row.split(",")
+        row_comment = Comment(user_id = user_id,
+                                event_id = event_id,
+                                comment = comment)
+        db.session.add(row_comment)
+
+    db.session.commit()
+    print("Successfully seeded into the comments table!")
 
 if __name__ == '__main__':
     connect_to_db(app)
@@ -76,3 +83,4 @@ if __name__ == '__main__':
     load_dummy_user()
     load_seed_hazard_types()
     load_seed_events()
+    load_seed_comments()

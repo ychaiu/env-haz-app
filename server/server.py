@@ -1,6 +1,6 @@
 from flask import (Flask, render_template, redirect, request, jsonify)
 from flask_cors import CORS, cross_origin
-from model import connect_to_db, db, Hazard, Event
+from model import connect_to_db, db, Hazard, Event, Comment
 
 app = Flask(__name__)
 app.secret_key = "secretkey"

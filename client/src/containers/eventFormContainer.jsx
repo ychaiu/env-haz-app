@@ -19,13 +19,7 @@ class EventFormContainer extends Component {
                 dateTimeSeen: '',
                 dateTimeStart: '',
                 eventDescription: '',
-                // eventTitleValid: false,
-                // seletedHazValid: false,
-                // dateTimeSeenValid: false,
-                // eventDescriptionValid: false,
-                // formValid: false,
             },
-            // formErrors: { eventTitle: '', selectedHaz: '', dateTimeSeen: '', eventDescription: '' },
             hazardOptions: ["Air", "Water", "Noise", "Pest",
                 "Chemical exposure", "Hazardous waste", "Food safety"],
         }
@@ -37,58 +31,7 @@ class EventFormContainer extends Component {
         this.handleEventDescription = this.handleEventDescription.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleClearForm = this.handleClearForm.bind(this);
-        // this.validateField = this.validateField.bind(this);
-        // this.validateForm = this.validateForm.bind(this);
     }
-
-    // validateField(fieldName, value) {       
-    //     let fieldValidationErrors = this.state.formErrors;
-    //     let eventTitleValid = this.state.newEvent.eventTitleValid;
-    //     let selectedHazValid = this.state.newEvent.selectedHazValid;
-    //     let dateTimeSeenValid = this.state.newEvent.dateTimeSeenValid;
-    //     let eventDescriptionValid = this.state.newEvent.eventDescriptionValid;
-
-    //     switch (fieldName) {
-    //         case 'eventTitle':
-    //             eventTitleValid = value.length <= 100;
-    //             //this is a JS conditional statement. after ?, first statement executed if true, second is false
-    //             fieldValidationErrors.eventTitle = eventTitleValid ? '' : 'Title should not exceed 100 characters';
-    //             break;
-    //         case 'selectedHaz':
-    //             selectedHazValid = value.length > 0;
-    //             fieldValidationErrors.selectedHaz = selectedHazValid ? '' : 'Please select one hazard category';
-    //             break;
-    //         case 'dateTimeSeen':
-    //             dateTimeSeenValid = value.length > 0;
-    //             fieldValidationErrors.dateTimeSeen = dateTimeSeenValid ? '' : 'Please estimate the date and time that you witnessed this event';
-    //             break;
-    //         case 'eventDescription':
-    //             eventDescriptionValid = value.length <= 1000;
-    //             fieldValidationErrors.eventDescription = eventDescriptionValid ? '' : 'Description should not exceed 1000 characters';
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    //     this.setState({
-    //         newEvent: {
-    //             formErrors: fieldValidationErrors,
-    //             eventTitleValid: eventTitleValid,
-    //             selectedHazValid: selectedHazValid,
-    //             dateTimeSeenValid: dateTimeSeenValid,
-    //             eventDescriptionValid: eventDescriptionValid
-    //         },
-    //         formErrors: fieldValidationErrors,
-    //     }, this.validateForm);
-    // }
-
-    // validateForm() {
-    //     this.setState({
-    //         newEvent: {formValid: this.state.newEvent.eventTitleValid &&
-    //             this.state.newEvent.selectedHazValid &&
-    //             this.state.newEvent.dateTimeSeenValid &&
-    //             this.state.newEvent.eventDescriptionValid
-    //     }});
-    // }
 
     handleEventTitle(evt) {
         let value = evt.target.value;

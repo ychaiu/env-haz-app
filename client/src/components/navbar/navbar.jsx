@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import EventFormContainer from '../../containers/eventFormContainer.jsx';
 import About from '../about/about.jsx';
+import Comment from '../comments/comments';
+
 
 class NavBar extends Component {
     render() {
@@ -34,6 +36,10 @@ class NavBar extends Component {
     
                             />
                         )}
+                    />
+                    <Route
+                        path="/comments"
+                        component={Comment}
                     />
                 </div>
         );
