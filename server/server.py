@@ -59,7 +59,7 @@ def get_event_data():
             'longitude' : new_event.longitude
     }
 
-    return jsonify(new_marker)
+    return None
 
 @app.route("/api/render_markers.json", methods=['GET'])
 def render_markers():
@@ -91,6 +91,22 @@ def render_comments(event_id):
     for comment in comments:
         comment_list.append(comment.comment)
     return jsonify(comment_list)
+
+@app.route("/api/submit_comment", methods = ['POST', 'GET'])
+def submit_comment():
+
+    content = request.get_json()
+    print(content)
+    new_comment = Comment(
+                user_id = 1,
+                event_id = 71,
+                comment = content['commentInput']
+                )
+    db.session.add(new_comment)
+    db.session.commit()  
+
+    return jsonify(new_comment)
+  
 
 @app.route("/api/image_files", methods=['GET', 'POST'])
 def get_image_files():
