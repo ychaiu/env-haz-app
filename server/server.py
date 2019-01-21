@@ -90,7 +90,7 @@ def render_comments(event_id):
     comment_list = []
     for comment in comments:
         comment_list.append(comment.comment)
-    return jsonify({'comments': comment_list})
+    return jsonify(comment_list)
 
 @app.route("/api/image_files", methods=['GET', 'POST'])
 def get_image_files():

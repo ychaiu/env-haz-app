@@ -1,6 +1,6 @@
-export const renderCommentsAction = (commentState) => dispatch => {
+export const renderCommentsAction = (comments) => dispatch => {
     dispatch ({
         type: 'RENDER_COMMENTS_ACTION',
-        payload: commentState
+        payload: comments
     })
 }

@@ -4,7 +4,6 @@ import config from '../../config/config';
 import mapStyle from './mapStyle';
 import { withRouter } from 'react-router';
 import LoadingSpinner from './loadingSpinner';
-import Comment from '../comments/comments';
 import { newMarkerRefreshAction } from '../../redux/actions/newMarkerRefreshAction';
 import { renderCommentsAction } from '../../redux/actions/renderCommentsAction';
 import { connect } from 'react-redux';
@@ -77,29 +76,22 @@ class Map extends Component {
         maps.event.addListenerOnce(infowindow, 'domready', () => {
           let btn = $('#button-link');
           btn.on('click', () => {
+            let event_id = eventObj.event_id;
+            this.loadComments(event_id)
             this.props.history.push('/comments');
-            // window.location = "/comments";
           });
         })
-
-        const showComments = (evt) => {
-          evt.preventDefault();
-          this.props.renderCommentsAction(true);
-        }
       });
     }
   }
 
-  renderComments = () => {
-    console.log(this.props.commentState);
-    if(this.props.commentState === true) {
-      return (
-        <Comment />
-      );
-      } 
-      else {
-        return (null)
-      }
+  loadComments = (event_id) => {
+    let eventQuery = event_id;
+    let APIURL = "http://localhost:5000/api/render_comments/";
+
+    fetch(APIURL + eventQuery)
+      .then(response => response.json())
+      .then(data => this.props.renderCommentsAction(data))
   }
 
   handleApiLoaded = (map, maps) => {
@@ -111,7 +103,7 @@ class Map extends Component {
     let newMarker;
     const placeMarkerAndPanTo = latLng => {
       //window.location.pathname always reads the URL bar
-      if (window.location.pathname === "/report-event" || window.location.path === "/comments") {  
+      if (window.location.pathname === "/report-event") {  
         if (newMarker) {
           newMarker.setPosition(latLng);
         } else {
@@ -142,8 +134,6 @@ class Map extends Component {
 
   render() {
     const isMarkersLoaded = this.props.markers;
-    {this.renderComments()}
-
     return (
       <div>
         {isMarkersLoaded ? (
@@ -180,15 +170,13 @@ class Map extends Component {
 // access states in store. When does this happen?
 const mapStateToProps = state => {
   return {
-    markers: state.mapReducers.markers,
-    commentState: state.commentReducer
-  }
+    markers: state.mapReducers.markers  }
 }
 
 // update state in the store
 const mapDispatchToProps = dispatch => ({
   newMarkerRefreshAction: (markers) => dispatch(newMarkerRefreshAction(markers)),
-  renderCommentsAction: (commentState) => dispatch(renderCommentsAction(commentState))
+  renderCommentsAction: (comments) => dispatch(renderCommentsAction(comments))
 })
 
 

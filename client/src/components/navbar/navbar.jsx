@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import EventFormContainer from '../../containers/eventFormContainer.jsx';
 import About from '../about/about.jsx';
-import Comment from '../comments/comments';
+import CommentContainer from '../../containers/commentContainer';
 
 
 class NavBar extends Component {
@@ -39,7 +39,7 @@ class NavBar extends Component {
                     />
                     <Route
                         path="/comments"
-                        component={Comment}
+                        component={CommentContainer}
                     />
                 </div>
         );

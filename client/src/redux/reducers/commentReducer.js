@@ -1,8 +1,8 @@
-export default (state=false, action) => {
+export default (state={}, action) => {
     switch (action.type) {
         case 'RENDER_COMMENTS_ACTION':
             return {
-                commentState: action.payload
+                comments: action.payload
             }
         default:
             return state
