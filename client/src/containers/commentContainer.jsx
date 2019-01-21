@@ -4,25 +4,22 @@ import Comment from '../components/comment/comment';
 
 class CommentContainer extends Component {
 
-    displayComments() {
-        const comments = this.props.comments;
-        console.log(comments);
-
-        // let comments_array = this.Array.from(this.props.comments);
-        // comments_array.map(function (comment) {
-        //     return (
-        //         <div>{comment}</div>
-        //     );
-        // })
-    }
-
     render() {
-        return (
-            <div>
-                {this.displayComments()}
-            </div>
-        )
-
+        if (this.props.comments) {
+            return (
+                <div id="sidebar">
+                    <div className="sidebar-header">
+                        <h3>Comments</h3>
+                    </div>
+                    <div>
+                        {this.props.comments.map((comment, i) => <Comment text = {comment} key ={i} />)}
+                    </div>
+                </div>
+            )
+        }
+        else {
+            return (null)
+        }
     }
 }
 
