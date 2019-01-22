@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import mapReducers from './mapReducers';
-import commentReducer from './commentReducer';
+import commentReducers from './commentReducers';
 
 export default combineReducers({
  mapReducers,
- commentReducer
+ commentReducers
 });

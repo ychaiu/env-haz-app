@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Comment from '../components/comment/comment';
 import TextArea from '../components/eventForm/formPresentational/TextArea';
+import { changeCommentStateAction } from '../redux/actions/changeCommentStateAction';
 // import Button from '../components/eventForm/formPresentational/Button';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
@@ -13,19 +14,23 @@ class CommentContainer extends Component {
             newComment: {
                 commentInput: '',
             },
-            modal: true
+            // modal: true
 
         }
-        this.toggle = this.toggle.bind(this);
+        this.toggleOff = this.toggleOff.bind(this);
         this.handleCommentInput = this.handleCommentInput.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleClearForm = this.handleClearForm.bind(this);
     }
 
-    toggle() {
-        this.setState({
-            modal: !this.state.modal
-        })
+    // toggle() {
+    //     this.setState({
+    //         modal: !this.state.modal
+    //     })
+    // }
+
+    toggleOff() {
+        this.props.changeCommentStateAction(false);
     }
 
     handleCommentInput (evt) {
@@ -74,9 +79,9 @@ class CommentContainer extends Component {
         if (this.props.comments) {
             return (
                 <div>
-                    <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
-                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                        <ModalHeader toggle={this.toggle}>Comments</ModalHeader>
+                    <Button color="danger" onClick={this.toggleOff}>{this.props.buttonLabel}</Button>
+                    <Modal isOpen={true} toggle={this.toggleOff} className={this.props.className}>
+                        <ModalHeader toggle={this.toggleOff}>Comments</ModalHeader>
                         <ModalBody>
                             <div>
                                 {this.props.comments.map((comment, i) => <Comment text={comment} key={i} />)}
@@ -96,7 +101,7 @@ class CommentContainer extends Component {
                         </ModalBody>
                         <ModalFooter>
                             <Button color="primary" onClick={this.handleFormSubmit}>Submit</Button>{' '}
-                            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                            <Button color="secondary" onClick={this.toggleOff}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
                 </div>
@@ -107,16 +112,14 @@ class CommentContainer extends Component {
         }
     }
 }
-const buttonStyle = {
-    margin: "10px 10px 10px 10px"
-};
 
 const mapStateToProps = state => {
-    return { comments: state.commentReducer.comments }
+    return { comments: state.commentReducers.comments,
+            isCommentOpen: state.commentReducers.isCommentOpen }
 }
 
 const mapDispatchToProps = dispatch => {
-    return {}
+    return {changeCommentStateAction: (commentState) => dispatch(changeCommentStateAction(commentState))}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentContainer);

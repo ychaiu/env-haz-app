@@ -4,6 +4,10 @@ export default (state={}, action) => {
             return {
                 comments: action.payload
             }
+        case 'CHANGE_COMMENT_STATE_ACTION':
+            return {
+                isCommentOpen: action.payload
+            }
         default:
             return state
 

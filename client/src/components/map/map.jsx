@@ -6,6 +6,7 @@ import { withRouter } from 'react-router';
 import LoadingSpinner from './loadingSpinner';
 import { newMarkerRefreshAction } from '../../redux/actions/newMarkerRefreshAction';
 import { renderCommentsAction } from '../../redux/actions/renderCommentsAction';
+import { changeCommentStateAction } from '../../redux/actions/changeCommentStateAction';
 import { connect } from 'react-redux';
 import icons from './mapIcons';
 import $ from 'jquery';
@@ -73,8 +74,9 @@ class Map extends Component {
           let btn = $('#button-link');
           btn.on('click', () => {
             let event_id = eventObj.event_id;
-            this.loadComments(event_id)
+            this.loadComments(event_id);
             this.props.history.push('/comments');
+            this.props.changeCommentStateAction(true);
           });
         })
       });
@@ -166,13 +168,15 @@ class Map extends Component {
 // access states in store. When does this happen?
 const mapStateToProps = state => {
   return {
-    markers: state.mapReducers.markers  }
+    markers: state.mapReducers.markers,
+    isCommentOpen: state.commentReducers.isCommentOpen }
 }
 
 // update state in the store
 const mapDispatchToProps = dispatch => ({
   newMarkerRefreshAction: (markers) => dispatch(newMarkerRefreshAction(markers)),
-  renderCommentsAction: (comments) => dispatch(renderCommentsAction(comments))
+  renderCommentsAction: (comments) => dispatch(renderCommentsAction(comments)),
+  changeCommentStateAction: (commentState) => dispatch(changeCommentStateAction(commentState))
 })
 
 
