@@ -38,10 +38,6 @@ class Map extends Component {
       let addMarkers = newProps.markers.slice(numMarkers)
       this.loadMarkers(addMarkers, this.map, this.maps)
     }
-
-    if (newProps.commentState) {
-      {this.renderComments()}
-    }
   }
 
   loadMarkers = (data, map, maps) => {
