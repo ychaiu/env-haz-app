@@ -4,9 +4,15 @@ export default (state={}, action) => {
             return {
                 comments: action.payload
             }
-        case 'CHANGE_COMMENT_STATE_ACTION':
+        case 'COMMENT_STATE':
+        let newState = Object.assign({}, state)
+        newState.isCommentOpen = action.payload
             return {
-                isCommentOpen: action.payload
+                newState
+            }
+        case 'ADD_COMMENT':
+            return {
+                comments: [...state.comments, action.payload]
             }
         default:
             return state

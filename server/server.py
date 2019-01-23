@@ -59,7 +59,7 @@ def get_event_data():
             'longitude' : new_event.longitude
     }
 
-    return None
+    return jsonify(new_marker)
 
 @app.route("/api/render_markers.json", methods=['GET'])
 def render_markers():
@@ -94,20 +94,21 @@ def render_comments(event_id):
 
 @app.route("/api/submit_comment", methods = ['POST', 'GET'])
 def submit_comment():
+    """Submit a new comment to the database"""
 
     content = request.get_json()
-    print(content)
+    new_comment_list = []
     new_comment = Comment(
                 user_id = 1,
                 event_id = 71,
                 comment = content['commentInput']
                 )
+    new_comment_list.append(content['commentInput'])
     db.session.add(new_comment)
     db.session.commit()  
 
-    return jsonify(new_comment)
+    return jsonify(new_comment_list)
   
-
 @app.route("/api/image_files", methods=['GET', 'POST'])
 def get_image_files():
     """When a user uploads a photo, show a preview through this route."""

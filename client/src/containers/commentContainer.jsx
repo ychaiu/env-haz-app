@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Comment from '../components/comment/comment';
 import TextArea from '../components/eventForm/formPresentational/TextArea';
-import { changeCommentStateAction } from '../redux/actions/changeCommentStateAction';
+import { commentState } from '../redux/actions/commentState';
+import { addComment } from '../redux/actions/addComment';
 // import Button from '../components/eventForm/formPresentational/Button';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
@@ -14,8 +15,6 @@ class CommentContainer extends Component {
             newComment: {
                 commentInput: '',
             },
-            // modal: true
-
         }
         this.toggleOff = this.toggleOff.bind(this);
         this.handleCommentInput = this.handleCommentInput.bind(this);
@@ -23,14 +22,8 @@ class CommentContainer extends Component {
         this.handleClearForm = this.handleClearForm.bind(this);
     }
 
-    // toggle() {
-    //     this.setState({
-    //         modal: !this.state.modal
-    //     })
-    // }
-
     toggleOff() {
-        this.props.changeCommentStateAction(false);
+        this.props.commentState(false);
     }
 
     handleCommentInput (evt) {
@@ -59,7 +52,7 @@ class CommentContainer extends Component {
             .then(response => {
                 response.json()
                     .then(data => {
-                        console.log(data);
+                        this.props.addComment(data);
                     })
             })
         this.handleClearForm(evt);
@@ -114,28 +107,17 @@ class CommentContainer extends Component {
 }
 
 const mapStateToProps = state => {
-    return { comments: state.commentReducers.comments,
-            isCommentOpen: state.commentReducers.isCommentOpen }
+    return { 
+        comments: state.commentReducers.comments,
+        isCommentOpen: state.commentReducers.isCommentOpen 
+    }
 }
 
 const mapDispatchToProps = dispatch => {
-    return {changeCommentStateAction: (commentState) => dispatch(changeCommentStateAction(commentState))}
+    return {
+        commentState: (newState) => dispatch(commentState(newState)),
+        addComment: (newComment) => dispatch(addComment(newComment))
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentContainer);
-
-
-
-
-{/* <Button
-action={this.handleClearForm}
-type={"secondary"}
-title={"Clear Form"}
-style={buttonStyle}
-/>
-<Button
-action={this.handleFormSubmit}
-type={"primary"}
-title={"Submit"}
-style= {buttonStyle}
-/> */}

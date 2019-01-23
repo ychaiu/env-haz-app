@@ -6,7 +6,8 @@ import { withRouter } from 'react-router';
 import LoadingSpinner from './loadingSpinner';
 import { newMarkerRefreshAction } from '../../redux/actions/newMarkerRefreshAction';
 import { renderCommentsAction } from '../../redux/actions/renderCommentsAction';
-import { changeCommentStateAction } from '../../redux/actions/changeCommentStateAction';
+import { commentState } from '../../redux/actions/commentState';
+import { getActiveEventDataAction } from '../../redux/actions/getActiveEventDataAction';
 import { connect } from 'react-redux';
 import icons from './mapIcons';
 import $ from 'jquery';
@@ -38,6 +39,7 @@ class Map extends Component {
       let numMarkers = this.props.markers.length - newProps.markers.length
       let addMarkers = newProps.markers.slice(numMarkers)
       this.loadMarkers(addMarkers, this.map, this.maps)
+    
     }
   }
 
@@ -69,6 +71,10 @@ class Map extends Component {
         }
         prevInfoWindow = infowindow;
         infowindow.open(map, marker);
+        console.log(this.props);
+        console.log(eventObj);
+        this.props.getActiveEventDataAction(eventObj);
+
 
         maps.event.addListenerOnce(infowindow, 'domready', () => {
           let btn = $('#button-link');
@@ -76,7 +82,8 @@ class Map extends Component {
             let event_id = eventObj.event_id;
             this.loadComments(event_id);
             this.props.history.push('/comments');
-            this.props.changeCommentStateAction(true);
+            this.props.commentState(true);
+
           });
         })
       });
@@ -176,7 +183,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   newMarkerRefreshAction: (markers) => dispatch(newMarkerRefreshAction(markers)),
   renderCommentsAction: (comments) => dispatch(renderCommentsAction(comments)),
-  changeCommentStateAction: (commentState) => dispatch(changeCommentStateAction(commentState))
+  commentState: (newState) => dispatch(commentState(newState)),
+  getActiveEventDataAction: (activeEvent) => dispatch(getActiveEventDataAction(activeEvent))
 })
 
 
