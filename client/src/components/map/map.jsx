@@ -4,10 +4,10 @@ import config from '../../config/config';
 import mapStyle from './mapStyle';
 import { withRouter } from 'react-router';
 import LoadingSpinner from './loadingSpinner';
-import { newMarkerRefreshAction } from '../../redux/actions/newMarkerRefreshAction';
-import { renderCommentsAction } from '../../redux/actions/renderCommentsAction';
+import { refreshMarker } from '../../redux/actions/refreshMarker';
+import { renderComments } from '../../redux/actions/renderComments';
 import { commentState } from '../../redux/actions/commentState';
-import { getActiveEventDataAction } from '../../redux/actions/getActiveEventDataAction';
+import { getActiveEvent } from '../../redux/actions/getActiveEvent';
 import { connect } from 'react-redux';
 import icons from './mapIcons';
 import $ from 'jquery';
@@ -28,7 +28,7 @@ class Map extends Component {
   componentDidMount() {
     fetch("http://localhost:5000/api/render_markers.json")
       .then(response => response.json())
-      .then(data => this.props.newMarkerRefreshAction(data))
+      .then(data => this.props.refreshMarker(data))
   }
 
   componentWillReceiveProps(newProps) {
@@ -73,7 +73,7 @@ class Map extends Component {
         infowindow.open(map, marker);
         console.log(this.props);
         console.log(eventObj);
-        this.props.getActiveEventDataAction(eventObj);
+        this.props.getActiveEvent(eventObj);
 
 
         maps.event.addListenerOnce(infowindow, 'domready', () => {
@@ -96,7 +96,7 @@ class Map extends Component {
 
     fetch(APIURL + eventQuery)
       .then(response => response.json())
-      .then(data => this.props.renderCommentsAction(data))
+      .then(data => this.props.renderComments(data))
   }
 
   handleApiLoaded = (map, maps) => {
@@ -181,10 +181,10 @@ const mapStateToProps = state => {
 
 // update state in the store
 const mapDispatchToProps = dispatch => ({
-  newMarkerRefreshAction: (markers) => dispatch(newMarkerRefreshAction(markers)),
-  renderCommentsAction: (comments) => dispatch(renderCommentsAction(comments)),
+  refreshMarker: (markers) => dispatch(refreshMarker(markers)),
+  renderComments: (comments) => dispatch(renderComments(comments)),
   commentState: (newState) => dispatch(commentState(newState)),
-  getActiveEventDataAction: (activeEvent) => dispatch(getActiveEventDataAction(activeEvent))
+  getActiveEvent: (activeEvent) => dispatch(getActiveEvent(activeEvent))
 })
 
 

@@ -6,7 +6,7 @@ import TextArea from '../components/eventForm/formPresentational/TextArea';
 // import ImageUpoad from '../components/eventForm/formPresentational/ImageUpload';
 import Button from '../components/eventForm/formPresentational/Button';
 import { FormErrors } from '../components/eventForm/formPresentational/FormErrors';
-import { newMarkerPostAction } from '../redux/actions/newMarkerPostAction';
+import { addNewMarker } from '../redux/actions/addNewMarker';
 import { connect } from 'react-redux';
 
 class EventFormContainer extends Component {
@@ -108,7 +108,7 @@ class EventFormContainer extends Component {
             .then(response => {
                 response.json()
                     .then(data => {
-                        this.props.newMarkerPostAction(data);
+                        this.props.addNewMarker(data);
                     })
             })
         this.handleClearForm(evt);
@@ -199,7 +199,7 @@ const buttonStyle = {
 };
 
 const mapDispatchToProps = dispatch => ({
-    newMarkerPostAction: (newMarker) => dispatch(newMarkerPostAction(newMarker))
+    addNewMarker: (newMarker) => dispatch(addNewMarker(newMarker))
 })
 
 export default connect(null, mapDispatchToProps)(EventFormContainer);
