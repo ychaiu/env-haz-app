@@ -5,7 +5,8 @@ const Comment = (props) => {
         <div className="comment-content">
             <div>{props.text}</div>
             <div className = "comment-user-date">
-                {props.lastName}, {props.firstName} {props.submitted}
+                {props.firstName} {props.lastName}  
+                    <span>{props.submitted}</span>
                 <br />
                 <br />
             </div>

@@ -99,7 +99,10 @@ class CommentContainer extends Component {
                         </ModalBody>
                         <ModalFooter>
                             <Button color="primary" onClick={this.handleFormSubmit}>Submit</Button>{' '}
-                            <Button color="secondary" onClick={this.toggleOff}>Cancel</Button>
+                            <Button color="secondary" onClick= {(event) =>{
+                                                        {this.toggleOff()};
+                                                        {this.handleClearForm(event)};
+                                                    }}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
                 </div>
