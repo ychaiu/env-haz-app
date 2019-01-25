@@ -77,7 +77,12 @@ class CommentContainer extends Component {
                         <ModalHeader toggle={this.toggleOff}>Comments</ModalHeader>
                         <ModalBody>
                             <div>
-                                {this.props.comments.map((comment, i) => <Comment text={comment} key={i} />)}
+                                {this.props.comments.map((comment, i) => <Comment 
+                                                                            text={comment.comment_text} 
+                                                                            firstName={comment.comment_user_fn}
+                                                                            lastName={comment.comment_user_ln}
+                                                                            submitted={comment.comment_submitted}
+                                                                            key={i} />)}
                             </div>
                             <div className="container">
                                 <form>
@@ -109,7 +114,8 @@ class CommentContainer extends Component {
 const mapStateToProps = state => {
     return { 
         comments: state.commentReducers.comments,
-        isCommentOpen: state.commentReducers.isCommentOpen 
+        isCommentOpen: state.commentReducers.isCommentOpen,
+         
     }
 }
 
