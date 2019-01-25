@@ -8,22 +8,27 @@ from server import app
 def delete_old_data():
     """Delete existing data to prevent duplicates."""
 
+    User.query.delete()
     Comment.query.delete()
     Event.query.delete()
     User.query.delete()
     Hazard.query.delete()
 
 def load_dummy_user():
-    """Load a dummy user."""
+    """Load users from seed_users.csv"""
 
-    user = User(first_name = "Yessenia",
-                last_name = "Chaiu Zhang",
-                display_name = "ychaiu",
-                email = "yessenia@gmail.com",
-                password = "yessenia")
-    db.session.add(user)
+    for row in open("seed_data/seed_comments.csv"):
+        row = row.rstrip()
+        first_name, last_name, display_name, email, password = row.split(",")
+        user = User(first_name = first_name,
+                    last_name = last_name,
+                    display_name = display_name,
+                    email = email,
+                    password = password)
+        db.session.add(user)
+        
     db.session.commit()
-    print("Successfully added dummy user!")
+    print("Successfully seeded into users table!")
 
 def load_seed_hazard_types():
     """Load hazard types from hazard_types.csv"""

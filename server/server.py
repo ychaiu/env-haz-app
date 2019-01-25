@@ -89,7 +89,14 @@ def render_comments(event_id):
     comments = Comment.query.filter(Comment.event_id == event_id).all()
     comment_list = []
     for comment in comments:
-        comment_list.append(comment.comment)
+        print(comment.user)
+        comment_object = {
+            'comment_text': comment.comment,
+            'comment_submitted': comment.comment_submitted,
+            'comment_user_fn': comment.user.first_name,
+            'comment_user_ln': comment.user.last_name
+        }
+        comment_list.append(comment_object)
     return jsonify(comment_list)
 
 @app.route("/api/submit_comment", methods = ['POST', 'GET'])
