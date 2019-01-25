@@ -138,8 +138,7 @@ def connect_to_db(app):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
-
-
+	
 if __name__ == "__main__":
     # if module is run interactively, it will leave
     # you in a state of being able to work with the database directly.

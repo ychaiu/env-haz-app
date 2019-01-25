@@ -89,7 +89,6 @@ def render_comments(event_id):
     comments = Comment.query.filter(Comment.event_id == event_id).all()
     comment_list = []
     for comment in comments:
-        print(comment.user)
         comment_object = {
             'comment_text': comment.comment,
             'comment_submitted': comment.comment_submitted,

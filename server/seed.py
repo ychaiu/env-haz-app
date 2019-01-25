@@ -14,10 +14,10 @@ def delete_old_data():
     User.query.delete()
     Hazard.query.delete()
 
-def load_dummy_user():
+def load_seed_users():
     """Load users from seed_users.csv"""
 
-    for row in open("seed_data/seed_comments.csv"):
+    for row in open("seed_data/seed_users.csv"):
         row = row.rstrip()
         first_name, last_name, display_name, email, password = row.split(",")
         user = User(first_name = first_name,
@@ -26,7 +26,7 @@ def load_dummy_user():
                     email = email,
                     password = password)
         db.session.add(user)
-        
+
     db.session.commit()
     print("Successfully seeded into users table!")
 
@@ -85,7 +85,7 @@ def load_seed_comments():
 if __name__ == '__main__':
     connect_to_db(app)
     delete_old_data()
-    load_dummy_user()
+    load_seed_users()
     load_seed_hazard_types()
     load_seed_events()
     load_seed_comments()
