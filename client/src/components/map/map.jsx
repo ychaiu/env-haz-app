@@ -71,8 +71,6 @@ class Map extends Component {
         }
         prevInfoWindow = infowindow;
         infowindow.open(map, marker);
-        console.log(this.props);
-        console.log(eventObj);
         this.props.getActiveEvent(eventObj);
 
 

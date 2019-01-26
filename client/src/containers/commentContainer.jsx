@@ -4,6 +4,8 @@ import Comment from '../components/comment/comment';
 import TextArea from '../components/eventForm/formPresentational/TextArea';
 import { commentState } from '../redux/actions/commentState';
 import { addComment } from '../redux/actions/addComment';
+import { renderComments } from '../redux/actions/renderComments';
+
 // import Button from '../components/eventForm/formPresentational/Button';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
@@ -13,7 +15,10 @@ class CommentContainer extends Component {
         super(props);
         this.state = {
             newComment: {
-                commentInput: '',
+                comment_text: '',
+                comment_user_fn: '',
+                comment_user_ln: '',
+                comment_submitted: ''
             },
         }
         this.toggleOff = this.toggleOff.bind(this);
@@ -32,16 +37,22 @@ class CommentContainer extends Component {
         this.setState(prevState => ({
             newComment:
             {
-                ...prevState.newComment, [name]: value
+                // ...prevState.newComment, 
+                comment_text: value,
+                comment_user_fn: '',
+                comment_user_ln: '',
+                comment_submitted: '',
             }
         }), );
     }
 
     handleFormSubmit(evt) {
         evt.preventDefault();
+        let postAPIURL = 'http://localhost:5000/api/submit_comment/';
+        let eventId = this.props.activeEvent.event_id;
         let formData = this.state.newComment;
 
-        fetch('http://localhost:5000/api/submit_comment', {
+        fetch(postAPIURL + eventId, {
             method: "POST",
             body: JSON.stringify(formData),
             headers: {
@@ -52,21 +63,32 @@ class CommentContainer extends Component {
             .then(response => {
                 response.json()
                     .then(data => {
-                        this.props.addComment(data);
+                        this.updateCommentUI(data, eventId);
                     })
             })
         this.handleClearForm(evt);
     }
 
+    updateCommentUI(data, eventId){
+        console.log(data);
+        let APIURL = "http://localhost:5000/api/render_comments/";
+    
+        fetch(APIURL + eventId)
+          .then(response => response.json())
+          .then(data => this.props.renderComments(data))
+      }
+    
     handleClearForm(evt) {
         evt.preventDefault();
         this.setState({
             newComment: {
-                commentInput: '',
+                comment_text: '',
+                comment_user_fn: '',
+                comment_user_ln: '',
+                comment_submitted: '',
             }
         });
     }
-    
 
     render() {
         if (this.props.comments) {
@@ -88,9 +110,9 @@ class CommentContainer extends Component {
                                 <form>
                                     <TextArea
                                         title={'Submit a Comment'}
-                                        name={'commentInput'}
+                                        name={'comment_text'}
                                         rows={10}
-                                        value={this.state.newComment.commentInput}
+                                        value={this.state.newComment.comment_text}
                                         handleChange={this.handleCommentInput}
                                         placeholder={"Enter a Comment"}
                                     />
@@ -118,14 +140,15 @@ const mapStateToProps = state => {
     return { 
         comments: state.commentReducers.comments,
         isCommentOpen: state.commentReducers.isCommentOpen,
-         
+        activeEvent: state.mapReducers.activeEvent
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         commentState: (newState) => dispatch(commentState(newState)),
-        addComment: (newComment) => dispatch(addComment(newComment))
+        addComment: (newComment) => dispatch(addComment(newComment)),
+        renderComments: (comments) => dispatch(renderComments(comments))
     }
 }
 
