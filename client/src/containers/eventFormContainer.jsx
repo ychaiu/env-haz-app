@@ -8,6 +8,11 @@ import Button from '../components/eventForm/formPresentational/Button';
 import { FormErrors } from '../components/eventForm/formPresentational/FormErrors';
 import { addNewMarker } from '../redux/actions/addNewMarker';
 import { connect } from 'react-redux';
+import Dropzone from 'react-dropzone';
+import axios from 'axios';
+import config from '../config/config';
+import classNames from 'classnames';
+import DropzoneWithPreview from './dropzoneContainer';
 
 class EventFormContainer extends Component {
     constructor(props) { 
@@ -22,6 +27,7 @@ class EventFormContainer extends Component {
             },
             hazardOptions: ["Air", "Water", "Noise", "Pest",
                 "Chemical exposure", "Hazardous waste", "Food safety"],
+            files: [],
         }
 
         this.handleEventTitle = this.handleEventTitle.bind(this);
@@ -73,12 +79,9 @@ class EventFormContainer extends Component {
         }), );
     }
 
-    // handlePhotoUpload(evt) { 
-    //     let value = evt.target.files[0]
-    //     this.setState (prevState => ({ newEvent:
-    //         {...prevstate.newEvent, selectedFile: value}
-    //     })
-    // }
+    handleUploadedPhotos(files) {
+
+    }
 
     handleEventDescription(evt) {
         let value = evt.target.value;
@@ -166,6 +169,9 @@ class EventFormContainer extends Component {
                             value={this.state.newEvent.dateTimeStart}
                             handleChange={this.handleDateTimeStart}
                         />
+                        <DropzoneWithPreview 
+                            handleUploadedPhotos = {this.handleUploadedPhotos}
+                        />
                         <TextArea
                             title={'Description'}
                             name={'eventDescription'}
@@ -203,3 +209,25 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(null, mapDispatchToProps)(EventFormContainer);
+
+// <Dropzone
+// onDrop={this.handleDrop} 
+// multiple 
+// accept="image/*" 
+// >
+// {({ getRootProps, getInputProps, isDragActive }) => {
+//     return (
+//         <div
+//             {...getRootProps()}
+//             className={classNames('dropzone', { 'dropzone--isActive': isDragActive })}
+//         >
+//             <input {...getInputProps()} />
+//             {
+//                 isDragActive ?
+//                     <p>Drop files here...</p> :
+//                     <p>Try dropping some files here, or click to select files to upload.</p>
+//             }
+//         </div>
+//     )
+// }}
+// </Dropzone>

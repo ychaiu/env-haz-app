@@ -13,7 +13,6 @@ import icons from './mapIcons';
 import $ from 'jquery';
 
 const key = config.mapKey;
-
 const customStyle = mapStyle.styleArray;
 
 class Map extends Component {
