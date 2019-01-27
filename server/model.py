@@ -30,7 +30,7 @@ class Event(db.Model):
 	event_title = db.Column(db.String(100), nullable = False)
 	active = db.Column(db.Boolean, nullable=False)
 	datetime_seen = db.Column(db.DateTime, nullable=False)
-	event_start = db.Column(db.Date, nullable=True)
+	event_start = db.Column(db.DateTime, nullable=True)
 	event_end = db.Column(db.Date, nullable=True)
 	description = db.Column(db.String(1000), nullable = False)
 	last_edited = db.Column(db.DateTime, server_default=db.func.current_timestamp())
@@ -75,8 +75,7 @@ class Photo(db.Model):
 	photo_id = db.Column(db.Integer, autoincrement=True, primary_key=True, nullable=False)
 	user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
 	event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'), nullable=False)
-	caption = db.Column(db.String(50), nullable=False)
-	photo_submitted = db.Column(db.DateTime, nullable=False)
+	photo_submitted = db.Column(db.DateTime, server_default=db.func.current_timestamp())
 	url = db.Column(db.String, nullable=False)
 
 	user = db.relationship('User')

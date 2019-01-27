@@ -38,7 +38,6 @@ class Map extends Component {
       let numMarkers = this.props.markers.length - newProps.markers.length
       let addMarkers = newProps.markers.slice(numMarkers)
       this.loadMarkers(addMarkers, this.map, this.maps)
-    
     }
   }
 
@@ -72,14 +71,16 @@ class Map extends Component {
         infowindow.open(map, marker);
         this.props.getActiveEvent(eventObj);
 
-
         maps.event.addListenerOnce(infowindow, 'domready', () => {
           let btn = $('#button-link');
           btn.on('click', () => {
             let event_id = eventObj.event_id;
-            this.loadComments(event_id);
-            this.props.history.push('/comments');
             this.props.commentState(true);
+            this.props.history.push('/comments')
+            console.log(eventObj)
+            console.log(this.props)
+            console.log('opened a comment window')
+            this.loadComments(event_id);
 
           });
         })
@@ -87,13 +88,22 @@ class Map extends Component {
     }
   }
 
+  loadNewMarker = (data, map, maps) => {
+    
+  }
+
   loadComments = (event_id) => {
     let eventQuery = event_id;
     let APIURL = "http://localhost:5000/api/render_comments/";
 
     fetch(APIURL + eventQuery)
-      .then(response => response.json())
+      .then(function(response) {
+        if(response.ok) {
+          return response.json()} 
+      })
       .then(data => this.props.renderComments(data))
+      // .then(this.props.commentState(true))
+      // .then(this.props.history.push('/comments'))
   }
 
   handleApiLoaded = (map, maps) => {

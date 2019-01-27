@@ -1,21 +1,16 @@
 export default (state={}, action) => {
+    let newState = Object.assign({}, state)
     switch (action.type) {
         case 'RENDER_COMMENTS':
-            return {
-                comments: action.payload
-            }
+            newState.comments = action.payload
+            return newState 
         case 'COMMENT_STATE':
-        let newState = Object.assign({}, state)
-        newState.isCommentOpen = action.payload
-            return {
-                newState
-            }
+            newState.isCommentOpen = action.payload
+            return newState 
         case 'ADD_COMMENT':
-            return {
-                comments: [...state.comments, action.payload]
-            }
+            newState.comments = [...state.comments, action.payload]
+            return newState
         default:
             return state
-
     }
 }

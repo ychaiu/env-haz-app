@@ -55,6 +55,8 @@ const thumbsContainer = {
         }))
       });
 
+      this.props.handleUploadedPhotos(files);
+
         // // Push all the axios request promise into a single array
         // const uploaders = files.map(file => {
         // // Initial FormData

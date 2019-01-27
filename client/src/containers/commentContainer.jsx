@@ -28,6 +28,7 @@ class CommentContainer extends Component {
     }
 
     toggleOff() {
+        console.log(this.props)
         this.props.commentState(false);
     }
 
@@ -95,7 +96,7 @@ class CommentContainer extends Component {
             return (
                 <div>
                     <Button color="danger" onClick={this.toggleOff}>{this.props.buttonLabel}</Button>
-                    <Modal isOpen={true} toggle={this.toggleOff} className={this.props.className}>
+                    <Modal isOpen={this.props.isCommentOpen} toggle={this.toggleOff} className={this.props.className}>
                         <ModalHeader toggle={this.toggleOff}>Comments</ModalHeader>
                         <ModalBody>
                             <div>

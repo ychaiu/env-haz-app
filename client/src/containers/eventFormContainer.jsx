@@ -3,16 +3,15 @@ import SingleInput from '../components/eventForm/formPresentational/SingleInput'
 import Select from '../components/eventForm/formPresentational/Select';
 import DateTimeInput from '../components/eventForm/formPresentational/DateTime';
 import TextArea from '../components/eventForm/formPresentational/TextArea';
-// import ImageUpoad from '../components/eventForm/formPresentational/ImageUpload';
 import Button from '../components/eventForm/formPresentational/Button';
-import { FormErrors } from '../components/eventForm/formPresentational/FormErrors';
 import { addNewMarker } from '../redux/actions/addNewMarker';
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import config from '../config/config';
 import classNames from 'classnames';
-import DropzoneWithPreview from './dropzoneContainer';
+
+// import DropzoneWithPreview from './dropzoneContainer';
 
 class EventFormContainer extends Component {
     constructor(props) { 
@@ -28,6 +27,7 @@ class EventFormContainer extends Component {
             hazardOptions: ["Air", "Water", "Noise", "Pest",
                 "Chemical exposure", "Hazardous waste", "Food safety"],
             files: [],
+            formErrors: '',
         }
 
         this.handleEventTitle = this.handleEventTitle.bind(this);
@@ -79,9 +79,48 @@ class EventFormContainer extends Component {
         }), );
     }
 
-    handleUploadedPhotos(files) {
-
+    onDrop(files) {
+      this.setState({
+        files: files.map(file => Object.assign(file, {
+          preview: URL.createObjectURL(file)
+        }))
+      });
     }
+    
+    uploadPhotos(files) {
+
+        // Push all the axios request promise into a single array
+        const uploaders = files.map(file => {
+        // Initial FormData
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("tags", `codeinfuse, medium, gist`);
+        formData.append("upload_preset", cloudinaryPreset); // Replace the preset name with your own
+        formData.append("api_key", cloudinaryAPI); // Replace API key with your own Cloudinary key
+        formData.append("timestamp", (Date.now() / 1000) | 0);
+        
+        // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
+        return axios.post(cloudinaryUploadURL, formData, {
+            headers: { "X-Requested-With": "XMLHttpRequest" },
+        }).then(response => {
+            const data = response.data;
+            const fileURL = data.secure_url // You should store this URL for future references in your app
+            console.log(data);
+        })
+        });
+
+        this.setState({
+            files: files.map(file => Object.assign(file, {
+            preview: URL.createObjectURL(file)
+            }))
+        });        
+
+        // Once all the files are uploaded 
+        axios.all(uploaders).then(() => {
+            // console.log(uploaders);
+        });
+    }
+    
 
     handleEventDescription(evt) {
         let value = evt.target.value;
@@ -97,6 +136,7 @@ class EventFormContainer extends Component {
     handleFormSubmit(evt) {
         evt.preventDefault();
         let formData = this.state.newEvent;
+
         formData['latitude'] = this.props.newMarker.lat
         formData['longitude'] = this.props.newMarker.lng
 
@@ -113,7 +153,9 @@ class EventFormContainer extends Component {
                     .then(data => {
                         this.props.addNewMarker(data);
                     })
+                    .then()
             })
+        this.uploadPhotos(this.state.files);
         this.handleClearForm(evt);
     }
 
@@ -126,11 +168,30 @@ class EventFormContainer extends Component {
                 dateTimeSeen: '',
                 dateTimeStart: '',
                 eventDescription: '',
-            }
+            },
+            files: [],
         });
     }
+      
+    componentWillUnmount() {
+        // Make sure to revoke the data uris to avoid memory leaks
+        this.state.files.forEach(file => URL.revokeObjectURL(file.preview))
+      }
 
     render() {
+        const {files} = this.state;
+  
+        const thumbs = files.map(file => (
+          <div style={thumb} key={file.name}>
+            <div style={thumbInner}>
+              <img
+                src={file.preview}
+                style={img}
+              />
+            </div>
+          </div>
+        ));
+
         return (
             <div id="sidebar">
                 <div className="sidebar-header">
@@ -169,9 +230,23 @@ class EventFormContainer extends Component {
                             value={this.state.newEvent.dateTimeStart}
                             handleChange={this.handleDateTimeStart}
                         />
-                        <DropzoneWithPreview 
-                            handleUploadedPhotos = {this.handleUploadedPhotos}
-                        />
+                        <section>
+                            <Dropzone
+                                accept="image/*"
+                                onDrop={this.onDrop.bind(this)}
+                            >
+                                {({getRootProps, getInputProps}) => (
+                                <div {...getRootProps()}>
+                                    <input {...getInputProps()} />
+                                    <p>Drop files here</p>
+                                </div>
+                                )}
+                            </Dropzone>
+                            <aside style={thumbsContainer}>
+                                {thumbs}
+                            </aside>
+                        </section>
+                        
                         <TextArea
                             title={'Description'}
                             name={'eventDescription'}
@@ -200,8 +275,45 @@ class EventFormContainer extends Component {
     }
 }
 
+const cloudinaryAPI = config.cloudinaryAPI;
+
+const cloudinaryPreset = config.cloudinaryPreset;
+
+const cloudinaryUploadURL = config.cloudinaryUploadURL;
+
 const buttonStyle = {
     margin: "10px 10px 10px 10px"
+};
+
+const thumbsContainer = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 16
+};
+  
+const thumb = {
+    display: 'inline-flex',
+    borderRadius: 2,
+    border: '1px solid #eaeaea',
+    marginBottom: 8,
+    marginRight: 8,
+    width: 100,
+    height: 100,
+    padding: 4,
+    boxSizing: 'border-box'
+};
+
+const thumbInner = {
+    display: 'flex',
+    minWidth: 0,
+    overflow: 'hidden'
+};
+
+const img = {
+    display: 'block',
+    width: 'auto',
+    height: '100%'
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -209,25 +321,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(null, mapDispatchToProps)(EventFormContainer);
-
-// <Dropzone
-// onDrop={this.handleDrop} 
-// multiple 
-// accept="image/*" 
-// >
-// {({ getRootProps, getInputProps, isDragActive }) => {
-//     return (
-//         <div
-//             {...getRootProps()}
-//             className={classNames('dropzone', { 'dropzone--isActive': isDragActive })}
-//         >
-//             <input {...getInputProps()} />
-//             {
-//                 isDragActive ?
-//                     <p>Drop files here...</p> :
-//                     <p>Try dropping some files here, or click to select files to upload.</p>
-//             }
-//         </div>
-//     )
-// }}
-// </Dropzone>
