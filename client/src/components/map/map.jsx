@@ -42,6 +42,7 @@ class Map extends Component {
   }
 
   loadMarkers = (data, map, maps) => {
+    console.log(data)
     let prevInfoWindow = false;
     for (let i = 0; i < data.length; i++) {
       let eventObj = data[i];
@@ -75,11 +76,6 @@ class Map extends Component {
           let btn = $('#button-link');
           btn.on('click', () => {
             let event_id = eventObj.event_id;
-            this.props.commentState(true);
-            this.props.history.push('/comments')
-            console.log(eventObj)
-            console.log(this.props)
-            console.log('opened a comment window')
             this.loadComments(event_id);
 
           });
@@ -102,8 +98,8 @@ class Map extends Component {
           return response.json()} 
       })
       .then(data => this.props.renderComments(data))
-      // .then(this.props.commentState(true))
-      // .then(this.props.history.push('/comments'))
+      .then(this.props.commentState(true))
+      .then(this.props.history.push('/comments'))
   }
 
   handleApiLoaded = (map, maps) => {

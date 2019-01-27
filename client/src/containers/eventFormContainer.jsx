@@ -11,8 +11,6 @@ import axios from 'axios';
 import config from '../config/config';
 import classNames from 'classnames';
 
-// import DropzoneWithPreview from './dropzoneContainer';
-
 class EventFormContainer extends Component {
     constructor(props) { 
         super(props);

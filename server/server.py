@@ -60,7 +60,7 @@ def get_event_data():
             'latitude' : new_event.latitude,
             'longitude' : new_event.longitude
     }
-
+    print (new_marker)
     return jsonify(new_marker)
 
 @app.route("/api/render_markers.json", methods=['GET'])
