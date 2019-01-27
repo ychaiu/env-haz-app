@@ -29,6 +29,7 @@ def get_event_data():
     """Get event form data and post to database."""
 
     content = request.get_json()
+    print(content)
     new_event = Event(
                 user_id = 1,
                 haz_id = 1,
@@ -48,6 +49,7 @@ def get_event_data():
     db.session.commit()
     
     new_marker = {
+            'event_id' : new_event.event_id,
             'event_title' : new_event.event_title,
             'haz_id' : new_event.haz_id,
             'datetime_seen' : new_event.datetime_seen,
@@ -90,6 +92,7 @@ def render_comments(event_id):
     comment_list = []
     for comment in comments:
         comment_object = {
+            'comment_event_title': comment.event.event_title,
             'comment_text': comment.comment,
             'comment_submitted': comment.comment_submitted,
             'comment_user_fn': comment.user.first_name,
@@ -98,22 +101,26 @@ def render_comments(event_id):
         comment_list.append(comment_object)
     return jsonify(comment_list)
 
-@app.route("/api/submit_comment", methods = ['POST', 'GET'])
-def submit_comment():
+@app.route("/api/submit_comment/<event_id>", methods = ['POST', 'GET'])
+def submit_comment(event_id):
     """Submit a new comment to the database"""
 
     content = request.get_json()
-    new_comment_list = []
+    print(content.keys())
     new_comment = Comment(
                 user_id = 1,
-                event_id = 71,
-                comment = content['commentInput']
+                event_id = event_id,
+                comment = content['comment_text']
                 )
-    new_comment_list.append(content['commentInput'])
+    new_comment_obj = {'comment_text': content['comment_text'],
+                        'comment_user_fn': content['comment_user_fn'],
+                        'comment_user_ln': content['comment_user_ln'],
+                        'comment_submitted': content['comment_submitted']
+    }
     db.session.add(new_comment)
     db.session.commit()  
 
-    return jsonify(new_comment_list)
+    return jsonify(new_comment_obj)
   
 @app.route("/api/image_files", methods=['GET', 'POST'])
 def get_image_files():
