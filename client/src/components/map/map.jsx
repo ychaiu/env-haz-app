@@ -42,7 +42,6 @@ class Map extends Component {
   }
 
   loadMarkers = (data, map, maps) => {
-    console.log(data)
     let prevInfoWindow = false;
     for (let i = 0; i < data.length; i++) {
       let eventObj = data[i];

@@ -84,41 +84,7 @@ class EventFormContainer extends Component {
         }))
       });
     }
-    
-    uploadPhotos(files) {
 
-        // Push all the axios request promise into a single array
-        const uploaders = files.map(file => {
-        // Initial FormData
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("tags", `codeinfuse, medium, gist`);
-        formData.append("upload_preset", cloudinaryPreset); // Replace the preset name with your own
-        formData.append("api_key", cloudinaryAPI); // Replace API key with your own Cloudinary key
-        formData.append("timestamp", (Date.now() / 1000) | 0);
-        
-        // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
-        return axios.post(cloudinaryUploadURL, formData, {
-            headers: { "X-Requested-With": "XMLHttpRequest" },
-        }).then(response => {
-            const data = response.data;
-            const fileURL = data.secure_url // You should store this URL for future references in your app
-            console.log(data);
-        })
-        });
-
-        this.setState({
-            files: files.map(file => Object.assign(file, {
-            preview: URL.createObjectURL(file)
-            }))
-        });        
-
-        // Once all the files are uploaded 
-        axios.all(uploaders).then(() => {
-            // console.log(uploaders);
-        });
-    }
-    
 
     handleEventDescription(evt) {
         let value = evt.target.value;
@@ -134,6 +100,7 @@ class EventFormContainer extends Component {
     handleFormSubmit(evt) {
         evt.preventDefault();
         let formData = this.state.newEvent;
+        let eventId;
 
         formData['latitude'] = this.props.newMarker.lat
         formData['longitude'] = this.props.newMarker.lng
@@ -146,15 +113,59 @@ class EventFormContainer extends Component {
                 'Content-Type': 'application/json'
             },
         })
-            .then(response => {
-                response.json()
-                    .then(data => {
-                        this.props.addNewMarker(data);
-                    })
-                    .then()
+            .then(function(response) {
+                if(response.ok) {
+                    return response.json()} 
             })
-        this.uploadPhotos(this.state.files);
-        this.handleClearForm(evt);
+            .then(data => {
+                this.props.addNewMarker(data);
+                eventId = data.event_id;
+                console.log("handleformsubmit", eventId)
+                return eventId
+            })
+            .then(eventId => {this.uploadPhotos(this.state.files, eventId)
+            }) //why does this execute even if failed response
+            // .then(()=>{this.handleClearForm(evt)});
+    }
+
+    uploadPhotos(files, eventId) {
+        let storeEventId = eventId;
+        let data;
+        let fileURLS = new Array();
+        // Push all the axios request promise into a single array
+        const uploaders = files.map(file => {
+          // Initial FormData
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("tags", `codeinfuse, medium, gist`);
+          formData.append("upload_preset", cloudinaryPreset); // Replace the preset name with your own
+          formData.append("api_key", cloudinaryAPI); // Replace API key with your own Cloudinary key
+          formData.append("timestamp", (Date.now() / 1000) | 0);
+
+          // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
+          return axios
+            .post(cloudinaryUploadURL, formData, {
+              headers: { "X-Requested-With": "XMLHttpRequest" }
+            })
+            .then(response => {
+              data = response.data;
+              fileURLS.push(data.secure_url); // You should store this URL for future references in your app
+            });
+        });
+
+        this.setState({
+            files: files.map(file => Object.assign(file, {
+            preview: URL.createObjectURL(file)
+            }))
+        });        
+
+        // Once all the files are uploaded 
+        axios.all(uploaders).then(() => {
+            console.log(fileURLS)
+            console.log("try" , storeEventId)
+
+            
+        });
     }
 
     handleClearForm(evt) {
@@ -178,7 +189,6 @@ class EventFormContainer extends Component {
 
     render() {
         const {files} = this.state;
-  
         const thumbs = files.map(file => (
           <div style={thumb} key={file.name}>
             <div style={thumbInner}>
