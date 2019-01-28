@@ -161,10 +161,19 @@ class EventFormContainer extends Component {
 
         // Once all the files are uploaded 
         axios.all(uploaders).then(() => {
-            console.log(fileURLS)
-            console.log("try" , storeEventId)
-
+            let photoObj = {
+                urls: fileURLS,
+                eventId: storeEventId
+            }
             
+            fetch('http://localhost:5000/api/submit_photos', {
+                method: "POST",
+                body: JSON.stringify(photoObj),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            })
         });
     }
 

@@ -1,6 +1,6 @@
 from flask import (Flask, render_template, redirect, request, jsonify)
 from flask_cors import CORS, cross_origin
-from model import connect_to_db, db, Hazard, Event, Comment
+from model import connect_to_db, db, Hazard, Event, Comment, Photo
 
 app = Flask(__name__)
 app.secret_key = "secretkey"
@@ -39,8 +39,7 @@ def get_event_data():
                 event_start = content['dateTimeStart'],
                 # event_end = '2018-12-31',
                 description = content['eventDescription'],
-                last_edited = '2018-12-31 00:00:00',
-                #datetime python builtin
+                # last_edited = '2018-12-31 00:00:00',
                 last_edited_user = 1,
                 latitude = content['latitude'],
                 longitude = content['longitude']
@@ -106,7 +105,6 @@ def submit_comment(event_id):
     """Submit a new comment to the database"""
 
     content = request.get_json()
-    print(content.keys())
     new_comment = Comment(
                 user_id = 1,
                 event_id = event_id,
@@ -122,11 +120,24 @@ def submit_comment(event_id):
 
     return jsonify(new_comment_obj)
   
-@app.route("/api/image_files", methods=['GET', 'POST'])
-def get_image_files():
-    """When a user uploads a photo, show a preview through this route."""
+@app.route("/api/submit_photos", methods=['POST'])
+def post_photos():
+    """When a user uploads photos, post the URL to the database."""
 
+    content = request.get_json()
+    print(content)
+    photo_urls = content['urls']
 
+    for url in photo_urls:
+        new_photo = Photo(
+            user_id = 1,
+            event_id = content['eventId'],
+            url = url
+        )
+        db.session.add(new_photo)
+    db.session.commit()
+
+    return "Photo successfully added to database!"
 
 if __name__ == "__main__":
     app.debug = True
