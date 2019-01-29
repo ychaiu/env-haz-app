@@ -84,7 +84,7 @@ class Photo(db.Model):
 	def __repr__(self):
 		"""Helpful representation of object when printed."""
 
-		return f"<photo_id : {self.photo_id}, caption: {self.caption}>" 
+		return f"<photo_id : {self.photo_id}, event_id: {self.event_id}>" 
 
 class User(db.Model):
 	"""User information"""

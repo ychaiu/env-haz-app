@@ -139,6 +139,17 @@ def post_photos():
 
     return "Photo successfully added to database!"
 
+@app.route("/api/get_photos/<event_id>", methods=['GET'])
+def get_photos(event_id):
+    """Load photos when an infowindow is clicked."""
+
+    photos = Photo.query.filter(Photo.event_id == event_id).all()
+    print(photos)
+    photo_list =[]
+    for photo in photos:
+        photo_list.append(photo.url)
+    return jsonify(photo_list)
+
 if __name__ == "__main__":
     app.debug = True
     app.jinja_env.auto_reload = app.debug
