@@ -51,18 +51,52 @@ class Map extends Component {
         map: map
       });
 
-      const contentString =
-        `
+      let photoArray = []
+
+      const contentString = `
         <h3>${eventObj.event_title}</h3><br>
+        <div id="carouselSlides" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src=""
+              alt="First slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="https://res.cloudinary.com/ychaiu/image/upload/v1548736896/alkzs5gshjbwhcgpmbno.jpg" 
+              alt="Second slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="https://res.cloudinary.com/ychaiu/image/upload/v1548736896/jlhbautsaifnkd5ogarj.jpg" 
+              alt="Third slide">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselSlides" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselSlides" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
         <b>Last Reported: </b> ${eventObj.datetime_seen}<br><br>
         <b>Description: </b> ${eventObj.description}<br><br>
         <button type="button" id= "button-link">View Comments</a>
         `;
 
       marker.addListener('click', () => {
+        let APIURL = "http://localhost:5000/api/get_photos/";
+        fetch(APIURL + eventObj.event_id)
+          .then(function(response) {
+            if(response.ok) {
+              return response.json()} 
+          })
+          .then(data => {photoArray = data
+          })
+
         let infowindow = new maps.InfoWindow({
           content: contentString,
-          maxWidth: 200
+          maxWidth: 250
         });
         if (prevInfoWindow) {
           prevInfoWindow.close();
@@ -81,10 +115,6 @@ class Map extends Component {
         })
       });
     }
-  }
-
-  loadNewMarker = (data, map, maps) => {
-    
   }
 
   loadComments = (event_id) => {

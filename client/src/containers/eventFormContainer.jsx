@@ -124,8 +124,8 @@ class EventFormContainer extends Component {
                 return eventId
             })
             .then(eventId => {this.uploadPhotos(this.state.files, eventId)
-            }) //why does this execute even if failed response
-            // .then(()=>{this.handleClearForm(evt)});
+            })
+        // and catch to all promises. this is good practice!
     }
 
     uploadPhotos(files, eventId) {
@@ -165,7 +165,7 @@ class EventFormContainer extends Component {
                 urls: fileURLS,
                 eventId: storeEventId
             }
-            
+
             fetch('http://localhost:5000/api/submit_photos', {
                 method: "POST",
                 body: JSON.stringify(photoObj),
