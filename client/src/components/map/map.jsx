@@ -52,41 +52,7 @@ class Map extends Component {
       });
 
       let photoArray = [];
-      
-      // let carouselHTML = "";
-      // for (i = 0; i < photoArray.length; i++) {
-      //   if (i === 0) {
-      //     carouselHTML += 
-      //       `<div class="carousel-item active">
-      //         <img class="d-block w-100" src="${photoArray[i]}">
-      //       </div>`
-      //   }
-      //   else {
-      //     carouselHTML +=
-      //     `<div class="carousel-item">
-      //       <img class="d-block w-100" src="${photoArray[i]}"> 
-      //     </div>`
-      //   }
-      // }
-
-      const contentString = `
-        <h3>${eventObj.event_title}</h3><br>
-        <div id="carouselSlides" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-          </div>
-          <a class="carousel-control-prev" href="#carouselSlides" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselSlides" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-        <b>Last Reported: </b> ${eventObj.datetime_seen}<br><br>
-        <b>Description: </b> ${eventObj.description}<br><br>
-        <button type="button" id= "button-link">View Comments</a>
-        `;
+      let carouselHTML = "";
 
       marker.addListener('click', () => {
         let APIURL = "http://localhost:5000/api/get_photos/";
@@ -96,7 +62,42 @@ class Map extends Component {
               return response.json()} 
           })
           .then(data => {photoArray = data})
+          .then(()=>{      
+            for (i = 0; i < photoArray.length; i++) {
+              if (i === 0) {
+                carouselHTML += 
+                  `<div class="carousel-item active">
+                    <img class="d-block w-100" src="${photoArray[i]}">
+                  </div>`
+              }
+              else {
+                carouselHTML +=
+                `<div class="carousel-item">
+                  <img class="d-block w-100" src="${photoArray[i]}"> 
+                </div>`
+              }
+            }
+          })
           .then(()=>{
+            const contentString = `
+              <h3>${eventObj.event_title}</h3><br>
+              <div id="carouselSlides" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                ${carouselHTML}
+                </div>
+                <a class="carousel-control-prev" href="#carouselSlides" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselSlides" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+              <b>Last Reported: </b> ${eventObj.datetime_seen}<br><br>
+              <b>Description: </b> ${eventObj.description}<br><br>
+              <button type="button" id= "button-link">View Comments</a>
+              `;
             let infowindow = new maps.InfoWindow({
               content: contentString,
               maxWidth: 250
@@ -113,10 +114,8 @@ class Map extends Component {
               btn.on('click', () => {
                 let event_id = eventObj.event_id;
                 this.loadComments(event_id);
-    
               });
             })
-
           })
 
         // let infowindow = new maps.InfoWindow({

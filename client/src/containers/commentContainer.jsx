@@ -71,7 +71,6 @@ class CommentContainer extends Component {
     }
 
     updateCommentUI(data, eventId){
-        console.log(data);
         let APIURL = "http://localhost:5000/api/render_comments/";
     
         fetch(APIURL + eventId)
