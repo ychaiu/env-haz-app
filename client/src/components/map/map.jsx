@@ -51,24 +51,28 @@ class Map extends Component {
         map: map
       });
 
-      let photoArray = []
+      let photoArray = [];
+      
+      // let carouselHTML = "";
+      // for (i = 0; i < photoArray.length; i++) {
+      //   if (i === 0) {
+      //     carouselHTML += 
+      //       `<div class="carousel-item active">
+      //         <img class="d-block w-100" src="${photoArray[i]}">
+      //       </div>`
+      //   }
+      //   else {
+      //     carouselHTML +=
+      //     `<div class="carousel-item">
+      //       <img class="d-block w-100" src="${photoArray[i]}"> 
+      //     </div>`
+      //   }
+      // }
 
       const contentString = `
         <h3>${eventObj.event_title}</h3><br>
         <div id="carouselSlides" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img class="d-block w-100" src=""
-              alt="First slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block w-100" src="https://res.cloudinary.com/ychaiu/image/upload/v1548736896/alkzs5gshjbwhcgpmbno.jpg" 
-              alt="Second slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block w-100" src="https://res.cloudinary.com/ychaiu/image/upload/v1548736896/jlhbautsaifnkd5ogarj.jpg" 
-              alt="Third slide">
-            </div>
           </div>
           <a class="carousel-control-prev" href="#carouselSlides" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -91,28 +95,49 @@ class Map extends Component {
             if(response.ok) {
               return response.json()} 
           })
-          .then(data => {photoArray = data
+          .then(data => {photoArray = data})
+          .then(()=>{
+            let infowindow = new maps.InfoWindow({
+              content: contentString,
+              maxWidth: 250
+            });
+            if (prevInfoWindow) {
+              prevInfoWindow.close();
+            }
+            prevInfoWindow = infowindow;
+            infowindow.open(map, marker);
+            this.props.getActiveEvent(eventObj);
+    
+            maps.event.addListenerOnce(infowindow, 'domready', () => {
+              let btn = $('#button-link');
+              btn.on('click', () => {
+                let event_id = eventObj.event_id;
+                this.loadComments(event_id);
+    
+              });
+            })
+
           })
 
-        let infowindow = new maps.InfoWindow({
-          content: contentString,
-          maxWidth: 250
-        });
-        if (prevInfoWindow) {
-          prevInfoWindow.close();
-        }
-        prevInfoWindow = infowindow;
-        infowindow.open(map, marker);
-        this.props.getActiveEvent(eventObj);
+        // let infowindow = new maps.InfoWindow({
+        //   content: contentString,
+        //   maxWidth: 250
+        // });
+        // if (prevInfoWindow) {
+        //   prevInfoWindow.close();
+        // }
+        // prevInfoWindow = infowindow;
+        // infowindow.open(map, marker);
+        // this.props.getActiveEvent(eventObj);
 
-        maps.event.addListenerOnce(infowindow, 'domready', () => {
-          let btn = $('#button-link');
-          btn.on('click', () => {
-            let event_id = eventObj.event_id;
-            this.loadComments(event_id);
+        // maps.event.addListenerOnce(infowindow, 'domready', () => {
+        //   let btn = $('#button-link');
+        //   btn.on('click', () => {
+        //     let event_id = eventObj.event_id;
+        //     this.loadComments(event_id);
 
-          });
-        })
+        //   });
+        // })
       });
     }
   }
