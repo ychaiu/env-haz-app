@@ -39,7 +39,6 @@ def get_event_data():
                 event_start = content['dateTimeStart'],
                 # event_end = '2018-12-31',
                 description = content['eventDescription'],
-                # last_edited = '2018-12-31 00:00:00',
                 last_edited_user = 1,
                 latitude = content['latitude'],
                 longitude = content['longitude']

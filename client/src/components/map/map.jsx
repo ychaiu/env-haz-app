@@ -83,7 +83,7 @@ class Map extends Component {
               <h3>${eventObj.event_title}</h3><br>
               <div id="carouselSlides" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                ${carouselHTML}
+                  ${carouselHTML}
                 </div>
                 <a class="carousel-control-prev" href="#carouselSlides" role="button" data-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>

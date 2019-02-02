@@ -1,8 +1,7 @@
 """Utility file to seed env-haz-app database from files in seed_data"""
 
 from sqlalchemy import func
-from model import Event, Hazard, User, Comment, connect_to_db, db
-# from datetime import datetime
+from model import Event, Hazard, User, Comment, Photo, connect_to_db, db
 from server import app
 
 def delete_old_data():
@@ -13,6 +12,7 @@ def delete_old_data():
     Event.query.delete()
     User.query.delete()
     Hazard.query.delete()
+    Photo.query.delete()
 
 def load_seed_users():
     """Load users from seed_users.csv"""
@@ -69,7 +69,7 @@ def load_seed_events():
     print("Successfully seeded into the events table!")
 
 def load_seed_comments():
-    """Load sample events from seed_events.csv"""
+    """Load sample events from seed_comments.csv"""
 
     for row in open("seed_data/seed_comments.csv"):
         row = row.rstrip()
@@ -78,9 +78,21 @@ def load_seed_comments():
                                 event_id = event_id,
                                 comment = comment)
         db.session.add(row_comment)
-
     db.session.commit()
     print("Successfully seeded into the comments table!")
+
+def load_seed_photos():
+    """Load sample photo urls from seed_photos.csv"""
+
+    for row in open("seed_data/seed_photos.csv"):
+        row = row.rstrip()
+        user_id, event_id, url = row.split(",")
+        row_photo = Photo(user_id = user_id,
+                            event_id = event_id,
+                            url = url)
+        db.session.add(row_photo)
+    db.session.commit()
+    print("Successfuly seeded into the photos table!")
 
 if __name__ == '__main__':
     connect_to_db(app)
@@ -89,3 +101,4 @@ if __name__ == '__main__':
     load_seed_hazard_types()
     load_seed_events()
     load_seed_comments()
+    load_seed_photos()
