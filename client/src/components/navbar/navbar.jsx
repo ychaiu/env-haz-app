@@ -10,7 +10,10 @@ class NavBar extends Component {
         return (
                 <div>
                     <div className="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <a className="navbar-brand mb-0 h1" href="/">HAZMAP</a>
+                        <a className="navbar-brand" href="/about">
+                        <img src="https://res.cloudinary.com/ychaiu/image/upload/v1546575684/logo/logo_white.png" className="d-inline-block align-top" width="30" height="30"></img>
+                        &nbsp;&nbsp; HAZMAP 
+                        </a>
                         <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                              <li className="nav-item active">
                                 <Link to="/about" className="nav-link">About</Link>

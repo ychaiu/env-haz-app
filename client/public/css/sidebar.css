@@ -9,28 +9,70 @@
     top: 55px;
     bottom: 0px;
     z-index: 999;
-    background: #4e5760;
     overflow-y: auto;
     padding: 20px;
+    background: rgba(133, 187, 212, 0.7);
+
+}
+
+.sidebar-header-box {
+    background: rgba(255, 255, 255, 0.1);
+    height: 180px;
+    width: 275px;
+    margin: -20px;
+    position: relative;
+}
+
+#event-sidebar-image {
+    background-image: url("https://res.cloudinary.com/ychaiu/image/upload/v1549140763/sidebar_images/2019-02-02.jpg");
+}
+
+#about-sidebar-image {
+    background-image: url("https://res.cloudinary.com/ychaiu/image/upload/v1549150823/sidebar_images/patrick-hendry-532214-unsplash.jpg");
+    background-size: 250px 203px;
+    background-size: cover;
 }
 
 .sidebar-header {
     color: #fff;
-    margin-bottom: 20px;
+    position: absolute;
+    left:20px;
+    bottom: 0;
 }
 
 .form-label {
     color: #fff;
+    font-size: 1em;
+    font-family: 'Bitter', serif;
+
+}
+
+#dropzone-text {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9em;
+    color: rgba(255,255,255,0.7);
+
+}
+
+.form-group {
+    font-family: 'Nunito', sans-serif;
+    margin-bottom: 1.5rem;
+    margin-top: 20px;
 }
 
 .form-summary-text {
     color: #fff;
+    font-family: 'Nunito', sans-serif;
+    padding-top: 35px;
 }
 
 .about-content {
+    font-family: 'Nunito', sans-serif;
     color: #fff;
+    margin-top: 35px;
 }
 
 .comment-content {
+    font-family: 'Nunito', sans-serif;
     color: #000000;
 }

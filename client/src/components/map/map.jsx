@@ -18,8 +18,8 @@ const customStyle = mapStyle.styleArray;
 class Map extends Component {
   static defaultProps = {
     center: {
-      lat: 37.76115,
-      lng: -122.452
+      lat: 37.763430,  
+      lng: -122.415302,
     },
     zoom: 12
   };
@@ -62,7 +62,8 @@ class Map extends Component {
               return response.json()} 
           })
           .then(data => {photoArray = data})
-          .then(()=>{      
+          .then(()=>{
+            carouselHTML = ""      
             for (i = 0; i < photoArray.length; i++) {
               if (i === 0) {
                 carouselHTML += 
@@ -117,26 +118,6 @@ class Map extends Component {
               });
             })
           })
-
-        // let infowindow = new maps.InfoWindow({
-        //   content: contentString,
-        //   maxWidth: 250
-        // });
-        // if (prevInfoWindow) {
-        //   prevInfoWindow.close();
-        // }
-        // prevInfoWindow = infowindow;
-        // infowindow.open(map, marker);
-        // this.props.getActiveEvent(eventObj);
-
-        // maps.event.addListenerOnce(infowindow, 'domready', () => {
-        //   let btn = $('#button-link');
-        //   btn.on('click', () => {
-        //     let event_id = eventObj.event_id;
-        //     this.loadComments(event_id);
-
-        //   });
-        // })
       });
     }
   }
@@ -223,7 +204,6 @@ class Map extends Component {
             <LoadingSpinner />
           )}
       </div>
-
     );
   }
 }

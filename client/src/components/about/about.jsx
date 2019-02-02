@@ -4,9 +4,11 @@ class About extends Component {
   render() {
     return (
         <div id="sidebar">
-            <div className="sidebar-header">
-                <h3>About This Tool</h3>
-            </div> 
+            <div className ="sidebar-header-box" id="about-sidebar-image">
+                <div className="sidebar-header">
+                    <h3>About This Tool</h3>
+                </div> 
+            </div>
             <div className="about-content">
                 <p>Contribute to your community by reporting environmental hazards in your neighborhood.</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 

@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import config from '../config/config';
-import classNames from 'classnames';
+import LoadingSpinner from '../components/map/loadingSpinner';
 
 class EventFormContainer extends Component {
     constructor(props) { 
@@ -25,7 +25,7 @@ class EventFormContainer extends Component {
             hazardOptions: ["Air", "Water", "Noise", "Pest",
                 "Chemical exposure", "Hazardous waste", "Food safety"],
             files: [],
-            formErrors: '',
+            loading: false,
         }
 
         this.handleEventTitle = this.handleEventTitle.bind(this);
@@ -104,15 +104,16 @@ class EventFormContainer extends Component {
 
         formData['latitude'] = this.props.newMarker.lat
         formData['longitude'] = this.props.newMarker.lng
-
-        fetch('http://localhost:5000/api/submit_event_data', {
-            method: "POST",
-            body: JSON.stringify(formData),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-        })
+        
+        this.setState({ loading: true }, () => { 
+            fetch('http://localhost:5000/api/submit_event_data', {
+                method: "POST",
+                body: JSON.stringify(formData),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            })
             .then(function(response) {
                 if(response.ok) {
                     return response.json()} 
@@ -125,7 +126,10 @@ class EventFormContainer extends Component {
             })
             .then(eventId => {this.uploadPhotos(this.state.files, eventId)
             })
-        // and catch to all promises. this is good practice!
+            .then(()=> this.handleClearForm(evt))
+            .then(() => this.setState ({ loading: false }))
+            // and catch to all promises. this is good practice!
+        })
     }
 
     uploadPhotos(files, eventId) {
@@ -211,11 +215,13 @@ class EventFormContainer extends Component {
 
         return (
             <div id="sidebar">
-                <div className="sidebar-header">
-                    <h3>Report an Event</h3>
+                <div className ="sidebar-header-box" id="event-sidebar-image">
+                    <div className="sidebar-header">
+                        <h3>Report an Event</h3>
+                    </div>
                 </div>
                 <div className ="form-summary-text">
-                    <p>Click on your area of interest to place a marker. Fill in the form below to submit details about the hazard.</p>
+                    <div>Click on your area of interest to place a marker. Fill in the form below to submit details about the hazard.</div>
                 </div>
                 <div className="container">
                     <form onSubmit={this.handleFormSubmit}>
@@ -255,7 +261,8 @@ class EventFormContainer extends Component {
                                 {({getRootProps, getInputProps}) => (
                                 <div {...getRootProps()}>
                                     <input {...getInputProps()} />
-                                    <p>Drop files here</p>
+                                    <label className="form-label">Upload Photos</label>
+                                        <div id="dropzone-text">Drop files here</div>
                                 </div>
                                 )}
                             </Dropzone>
@@ -291,6 +298,7 @@ class EventFormContainer extends Component {
         );
     }
 }
+
 
 const cloudinaryAPI = config.cloudinaryAPI;
 
