@@ -10,6 +10,8 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import config from '../config/config';
 import LoadingSpinner from '../components/map/loadingSpinner';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 class EventFormContainer extends Component {
     constructor(props) { 
@@ -262,7 +264,11 @@ class EventFormContainer extends Component {
                                 <div {...getRootProps()}>
                                     <input {...getInputProps()} />
                                     <label className="form-label">Upload Photos</label>
-                                        <div id="dropzone-text">Drop files here</div>
+                                    <div id="dropzone-text">
+                                    Drop files here &nbsp;
+                                        <FontAwesomeIcon icon= "upload" size="sm" color= '#ffffffb3'/>
+                                    </div>
+
                                 </div>
                                 )}
                             </Dropzone>
