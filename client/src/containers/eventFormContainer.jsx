@@ -283,14 +283,13 @@ class EventFormContainer extends Component {
                             action={this.handleClearForm}
                             type={"secondary"}
                             title={"Clear Form"}
-                            style={buttonStyle}
+                            style={buttonClearStyle}
                         />
                         <Button
                             action={this.handleFormSubmit}
                             type={"primary"}
                             title={"Submit"}
-                            style= {buttonStyle}
-                            disabled= {!this.state.newEvent.formValid}
+                            style= {buttonSubmitStyle}
                         />
                     </form>
                 </div>
@@ -306,8 +305,19 @@ const cloudinaryPreset = config.cloudinaryPreset;
 
 const cloudinaryUploadURL = config.cloudinaryUploadURL;
 
-const buttonStyle = {
-    margin: "10px 10px 10px 10px"
+const buttonSubmitStyle = {
+    marginTop: "10px",
+    position: "absolute",
+    right: "20px",
+    backgroundColor: "#e2aa00"
+
+};
+
+const buttonClearStyle = {
+    margin: "10px 10px 10px 10px",
+    marginLeft: "0px",
+    left: 0,
+    backgroundColor: "#343a40"
 };
 
 const thumbsContainer = {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 import EventFormContainer from '../../containers/eventFormContainer.jsx';
 import About from '../about/about.jsx';
 import CommentContainer from '../../containers/commentContainer';
@@ -16,13 +17,13 @@ class NavBar extends Component {
                         </a>
                         <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                              <li className="nav-item active">
-                                <Link to="/about" className="nav-link">About</Link>
+                                <NavLink to="/about" className="nav-link" activeStyle={{fontWeight: "bold", color: "#e2aa00", textDecoration: "underline"}}>About</NavLink>
                             </li>
                             <li className="nav-item active">
-                                <Link to="/report-event" className="nav-link">Report</Link>
+                                <NavLink to="/report-event" className="nav-link" activeStyle={{fontWeight: "bold", color: "#e2aa00", textDecoration: "underline"}}>Report</NavLink>
                             </li>
                             <li className="nav-item active">
-                                <Link to="/report-event" className="nav-link">Take Action</Link>
+                                <NavLink to="/dashboard" className="nav-link" activeStyle={{fontWeight: "bold", color: "#e2aa00", textDecoration: "underline"}}>Take Action</NavLink>
                             </li>
 
                         </ul>
