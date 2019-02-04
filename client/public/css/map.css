@@ -5,8 +5,39 @@
     font-size: 5em;
 }
 
-.dropzone {
-    width : 100%;
-    height : 20%;
-    border : 1px solid black;
-  }
+#infowindow-container {
+    font-family: 'Nunito', sans-serif;
+}
+
+.infowindow-title {
+    font-family: 'Bitter', serif;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.infowindow-category {
+    font-family: 'Bitter', serif;
+    font-weight: bold;
+}
+
+.gm-style-iw {
+    background-color: rgba(255, 255, 255) ;
+    color: #343a40;
+    padding: 10px;
+    border-radius: 10px 10px 10px 10px;
+    top: 0 !important;
+    box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+}
+
+.view-comment {
+    background-color: #e2aa00;
+    border-width: 0;
+    padding: 8px;
+    font-size: 10px;
+    font-family: 'Bitter', serif;
+}
+
+.btn-primary:hover {
+    background-color: #a77d02;
+    border-color: #a77d02;
+}

@@ -4,6 +4,7 @@ import config from '../../config/config';
 import mapStyle from './mapStyle';
 import { withRouter } from 'react-router';
 import LoadingSpinner from './loadingSpinner';
+import SearchBox from './searchBox';
 import { refreshMarker } from '../../redux/actions/refreshMarker';
 import { renderComments } from '../../redux/actions/renderComments';
 import { commentState } from '../../redux/actions/commentState';
@@ -81,7 +82,11 @@ class Map extends Component {
           })
           .then(()=>{
             const contentString = `
-              <h3>${eventObj.event_title}</h3><br>
+            <br>
+            <div id="infowindow-container">
+              <div class="infowindow-title">${eventObj.event_title}
+              </div>
+              <br>
               <div id="carouselSlides" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                   ${carouselHTML}
@@ -95,22 +100,40 @@ class Map extends Component {
                   <span class="sr-only">Next</span>
                 </a>
               </div>
-              <b>Last Reported: </b> ${eventObj.datetime_seen}<br><br>
-              <b>Description: </b> ${eventObj.description}<br><br>
-              <button type="button" id= "button-link">View Comments</a>
+              <br>
+              <b class="infowindow-category">Last Reported: </b> ${eventObj.datetime_seen}<br><br>
+              <b class="infowindow-category">Description: </b> ${eventObj.description}<br><br>
+              <button type="button" id= "button-link" class="btn btn-primary view-comment">View Comments</a>
+            </div>
               `;
             let infowindow = new maps.InfoWindow({
               content: contentString,
-              maxWidth: 250
+              maxWidth: 300
             });
             if (prevInfoWindow) {
               prevInfoWindow.close();
             }
             prevInfoWindow = infowindow;
             infowindow.open(map, marker);
+
             this.props.getActiveEvent(eventObj);
     
-            maps.event.addListenerOnce(infowindow, 'domready', () => {
+            maps.event.addListener(infowindow, 'domready', () => {
+              var iwOuter = $('.gm-style-iw');
+
+              /* The DIV we want to change is above the .gm-style-iw DIV.
+               * So, we use jQuery and create a iwBackground variable,
+               * and took advantage of the existing reference to .gm-style-iw for the previous DIV with .prev().
+               */
+              var iwBackground = iwOuter.prev();
+           
+              // Remove the background shadow DIV
+              iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+           
+              // Remove the white background DIV
+              iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+              $("button[title='Close']").css('top', "0px");
+              $("button[title='Close']").css('right', "10px");
               let btn = $('#button-link');
               btn.on('click', () => {
                 let event_id = eventObj.event_id;
@@ -194,8 +217,8 @@ class Map extends Component {
               defaultZoom={this.props.zoom}
               options={{ styles: customStyle }}
               onGoogleApiLoaded={({ map, maps }) =>
-                this.handleApiLoaded(map, maps)
-              }
+                {this.handleApiLoaded(map, maps)
+              }}
               yesIWantToUseGoogleMapApiInternals={true}
             >
             </GoogleMapReact>

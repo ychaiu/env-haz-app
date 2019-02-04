@@ -284,18 +284,20 @@ class EventFormContainer extends Component {
                             value={this.state.newEvent.eventDescription}
                             handleChange={this.handleEventDescription}
                             placeholder={"Describe the event"}
+                            className = {"form-control"}
+                            classNameTitle= {"form-label"}
                         />
                         <Button
                             action={this.handleClearForm}
                             type={"secondary"}
                             title={"Clear Form"}
-                            style={buttonClearStyle}
+                            className = {"btn btn-secondary form-clear-button"}
                         />
                         <Button
                             action={this.handleFormSubmit}
                             type={"primary"}
                             title={"Submit"}
-                            style= {buttonSubmitStyle}
+                            className = {"btn btn-primary form-submit-button"}
                         />
                     </form>
                 </div>
@@ -310,21 +312,6 @@ const cloudinaryAPI = config.cloudinaryAPI;
 const cloudinaryPreset = config.cloudinaryPreset;
 
 const cloudinaryUploadURL = config.cloudinaryUploadURL;
-
-const buttonSubmitStyle = {
-    marginTop: "10px",
-    position: "absolute",
-    right: "20px",
-    backgroundColor: "#e2aa00"
-
-};
-
-const buttonClearStyle = {
-    margin: "10px 10px 10px 10px",
-    marginLeft: "0px",
-    left: 0,
-    backgroundColor: "#343a40"
-};
 
 const thumbsContainer = {
     display: 'flex',

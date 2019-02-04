@@ -16,7 +16,6 @@
 }
 
 .sidebar-header-box {
-    background: rgba(255, 255, 255, 0.1);
     height: 180px;
     width: 275px;
     margin: -20px;
@@ -50,7 +49,7 @@
 #dropzone-text {
     font-family: 'Nunito', sans-serif;
     font-size: 0.9em;
-    color: rgba(255, 255, 255, 0.199) 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.8);
 
 }
 
@@ -86,3 +85,22 @@
     font-family: 'Nunito', sans-serif;
     color: #000000;
 }
+
+.btn-primary:hover {
+    background-color: #a77d02;
+    border-color: #a77d02;
+}
+
+.form-submit-button {
+    position: absolute;
+    right: 20px;
+    background-color: #e2aa00;
+    border-width: 0;
+};
+
+.form-clear-buttom  {
+    margin-left: 0px;
+    left: 0;
+    background-color: #343a40;
+    
+};

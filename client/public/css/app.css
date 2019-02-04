@@ -1,3 +1,9 @@
 .app {
   font-family: "Bitter", serif;
 }
+
+.btn {
+  font-family: "Bitter", serif;
+}
+
+#button:focus {outline:0;}

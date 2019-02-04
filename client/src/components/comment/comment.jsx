@@ -3,10 +3,9 @@ import React from 'react';
 const Comment = (props) => {
     return (
         <div className="comment-content">
-            <div>{props.text}</div>
-            <div className = "comment-user-date">
-                {props.firstName} {props.lastName}  
-                    <span>{props.submitted}</span>
+            <div className = "comment-text">{props.text}</div>
+            <div className = "comment-user">
+                {props.firstName} {props.lastName}, {props.submitted}
                 <br />
                 <br />
             </div>

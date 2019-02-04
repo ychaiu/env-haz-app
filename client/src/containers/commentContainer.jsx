@@ -35,16 +35,15 @@ class CommentContainer extends Component {
     handleCommentInput (evt) {
         let value = evt.target.value;
         let name = evt.target.name;
-        this.setState(prevState => ({
+        this.setState({
             newComment:
             {
-                // ...prevState.newComment, 
                 comment_text: value,
                 comment_user_fn: '',
                 comment_user_ln: '',
                 comment_submitted: '',
             }
-        }), );
+        }, );
     }
 
     handleFormSubmit(evt) {
@@ -96,7 +95,7 @@ class CommentContainer extends Component {
                 <div>
                     <Button color="danger" onClick={this.toggleOff}>{this.props.buttonLabel}</Button>
                     <Modal isOpen={this.props.isCommentOpen} toggle={this.toggleOff} className={this.props.className}>
-                        <ModalHeader toggle={this.toggleOff}>Comments</ModalHeader>
+                        <ModalHeader className = "modal-title" toggle={this.toggleOff}>Comments</ModalHeader>
                         <ModalBody>
                             <div>
                                 {this.props.comments.map((comment, i) => <Comment 
@@ -111,20 +110,22 @@ class CommentContainer extends Component {
                                     <TextArea
                                         title={'Submit a Comment'}
                                         name={'comment_text'}
-                                        rows={10}
+                                        rows={5}
                                         value={this.state.newComment.comment_text}
                                         handleChange={this.handleCommentInput}
-                                        placeholder={"Enter a Comment"}
+                                        placeholder={"Please limit to 250 characters or less."}
+                                        classNameTitle = {"comment-text-title"}
+                                        className = {"form-control"}
                                     />
                                 </form>
                             </div>
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.handleFormSubmit}>Submit</Button>{' '}
                             <Button color="secondary" onClick= {(event) =>{
                                                         {this.toggleOff()};
                                                         {this.handleClearForm(event)};
                                                     }}>Cancel</Button>
+                            <Button className = "comment-submit" color="primary" onClick={this.handleFormSubmit}>Submit</Button>{' '}
                         </ModalFooter>
                     </Modal>
                 </div>

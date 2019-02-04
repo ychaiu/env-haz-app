@@ -1,0 +1,39 @@
+.comment-user {
+    font-family: 'Bitter', serif;
+    font-size: 11px;
+    color: gray;
+    border-bottom: 1px dotted;
+    border-color: gray;
+    height: 20px;
+    margin-bottom: 20px;
+}
+
+.comment-text {
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+}
+
+.comment-text-title {
+    color: black;
+    font-family: 'Bitter', serif;
+}
+
+.modal-title {
+    font-family: 'Bitter', serif;
+    background-color: rgb(43, 102, 112);
+    color: white;
+}
+
+.modal-content {
+    border-radius: 8px;
+}
+
+.close{
+    color: white;
+    opacity: 1;
+}
+
+.comment-submit {
+    background-color: #e2aa00;
+    border-width: 0;
+}
