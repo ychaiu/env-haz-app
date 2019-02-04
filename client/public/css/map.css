@@ -9,6 +9,10 @@
     font-family: 'Nunito', sans-serif;
 }
 
+.haztype-flag {
+    color: rgb(75, 75, 75);
+}
+
 .infowindow-title {
     font-family: 'Bitter', serif;
     font-size: 1.5em;
@@ -41,3 +45,4 @@
     background-color: #a77d02;
     border-color: #a77d02;
 }
+

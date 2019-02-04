@@ -3,11 +3,10 @@ import Map from './components/map/map.jsx';
 import NavBar from './components/navbar/navbar.jsx';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { faUpload} from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faUpload, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-library.add(fab, faSpinner, faUpload)
+library.add(fab, faSpinner, faUpload, faExclamationTriangle)
 
 class App extends Component {
     constructor(props) {

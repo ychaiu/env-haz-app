@@ -4,13 +4,13 @@ import config from '../../config/config';
 import mapStyle from './mapStyle';
 import { withRouter } from 'react-router';
 import LoadingSpinner from './loadingSpinner';
-import SearchBox from './searchBox';
 import { refreshMarker } from '../../redux/actions/refreshMarker';
 import { renderComments } from '../../redux/actions/renderComments';
 import { commentState } from '../../redux/actions/commentState';
 import { getActiveEvent } from '../../redux/actions/getActiveEvent';
 import { connect } from 'react-redux';
 import icons from './mapIcons';
+import hazardTypes from './mapHazards';
 import $ from 'jquery';
 
 const key = config.mapKey;
@@ -54,6 +54,7 @@ class Map extends Component {
 
       let photoArray = [];
       let carouselHTML = "";
+      let hazType = hazardTypes[`${eventObj.haz_id}`];
 
       marker.addListener('click', () => {
         let APIURL = "http://localhost:5000/api/get_photos/";
@@ -84,6 +85,10 @@ class Map extends Component {
             const contentString = `
             <br>
             <div id="infowindow-container">
+              <div class="haztype-flag">
+                <i class="fas fa-exclamation-triangle" style="color:#e2aa00"></i>
+                ${hazType}
+              </div>
               <div class="infowindow-title">${eventObj.event_title}
               </div>
               <br>
