@@ -25,7 +25,7 @@ class EventFormContainer extends Component {
                 eventDescription: '',
             },
             hazardOptions: ["Air", "Water", "Noise", "Pest",
-                "Chemical exposure", "Hazardous waste", "Food safety"],
+                "Chemical Exposure", "Hazardous Waste", "Food Safety"],
             files: [],
             loading: false,
         }
@@ -103,6 +103,7 @@ class EventFormContainer extends Component {
         evt.preventDefault();
         let formData = this.state.newEvent;
         let eventId;
+        console.log(formData);
 
         formData['latitude'] = this.props.newMarker.lat
         formData['longitude'] = this.props.newMarker.lng

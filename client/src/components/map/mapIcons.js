@@ -1,18 +1,32 @@
 const icons = {
-    "1":
-      "https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-orange.png",
-    "2":
-      "https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-blue.png",
-    "3":
-      "https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-purple.png",
-    "4":
-      "https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322119/map-marker-dark-green.png",
-    "5":
-      "https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-yellow.png",
-    "6":
-      "https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-red.png",
-    "7":
-      "https://res.cloudinary.com/ychaiu/image/upload/c_scale,h_30,w_30/v1546322118/map-marker-light-green.png"
-  };
+  "1": {
+    "haz_type": "Air",
+    "url": "https://res.cloudinary.com/ychaiu/image/upload/v1549345431/markers/hazard-sign.png"
+  },
+  "2": {
+    "haz_type": "Water",
+    "url": "https://res.cloudinary.com/ychaiu/image/upload/v1549294956/markers/circular-shape-silhouette_1.png"
+  },
+  "3": {
+    "haz_type": "Noise",
+    "url": "https://res.cloudinary.com/ychaiu/image/upload/v1549294956/markers/circular-shape-silhouette_3.png"
+  },
+  "4": {
+    "haz_type": "Pest",
+    "url": "https://res.cloudinary.com/ychaiu/image/upload/v1549294956/markers/circular-shape-silhouette_6.png"
+  },
+  "5": {
+    "haz_type": "Chemical Exposure",
+    "url": "https://res.cloudinary.com/ychaiu/image/upload/v1549295004/markers/circular-shape-silhouette_7.png"
+  },
+  "6": {
+    "haz_type": "Hazardous Waste",
+    "url": "https://res.cloudinary.com/ychaiu/image/upload/v1549274388/markers/circular-shape-silhouette.png"
+  },
+  "7": {
+    "haz_type": "Food Safety",
+    "url": "https://res.cloudinary.com/ychaiu/image/upload/v1549294956/markers/circular-shape-silhouette_4.png"
+  }
+};
 
 export default icons;

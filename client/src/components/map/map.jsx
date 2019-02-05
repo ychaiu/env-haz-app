@@ -9,8 +9,8 @@ import { renderComments } from '../../redux/actions/renderComments';
 import { commentState } from '../../redux/actions/commentState';
 import { getActiveEvent } from '../../redux/actions/getActiveEvent';
 import { connect } from 'react-redux';
-import icons from './mapIcons';
-import hazardTypes from './mapHazards';
+// import icons from './mapIcons';
+import hazTypes from './mapHazards';
 import $ from 'jquery';
 
 const key = config.mapKey;
@@ -48,13 +48,13 @@ class Map extends Component {
       let eventObj = data[i];
       let marker = new maps.Marker({
         position: new maps.LatLng(eventObj.latitude, eventObj.longitude),
-        icon: icons[`${eventObj.haz_id}`],
+        icon: hazTypes[`${eventObj.haz_id}`]["url"],
         map: map
       });
 
       let photoArray = [];
       let carouselHTML = "";
-      let hazType = hazardTypes[`${eventObj.haz_id}`];
+      let hazType = hazTypes[`${eventObj.haz_id}`]["haz_type"];
 
       marker.addListener('click', () => {
         let APIURL = "http://localhost:5000/api/get_photos/";
@@ -169,6 +169,17 @@ class Map extends Component {
     this.map = map;
     this.maps = maps;
     this.loadMarkers(data, map, maps);
+
+    let legend = document.getElementById('legend');
+    for (let key in hazTypes) {
+      console.log(key);
+      var icon = hazTypes[key]["url"];
+      let div = document.createElement('div');
+      div.innerHTML = '<img src="' + icon + '"> ';
+      legend.appendChild(div);
+    }
+    
+    map.controls[maps.ControlPosition.RIGHT_BOTTOM].push(legend);
     
     let newMarker;
     const placeMarkerAndPanTo = latLng => {
@@ -227,6 +238,7 @@ class Map extends Component {
               yesIWantToUseGoogleMapApiInternals={true}
             >
             </GoogleMapReact>
+            <div id="legend">Legend</div>
           </div>
         ) : (
             <LoadingSpinner />

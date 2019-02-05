@@ -1,38 +1,23 @@
 from flask import (Flask, render_template, redirect, request, jsonify)
 from flask_cors import CORS, cross_origin
 from model import connect_to_db, db, Hazard, Event, Comment, Photo
+import random
 
 app = Flask(__name__)
 app.secret_key = "secretkey"
 CORS(app)
-
-
-# @app.route("/")
-# def homepage():
-#     """Render the homepage"""
-
-#     return render_template("index.html")
-
-@app.route("/api/hazardSelection.json")
-def haz_selections():
-    """Return json of hazard types"""
-
-    haz_selections = Hazard.query.all()
-    hazlist = []
-    for haz in haz_selections:
-        hazlist.append(haz.haz_type)
-
-    return jsonify({'haz_type': hazlist})
 
 @app.route("/api/submit_event_data", methods=['POST'])
 def get_event_data():
     """Get event form data and post to database."""
 
     content = request.get_json()
-    print(content)
+    haz = Hazard.query.filter(Hazard.haz_type == content['selectedHaz']).one()
+    haz_id = haz.haz_id
+
     new_event = Event(
                 user_id = 1,
-                haz_id = 1,
+                haz_id = haz_id,
                 event_title = content['eventTitle'],
                 active = True,
                 datetime_seen = content['dateTimeSeen'],
