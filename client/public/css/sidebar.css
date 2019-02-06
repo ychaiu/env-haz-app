@@ -138,3 +138,9 @@
 #about-source {
     font-size: 12px;
 }
+
+.alert {
+    z-index:999;
+    margin-left: 270px;
+    font-family: 'Nunito', sans-serif;
+}

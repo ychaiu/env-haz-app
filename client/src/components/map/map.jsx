@@ -85,8 +85,8 @@ class Map extends Component {
             <br>
             <div id="infowindow-container">
               <div class="haztype-flag">
-                <i class="fas fa-exclamation-triangle" style="color:#e2aa00"></i>
-                ${hazType}
+                <img src ="${hazTypes[`${eventObj.haz_id}`]["url"]}" />
+                &nbsp;${hazType}
               </div>
               <div class="infowindow-title">${eventObj.event_title}
               </div>

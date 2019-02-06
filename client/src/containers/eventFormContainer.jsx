@@ -10,7 +10,8 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import config from '../config/config';
 import LoadingSpinner from '../components/map/loadingSpinner';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Alert } from 'reactstrap';
 
 
 class EventFormContainer extends Component {
@@ -28,6 +29,7 @@ class EventFormContainer extends Component {
                 "Chemical Exposure", "Hazardous Waste", "Food Safety"],
             files: [],
             loading: false,
+            alertVisible: false
         }
 
         this.handleEventTitle = this.handleEventTitle.bind(this);
@@ -37,6 +39,7 @@ class EventFormContainer extends Component {
         this.handleEventDescription = this.handleEventDescription.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleClearForm = this.handleClearForm.bind(this);
+        this.onDismiss = this.onDismiss.bind(this);
     }
 
     handleEventTitle(evt) {
@@ -130,7 +133,7 @@ class EventFormContainer extends Component {
             .then(eventId => {this.uploadPhotos(this.state.files, eventId)
             })
             .then(()=> this.handleClearForm(evt))
-            .then(() => this.setState ({ loading: false }))
+            .then(() => this.setState ({ alertVisible: true }))
             // and catch to all promises. this is good practice!
         })
     }
@@ -197,6 +200,10 @@ class EventFormContainer extends Component {
             files: [],
         });
     }
+
+    onDismiss() {
+        this.setState({alertVisible: false})
+    }
       
     componentWillUnmount() {
         // Make sure to revoke the data uris to avoid memory leaks
@@ -204,6 +211,7 @@ class EventFormContainer extends Component {
       }
 
     render() {
+        console.log(this.state);
         const {files} = this.state;
         const thumbs = files.map(file => (
           <div style={thumb} key={file.name}>
@@ -217,6 +225,10 @@ class EventFormContainer extends Component {
         ));
 
         return (
+            <div>
+                <Alert className = "warning" color="success" isOpen={this.state.alertVisible} toggle={this.onDismiss}>
+                Thank you for submitting your report!
+                </Alert>
             <div id="sidebar">
                 <div className ="sidebar-header-box" id="event-sidebar-image">
                     <div className="sidebar-header">
@@ -303,6 +315,7 @@ class EventFormContainer extends Component {
                     </form>
                 </div>
             </div>
+        </div>
         );
     }
 }
