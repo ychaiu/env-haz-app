@@ -9,7 +9,6 @@ import { renderComments } from '../../redux/actions/renderComments';
 import { commentState } from '../../redux/actions/commentState';
 import { getActiveEvent } from '../../redux/actions/getActiveEvent';
 import { connect } from 'react-redux';
-// import icons from './mapIcons';
 import hazTypes from './mapHazards';
 import $ from 'jquery';
 
@@ -172,13 +171,13 @@ class Map extends Component {
 
     let legend = document.getElementById('legend');
     for (let key in hazTypes) {
-      console.log(key);
-      var icon = hazTypes[key]["url"];
+      let icon = hazTypes[key]["url"];
+      let name = hazTypes[key]["haz_type"]
       let div = document.createElement('div');
-      div.innerHTML = '<img src="' + icon + '"> ';
+      div.innerHTML = '<img id="legend-item" src="' + icon + '"> ' + name ;
       legend.appendChild(div);
     }
-    
+  
     map.controls[maps.ControlPosition.RIGHT_BOTTOM].push(legend);
     
     let newMarker;
@@ -238,7 +237,7 @@ class Map extends Component {
               yesIWantToUseGoogleMapApiInternals={true}
             >
             </GoogleMapReact>
-            <div id="legend">Legend</div>
+            <div id="legend"></div>
           </div>
         ) : (
             <LoadingSpinner />

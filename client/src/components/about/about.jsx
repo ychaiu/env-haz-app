@@ -1,7 +1,30 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 class About extends Component {
+    constructor(props) { 
+        super(props);
+        this.state = {
+            counts: '',
+        }
+    }
+
+    // const userCount = this.state.counts.user_counts;
+    // const eventCount = this.state.counts.event_counts;
+
+    componentDidMount() {
+        fetch('http://localhost:5000/api/get_event_count')
+            .then(function(response) {
+                if(response.ok) {
+                return response.json()} 
+            })
+            .then(data => {this.setState({counts:data})}
+            )    
+    }
+
   render() {
+    console.log(this.state);
     return (
         <div id="sidebar">
             <div className ="sidebar-header-box" id="about-sidebar-image">
@@ -9,13 +32,17 @@ class About extends Component {
                     <h3>About This Tool</h3>
                 </div> 
             </div>
+            {}
             <div className="about-content">
-                <p>Contribute to your community by reporting environmental hazards in your neighborhood.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
-                sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <div id="about-stats">
+                    <i class="fas fa-exclamation-triangle fa-3x"></i>
+                    <div id="about-stats-users">{this.state.counts.users_count} Active Users</div>
+                    <div id="about-stats-events">{this.state.counts.events_count} Reported Events</div>
+                </div>
+                <p id="about-description"><b>HAZMAP</b> is a community-driven effort to bring awareness to environmental issues in our neighborhoods. This does not replace
+                    the need to alert governing agencies about these hazards, but this map provides residents with
+                    additional information to protect themselves and their loved ones.</p>
+                <p id="about-source">HAZMAP was created by Yessenia Chaiu Zhang for the Hackbright Academy Final Project. Last updated February 2019.</p>
             </div>
         </div>
     );

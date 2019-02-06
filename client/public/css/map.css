@@ -27,7 +27,7 @@
 
 .gm-style-iw {
     background-color: rgba(255, 255, 255) ;
-    color: #343a40;
+    color: #3c4034;
     padding: 10px;
     border-radius: 10px 10px 10px 10px;
     top: 0 !important;
@@ -49,10 +49,14 @@
 
 
 #legend {
-    font-family: 'Nunito', sans-serif;
-    background: rgb(28, 63, 63);
+    font-family: 'Nunito', serif;
+    background: rgba(52, 58, 64, 0.7);
     padding: 10px;
     margin: 10px;
     border-radius: 8px 8px 8px 8px;
+    color: white;
+}
 
+#legend-item {
+    margin: 3px;
 }

@@ -105,3 +105,36 @@
     
 };
 
+.fa-exclamation-triangle {
+    float: left;
+}
+
+.fas {
+    color: #e2aa00;
+    float: left;
+}
+
+#about-stats-users {
+    text-align: left;
+    margin-left: 70px;
+    font-weight: bold;
+}
+
+#about-stats-events {
+    text-align: left;
+    margin-left: 70px;
+    font-weight: bold;
+}
+
+#about-stats {
+    font-family: 'Bitter', serif;
+    margin-bottom: 20px;
+}
+
+#about-description {
+    font-size: 16px;
+}
+
+#about-source {
+    font-size: 12px;
+}

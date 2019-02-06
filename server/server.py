@@ -1,6 +1,6 @@
 from flask import (Flask, render_template, redirect, request, jsonify)
 from flask_cors import CORS, cross_origin
-from model import connect_to_db, db, Hazard, Event, Comment, Photo
+from model import connect_to_db, db, Hazard, Event, Comment, Photo, User
 import random
 
 app = Flask(__name__)
@@ -133,6 +133,15 @@ def get_photos(event_id):
     for photo in photos:
         photo_list.append(photo.url)
     return jsonify(photo_list)
+
+@app.route("/api/get_event_count", methods=['GET'])
+def get_event_count():
+    """Get count of events in database."""
+
+    events_count = db.session.query(Event).count()
+    users_count = db.session.query(User).count()
+    
+    return jsonify({"events_count": events_count, "users_count": users_count})
 
 if __name__ == "__main__":
     app.debug = True

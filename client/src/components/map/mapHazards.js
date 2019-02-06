@@ -5,11 +5,11 @@ const hazTypes = {
   },
   "2": {
     "haz_type": "Water",
-    "url": "https://res.cloudinary.com/ychaiu/image/upload/v1549383459/markers/radiation_6.png"
+    "url": "https://res.cloudinary.com/ychaiu/image/upload/v1549384623/markers/radiation_12.png"
   },
   "3": {
     "haz_type": "Noise",
-    "url": "https://res.cloudinary.com/ychaiu/image/upload/v1549383459/markers/radiation_8.png"
+    "url": "https://res.cloudinary.com/ychaiu/image/upload/v1549419438/markers/radiation_13.png"
   },
   "4": {
     "haz_type": "Pest",
@@ -21,7 +21,7 @@ const hazTypes = {
   },
   "6": {
     "haz_type": "Hazardous Waste",
-    "url": "https://res.cloudinary.com/ychaiu/image/upload/v1549383459/markers/radiation_9.png"
+    "url": "https://res.cloudinary.com/ychaiu/image/upload/v1549422750/markers/radiation_14.png"
   },
   "7": {
     "haz_type": "Food Safety",
