@@ -5,6 +5,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { faSpinner, faUpload, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import CommentContainer from './containers/commentContainer';
 
 library.add(fab, faSpinner, faUpload, faExclamationTriangle)
 
@@ -31,6 +32,7 @@ class App extends Component {
             <NavBar 
               newMarker = {this.state.newMarker}
             />
+            <CommentContainer />
             <Map
               handleCoordinates={this.handleCoordinates}
             />

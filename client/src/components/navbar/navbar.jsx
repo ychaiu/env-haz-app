@@ -39,17 +39,12 @@ class NavBar extends Component {
                         render={() => (
                             <EventFormContainer 
                                 newMarker = {this.props.newMarker}
-    
                             />
                         )}
                     />
                     <Route 
                         path="/take-action"
                         component={TakeAction}
-                    />
-                    <Route
-                        path="/comments"
-                        component={CommentContainer}
                     />
                 </div>
         );

@@ -160,7 +160,7 @@ class Map extends Component {
       })
       .then(data => this.props.renderComments(data))
       .then(this.props.commentState(true))
-      .then(this.props.history.push('/comments'))
+      // .then(this.props.history.push('/comments'))
   }
 
   handleApiLoaded = (map, maps) => {
