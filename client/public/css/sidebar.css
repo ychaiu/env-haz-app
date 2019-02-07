@@ -139,6 +139,16 @@
     font-size: 12px;
 }
 
+#take-action-sidebar-image {
+    background-image: url("https://res.cloudinary.com/ychaiu/image/upload/v1549509433/sidebar_images/niklas-hamann-1154834-unsplash.jpg");
+}
+
+.take-action-content {
+    font-family: 'Nunito', sans-serif;
+    color: #fff;
+    margin-top: 35px;
+}
+
 .alert {
     z-index:999;
     margin-left: 270px;

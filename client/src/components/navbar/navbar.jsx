@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom';
 import EventFormContainer from '../../containers/eventFormContainer.jsx';
 import About from '../about/about.jsx';
 import CommentContainer from '../../containers/commentContainer';
+import TakeAction from '../takeAction/takeAction';
+
 
 
 class NavBar extends Component {
@@ -23,7 +25,7 @@ class NavBar extends Component {
                                 <NavLink to="/report-event" className="nav-link" activeStyle={{fontWeight: "bold", color: "#e2aa00", textDecoration: "underline"}}>Report</NavLink>
                             </li>
                             <li className="nav-item active">
-                                <NavLink to="/dashboard" className="nav-link" activeStyle={{fontWeight: "bold", color: "#e2aa00", textDecoration: "underline"}}>Take Action</NavLink>
+                                <NavLink to="/take-action" className="nav-link" activeStyle={{fontWeight: "bold", color: "#e2aa00", textDecoration: "underline"}}>Take Action</NavLink>
                             </li>
 
                         </ul>
@@ -40,6 +42,10 @@ class NavBar extends Component {
     
                             />
                         )}
+                    />
+                    <Route 
+                        path="/take-action"
+                        component={TakeAction}
                     />
                     <Route
                         path="/comments"
