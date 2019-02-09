@@ -50,6 +50,7 @@
     font-family: 'Nunito', sans-serif;
     font-size: 0.9em;
     color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
 
 }
 
@@ -63,6 +64,11 @@
     color: #fff;
     font-family: 'Nunito', sans-serif;
     padding-top: 35px;
+}
+
+.rdtPicker {
+    width: 235px;
+    border-radius: 4px;
 }
 
 .button {

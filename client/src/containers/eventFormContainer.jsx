@@ -301,12 +301,6 @@ class EventFormContainer extends Component {
                             classNameTitle= {"form-label"}
                         />
                         <Button
-                            action={this.handleClearForm}
-                            type={"secondary"}
-                            title={"Clear Form"}
-                            className = {"btn btn-secondary form-clear-button"}
-                        />
-                        <Button
                             action={this.handleFormSubmit}
                             type={"primary"}
                             title={"Submit"}
