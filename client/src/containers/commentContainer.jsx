@@ -94,10 +94,11 @@ class CommentContainer extends Component {
             return (
                 <div>
                     <Button color="danger" onClick={this.toggleOff}>{this.props.buttonLabel}</Button>
-                    <Modal isOpen={this.props.isCommentOpen} toggle={this.toggleOff} className={this.props.className}>
+                    <Modal isOpen={this.props.isCommentOpen} toggle={this.toggleOff} className="modal-dialog-centered">
                         <ModalHeader className = "modal-title" toggle={this.toggleOff}>Comments</ModalHeader>
                         <ModalBody>
                             <div>
+                            <div className="past-comments-title">Past Comments</div>
                                 {this.props.comments.map((comment, i) => <Comment 
                                                                             text={comment.comment_text} 
                                                                             firstName={comment.comment_user_fn}
@@ -108,14 +109,14 @@ class CommentContainer extends Component {
                             <div className="container">
                                 <form>
                                     <TextArea
-                                        title={'Submit a Comment'}
+                                        title={'Submit a New Comment'}
                                         name={'comment_text'}
                                         rows={5}
                                         value={this.state.newComment.comment_text}
                                         handleChange={this.handleCommentInput}
                                         placeholder={"Please limit to 250 characters or less."}
                                         classNameTitle = {"comment-text-title"}
-                                        className = {"form-control"}
+                                        className = {"comment-form-control form-control"}
                                     />
                                 </form>
                             </div>

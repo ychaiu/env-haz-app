@@ -16,6 +16,7 @@
 .comment-text-title {
     color: black;
     font-family: 'Bitter', serif;
+    margin-top: 20px;
 }
 
 .modal-title {
@@ -24,8 +25,23 @@
     color: white;
 }
 
+.past-comments-title {
+    font-family: 'Bitter', serif;
+    font-size: 16px;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+}
+
 .modal-content {
     border-radius: 8px;
+}
+
+.modal-footer {
+    height: 60px;
+}
+
+.comment-form-control {
+    margin-bottom: -28px !important;
 }
 
 .close{
