@@ -53,6 +53,7 @@ class Map extends Component {
 
       let photoArray = [];
       let carouselHTML = "";
+
       let hazType = hazTypes[`${eventObj.haz_id}`]["haz_type"];
 
       marker.addListener('click', () => {
@@ -69,28 +70,23 @@ class Map extends Component {
               if (i === 0) {
                 carouselHTML += 
                   `<div class="carousel-item active">
-                    <img class="d-block w-100" src="${photoArray[i]}">
+                    <img id="carousel-image" class="d-block w-100" src="${photoArray[i]}">
                   </div>`
               }
               else {
                 carouselHTML +=
                 `<div class="carousel-item">
-                  <img class="d-block w-100" src="${photoArray[i]}"> 
+                  <img id="carousel-image" class="d-block w-100" src="${photoArray[i]}"> 
                 </div>`
               }
             }
           })
           .then(()=>{
             const contentString = `
-            <br>
             <div id="infowindow-container">
-              <div class="haztype-flag">
-                <img src ="${hazTypes[`${eventObj.haz_id}`]["url"]}" />
-                &nbsp;${hazType}
-              </div>
               <div class="infowindow-title">${eventObj.event_title}
               </div>
-              <br>
+              
               <div id="carouselSlides" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                   ${carouselHTML}
@@ -104,11 +100,15 @@ class Map extends Component {
                   <span class="sr-only">Next</span>
                 </a>
               </div>
-              <br>
-              <b class="infowindow-category">Last Reported: </b> ${eventObj.datetime_seen}<br><br>
-              <b class="infowindow-category">Description: </b> ${eventObj.description}<br><br>
+              
+              <div class="infowindow-category">Date Reported: <span id="infowindow-data">${eventObj.datetime_seen.split(" ",4).join(" ")}</span> </div>
+              <div class="infowindow-category">Description: <span id="infowindow-data">${eventObj.description}</span></div> 
+              <div class="haztype-flag">
+              <img src ="${hazTypes[`${eventObj.haz_id}`]["url"]}" />
+              &nbsp;${hazType}
+              </div>
               <button type="button" id= "button-link" class="btn btn-primary view-comment">View Comments</a>
-            </div>
+              </div>
               `;
             let infowindow = new maps.InfoWindow({
               content: contentString,
@@ -136,7 +136,7 @@ class Map extends Component {
            
               // Remove the white background DIV
               iwBackground.children(':nth-child(4)').css({'display' : 'none'});
-              $("button[title='Close']").css('top', "0px");
+              $("button[title='Close']").css('top', "10px");
               $("button[title='Close']").css('right', "10px");
               let btn = $('#button-link');
               btn.on('click', () => {

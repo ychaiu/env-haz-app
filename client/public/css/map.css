@@ -9,20 +9,31 @@
     font-family: 'Nunito', sans-serif;
 }
 
-.haztype-flag {
-    color: rgb(75, 75, 75);
-}
-
 .infowindow-title {
     font-family: 'Bitter', serif;
     font-size: 1.5em;
     font-weight: bold;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .infowindow-category {
     font-family: 'Bitter', serif;
     font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#infowindow-data {
+    font-family: 'Nunito', sans-serif;
+    font-weight: normal;
+}
+
+#carousel-image {
+    width: 250px;
+    height: 175px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
 .gm-style-iw {
@@ -30,8 +41,14 @@
     color: #3c4034;
     padding: 10px;
     border-radius: 10px 10px 10px 10px;
-    top: 0 !important;
+    top: 15px !important;
     box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+}
+
+.haztype-flag {
+    color: rgb(75, 75, 75);
+    float: right;
+    margin-top: 10px;
 }
 
 .view-comment {
