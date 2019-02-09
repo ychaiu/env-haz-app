@@ -9,6 +9,7 @@ const DateTimeInput = (props) => {
                 name={props.name}
                 value={props.value}
                 onChange={props.handleChange}
+                inputProps={{ placeholder: "Select a Date and Time"}}
              />
         </div>
     )

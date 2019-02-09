@@ -35,7 +35,7 @@ class About extends Component {
             {}
             <div className="about-content">
                 <div id="about-stats">
-                    <i class="fas fa-exclamation-triangle fa-3x"></i>
+                    <img id="about-haz-icon" src="https://res.cloudinary.com/ychaiu/image/upload/v1549654443/markers/toxic-sign_3.svg"/>
                     <div id="about-stats-users">{this.state.counts.users_count} Active Users</div>
                     <div id="about-stats-events">{this.state.counts.events_count} Reported Events</div>
                 </div>

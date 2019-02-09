@@ -118,6 +118,7 @@
     text-align: left;
     margin-left: 70px;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
 #about-stats-events {
@@ -137,6 +138,12 @@
 
 #about-source {
     font-size: 12px;
+}
+
+#about-haz-icon {
+    height: 50px;
+    float: left;
+    margin-top: 5px;
 }
 
 #take-action-sidebar-image {
