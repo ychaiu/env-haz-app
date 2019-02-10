@@ -98,7 +98,6 @@ class CommentContainer extends Component {
                         <ModalHeader className = "modal-title" toggle={this.toggleOff}>Comments</ModalHeader>
                         <ModalBody>
                             <div>
-                            <div className="past-comments-title">Past Comments</div>
                                 {this.props.comments.map((comment, i) => <Comment 
                                                                             text={comment.comment_text} 
                                                                             firstName={comment.comment_user_fn}

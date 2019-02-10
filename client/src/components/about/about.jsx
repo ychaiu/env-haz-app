@@ -29,7 +29,7 @@ class About extends Component {
         <div id="sidebar">
             <div className ="sidebar-header-box" id="about-sidebar-image">
                 <div className="sidebar-header">
-                    <h3>About This Tool</h3>
+                    <h3>Welcome!</h3>
                 </div> 
             </div>
             {}

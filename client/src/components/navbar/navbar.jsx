@@ -11,7 +11,7 @@ class NavBar extends Component {
         return (
                 <div>
                     <div className="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <NavLink className="navbar-brand" to="/">
+                        <NavLink className="navbar-brand" to="/about">
                         <img src="https://res.cloudinary.com/ychaiu/image/upload/v1546575684/logo/logo_white.png" className="d-inline-block align-top" width="30" height="30"></img>
                         &nbsp;&nbsp; HAZMAP 
                         </NavLink>
@@ -43,10 +43,6 @@ class NavBar extends Component {
                     <Route 
                         path="/take-action"
                         component={TakeAction}
-                    />
-                    <Route 
-                        exact path="/"
-                        component={Home}
                     />
                 </div>
         );
