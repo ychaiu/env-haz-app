@@ -26,18 +26,12 @@ class App extends Component {
   handleCoordinates(newMarker) {
     this.setState(newMarker);
   }
-  // const renderHome = null;
-  // if (window.location.pathname === "/") {
-  //   renderHome = <Home />;
-  // }
-
 
   render() {
 
     return (
       <Router>
         <div className="app">
-          {/* {renderHome} */}
           <NavBar 
             newMarker = {this.state.newMarker}
           />

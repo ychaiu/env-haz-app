@@ -11,10 +11,10 @@ class NavBar extends Component {
         return (
                 <div>
                     <div className="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <a className="navbar-brand" href="/">
+                        <NavLink className="navbar-brand" to="/">
                         <img src="https://res.cloudinary.com/ychaiu/image/upload/v1546575684/logo/logo_white.png" className="d-inline-block align-top" width="30" height="30"></img>
                         &nbsp;&nbsp; HAZMAP 
-                        </a>
+                        </NavLink>
                         <ul className="navbar-nav mr-auto">
                              <li className="nav-item active">
                                 <NavLink to="/about" className="nav-link" activeStyle={{fontWeight: "bold", color: "#e2aa00", textDecoration: "underline"}}>About</NavLink>
@@ -43,6 +43,10 @@ class NavBar extends Component {
                     <Route 
                         path="/take-action"
                         component={TakeAction}
+                    />
+                    <Route 
+                        exact path="/"
+                        component={Home}
                     />
                 </div>
         );

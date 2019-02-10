@@ -5,6 +5,7 @@ class Home extends Component {
   render() {
     return (
         <div id="sidebar">
+        Welcome to HAZMAP, a reporting tool for environmental hazards!
             <div className="card">
                 <img className="card-img-top" src="" alt="Card image cap" />
                     <div className="card-body">

@@ -246,7 +246,8 @@ class Map extends Component {
   }
 }
 
-// access states in store. When does this happen?
+
+// access states in store.
 const mapStateToProps = state => {
   return {
     markers: state.mapReducers.markers,

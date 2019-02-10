@@ -12,7 +12,7 @@ class TakeAction extends Component {
             </div>
             <div className="take-action-content">
                 The National Association of City and County Health Officals (NACCHO) created a helpful tool for identifying
-                your local public health agency. Contact your local official today <a href="https://www.naccho.org/membership/lhd-directory">here</a>.
+                your local public health agency. Contact your local official today <a className="action-link" href="https://www.naccho.org/membership/lhd-directory">here</a>.
                 <br></br><br></br>
                 There are many organizations advocating for safe and healthy environments, especially for communities disporportionately impacted by the effects of environmental pollution. Consider donating or joining one of these organizations to show your support.
             </div>

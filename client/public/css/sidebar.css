@@ -126,12 +126,14 @@
     margin-left: 70px;
     font-weight: bold;
     margin-bottom: 10px;
+    color: #35ffc1;
 }
 
 #about-stats-events {
     text-align: left;
     margin-left: 70px;
     font-weight: bold;
+    color: #35ffc1;
 }
 
 #about-stats {
@@ -163,8 +165,12 @@
     margin-top: 35px;
 }
 
+.action-link {
+    color: #e3ab00;
+}
+
 .alert {
     z-index:999;
-    margin-left: 270px;
+    margin-left: 275px;
     font-family: 'Nunito', sans-serif;
 }
