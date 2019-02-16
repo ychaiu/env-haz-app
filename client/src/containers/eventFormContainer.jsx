@@ -247,6 +247,7 @@ class EventFormContainer extends Component {
                             value={this.state.newEvent.eventTitle}
                             placeholder={'Enter a Title'}
                             handleChange={this.handleEventTitle}
+                            className={"form-control"}
                         />
                         <Select
                             title={'Hazard Type'}

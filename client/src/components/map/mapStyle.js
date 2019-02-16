@@ -1,46 +1,49 @@
 module.exports = {styleArray: [
     {
-        "featureType": "all",
-        "elementType": "geometry.fill",
+        "featureType": "administrative",
+        "elementType": "labels.text.fill",
         "stylers": [
             {
-                "weight": "2.00"
+                "color": "#6195a0"
             }
         ]
     },
     {
-        "featureType": "all",
+        "featureType": "administrative.province",
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#9c9c9c"
-            }
-        ]
-    },
-    {
-        "featureType": "all",
-        "elementType": "labels.text",
-        "stylers": [
-            {
-                "visibility": "on"
+                "visibility": "off"
             }
         ]
     },
     {
         "featureType": "landscape",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "lightness": "0"
+            },
+            {
+                "saturation": "0"
+            },
+            {
+                "color": "#f5f5f2"
+            },
+            {
+                "gamma": "1"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.man_made",
         "elementType": "all",
         "stylers": [
             {
-                "color": "#f2f2f2"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape",
-        "elementType": "geometry.fill",
-        "stylers": [
+                "lightness": "-3"
+            },
             {
-                "color": "#ffffff"
+                "gamma": "1.00"
             }
         ]
     },
@@ -49,7 +52,16 @@ module.exports = {styleArray: [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#ffffff"
+                "color": "#f8f8f8"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.natural.terrain",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
             }
         ]
     },
@@ -63,17 +75,95 @@ module.exports = {styleArray: [
         ]
     },
     {
-        "featureType": "poi.business",
-        "elementType": "all",
+        "featureType": "poi",
+        "elementType": "labels.icon",
         "stylers": [
             {
-                "lightness": "-7"
-            },
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.attraction",
+        "elementType": "labels.icon",
+        "stylers": [
             {
                 "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.business",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.government",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.medical",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#e6f2da"
             },
             {
-                "color": "#215d79"
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.place_of_worship",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.school",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.sports_complex",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
             }
         ]
     },
@@ -86,33 +176,9 @@ module.exports = {styleArray: [
             },
             {
                 "lightness": 45
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "geometry.fill",
-        "stylers": [
+            },
             {
-                "color": "#eeeeee"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "color": "#7b7b7b"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "labels.text.stroke",
-        "stylers": [
-            {
-                "color": "#ffffff"
+                "visibility": "simplified"
             }
         ]
     },
@@ -126,7 +192,46 @@ module.exports = {styleArray: [
         ]
     },
     {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#f9d6b5"
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "color": "#4e4e4e"
+            }
+        ]
+    },
+    {
         "featureType": "road.arterial",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#787878"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
         "elementType": "labels.icon",
         "stylers": [
             {
@@ -139,6 +244,78 @@ module.exports = {styleArray: [
         "elementType": "all",
         "stylers": [
             {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.line",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#e5e5e5"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station.airport",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "hue": "#0a00ff"
+            },
+            {
+                "saturation": "-77"
+            },
+            {
+                "gamma": "0.57"
+            },
+            {
+                "lightness": "0"
+            },
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station.bus",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "hue": "#008eff"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station.rail",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#43321e"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station.rail",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "hue": "#005dff"
+            },
+            {
+                "lightness": "4"
+            },
+            {
+                "gamma": "0.75"
+            },
+            {
+                "saturation": "-68"
+            },
+            {
                 "visibility": "off"
             }
         ]
@@ -148,7 +325,7 @@ module.exports = {styleArray: [
         "elementType": "all",
         "stylers": [
             {
-                "color": "#46bcec"
+                "color": "#eaf6f8"
             },
             {
                 "visibility": "on"
@@ -160,7 +337,7 @@ module.exports = {styleArray: [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#c8d7d4"
+                "color": "#cbeefa"
             }
         ]
     },
@@ -169,17 +346,24 @@ module.exports = {styleArray: [
         "elementType": "labels.text.fill",
         "stylers": [
             {
-                "color": "#070707"
+                "lightness": "-49"
+            },
+            {
+                "saturation": "-53"
+            },
+            {
+                "gamma": "0.79"
             }
         ]
     },
     {
         "featureType": "water",
-        "elementType": "labels.text.stroke",
+        "elementType": "labels.icon",
         "stylers": [
             {
-                "color": "#ffffff"
+                "visibility": "off"
             }
         ]
     }
-]};
+]
+};

@@ -5,6 +5,29 @@
     font-size: 5em;
 }
 
+#pac-input {
+    background-color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 250px;
+    top: 10px !important;
+    border-style: solid;
+    border-color: #5f95a1;
+    border-radius: 4px;
+  }
+
+  #pac-input:focus {
+    border-color: #4d90fe;
+  }
+
+  .pac-container {
+    font-family: 'Nunito', sans-serif;
+  }
+
 #infowindow-container {
     font-family: 'Nunito', sans-serif;
 }
@@ -41,7 +64,7 @@
     color: #3c4034;
     padding: 10px;
     border-radius: 10px 10px 10px 10px;
-    top: 15px !important;
+    top: 0px !important;
     box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
 }
 

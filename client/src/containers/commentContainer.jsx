@@ -93,7 +93,6 @@ class CommentContainer extends Component {
         if (this.props.comments) {
             return (
                 <div>
-                    <Button color="danger" onClick={this.toggleOff}>{this.props.buttonLabel}</Button>
                     <Modal isOpen={this.props.isCommentOpen} toggle={this.toggleOff} className="modal-dialog-centered">
                         <ModalHeader className = "modal-title" toggle={this.toggleOff}>Comments</ModalHeader>
                         <ModalBody>

@@ -1,45 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-// import { openSignIn } from '../../redux/actions/openSignIn';
+import { openSignIn } from '../../redux/actions/openSignIn';
 import SingleInput from '../eventForm/formPresentational/SingleInput';
 
-class SignUp extends Component {
+class SignIn extends Component {
     constructor(props) { 
         super(props);
         this.state = {
-            userFirstName: "",
-            userLastName: "",
-            userDisplayName: "",
             userEmail: "",
             userPassword: "",
         }
         this.toggleOff = this.toggleOff.bind(this);
-        this.handleInput = this.handleInput.bind(this);
-        // this.handleEmail = this.handleEmail.bind(this);
-        // this.handlePassword = this.handlePassword.bind(this);
+        this.handleEmail = this.handleEmail.bind(this);
+        this.handlePassword = this.handlePassword.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     toggleOff() {
-        this.props.openSignUp(false);
+        this.props.openSignIn(false);
     }
 
-    handleInput(evt) {
+    handleEmail(evt) {
         let value = evt.target.value;
         let name = evt.target.name;
         this.setState(prevState => ({
                 ...prevState, [name]: value
         }), );
-    // }
+    }
 
-    // handlePassword(evt) {
-    //     let value = evt.target.value;
-    //     let name = evt.target.name;
-    //     this.setState(prevState => ({
-    //             ...prevState, [name]: value
-    //     }), );
-    // }
+    handlePassword(evt) {
+        let value = evt.target.value;
+        let name = evt.target.name;
+        this.setState(prevState => ({
+                ...prevState, [name]: value
+        }), );
+    }
 
     handleFormSubmit(evt) {
         evt.preventDefault();
@@ -69,36 +65,6 @@ class SignUp extends Component {
                             <div class="signInWrapper fadeInDown">
                                 <div id="signInContent">
                                     <form>
-                                        <SingleInput
-                                            type={'text'}
-                                            title={'First Name'}
-                                            name={'firstName'}
-                                            value={this.state.userFirstName}
-                                            placeholder={'First Name'}
-                                            handleChange={this.handleEmail}
-                                            className={"form-control"}
-                                            id={"sign-up-fname"}
-                                        />
-                                        <SingleInput
-                                            type={'text'}
-                                            title={'Last Name'}
-                                            name={'lastName'}
-                                            value={this.state.userLastName}
-                                            placeholder={'Last Name'}
-                                            handleChange={this.handleEmail}
-                                            className={"form-control"}
-                                            id={"sign-up-lname"}
-                                        />
-                                        <SingleInput
-                                            type={'text'}
-                                            title={'Display Name'}
-                                            name={'displayName'}
-                                            value={this.state.userDNameisplay}
-                                            placeholder={'Display Name'}
-                                            handleChange={this.handleEmail}
-                                            className={"form-control"}
-                                            id={"sign-up-fname"}
-                                        />
                                         <SingleInput
                                             type={'text'}
                                             title={'Email'}
@@ -142,4 +108,4 @@ const mapDispatchToProps = dispatch => ({
     openSignIn: (state) => dispatch(openSignIn(state)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

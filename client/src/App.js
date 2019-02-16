@@ -6,6 +6,7 @@ import { fab, faWindows } from '@fortawesome/free-brands-svg-icons';
 import { faSpinner, faUpload, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import CommentContainer from './containers/commentContainer';
+import SignIn from './components/signIn/signIn';
 import Home from './components/home/home';
 
 library.add(fab, faSpinner, faUpload, faExclamationTriangle)
@@ -36,6 +37,7 @@ class App extends Component {
             newMarker = {this.state.newMarker}
           />
           <CommentContainer />
+          <SignIn />
           <Map
             handleCoordinates={this.handleCoordinates}
           />

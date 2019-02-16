@@ -7,6 +7,14 @@ app = Flask(__name__)
 app.secret_key = "secretkey"
 CORS(app)
 
+@app.route('/sign-up', methods=['POST'])
+def sign_up():
+    """Sign up a new user."""
+
+    data = request.get_json()
+    user_email = data['email']
+
+
 @app.route("/api/submit_event_data", methods=['POST'])
 def get_event_data():
     """Get event form data and post to database."""
