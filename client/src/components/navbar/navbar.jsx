@@ -44,16 +44,6 @@ class NavBar extends Component {
                                 </li>
                             </ul>
                         </div>
-                        <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                            <ul className="navbar-nav ml-auto">
-                                <li className="nav-item active">
-                                    <NavLink to="/" className="nav-link" activeStyle={{fontWeight: "bold", color: "#e2aa00", textDecoration: "underline"}}>Sign Up</NavLink>
-                                </li>
-                                <li className="nav-item active">
-                                    <button className="btn btn-outline-success my-2 my-sm-0" onClick={this.handleSignIn}>Sign In</button>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                     <Route 
                         path="/about" 

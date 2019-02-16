@@ -101,7 +101,9 @@
     margin: 3px;
 }
 
-/* .gmnoprint {
-    bottom: 300px;
-    top: 0px;
-} */
+#report-marker-icon {
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+    height: 40px;
+}
