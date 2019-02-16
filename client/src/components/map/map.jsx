@@ -9,7 +9,6 @@ import { renderComments } from '../../redux/actions/renderComments';
 import { commentState } from '../../redux/actions/commentState';
 import { getActiveEvent } from '../../redux/actions/getActiveEvent';
 import { connect } from 'react-redux';
-import SearchBox from '../map/searchBox';
 import hazTypes from './mapHazards';
 import $ from 'jquery';
 
@@ -211,7 +210,7 @@ class Map extends Component {
       }
       map.fitBounds(bounds);
       searchBox.set('map', map);
-      map.setZoom(Math.min(map.getZoom(),12));
+      map.setZoom(Math.min(map.getZoom(),15));
 
     })
     
