@@ -105,7 +105,7 @@ class Map extends Component {
                 </a>
               </div>
               
-              <div class="infowindow-category">Date Reported: <span id="infowindow-data">${eventObj.datetime_seen.split(" ",4).join(" ")}</span> </div>
+              <div class="infowindow-category">Date Seen: <span id="infowindow-data">${eventObj.datetime_seen.split(" ",4).join(" ")}</span> </div>
               <div class="infowindow-category">Description: <span id="infowindow-data">${eventObj.description}</span></div> 
               <div class="haztype-flag">
               <img src ="${hazTypes[`${eventObj.haz_id}`]["url"]}" />
@@ -192,7 +192,6 @@ class Map extends Component {
         });
 
     searchBox.addListener('places_changed', function(){
-      console.log("searchbox place changed")
       searchBox.set('map', null);
 
 
@@ -202,6 +201,16 @@ class Map extends Component {
       var i, place;
       for (i = 0; place = places[i]; i++) {
         (function(place) {
+          let marker = new maps.Marker({
+          position: place.geometry.location,
+          icon: "https://res.cloudinary.com/ychaiu/image/upload/v1550333850/markers/placeholder.svg"
+          });
+          marker.bindTo('map', searchBox, 'map');
+          maps.event.addListener(marker, 'map_changed', function() {
+            if (!this.getMap()) {
+              this.unbindAll();
+            }
+          });
           bounds.extend(place.geometry.location);
  
  

@@ -31,7 +31,7 @@ def get_event_data():
     haz_id = haz.haz_id
 
     new_event = Event(
-                user_id = 1,
+                user_id = 51,
                 haz_id = haz_id,
                 event_title = content['eventTitle'],
                 active = True,
@@ -39,7 +39,7 @@ def get_event_data():
                 event_start = content['dateTimeStart'],
                 # event_end = '2018-12-31',
                 description = content['eventDescription'],
-                last_edited_user = 1,
+                last_edited_user = 51,
                 latitude = content['latitude'],
                 longitude = content['longitude']
                 )
@@ -105,7 +105,7 @@ def submit_comment(event_id):
 
     content = request.get_json()
     new_comment = Comment(
-                user_id = 1,
+                user_id = 51,
                 event_id = event_id,
                 comment = content['comment_text']
                 )

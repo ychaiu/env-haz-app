@@ -101,7 +101,7 @@ class CommentContainer extends Component {
                                                                             text={comment.comment_text} 
                                                                             firstName={comment.comment_user_fn}
                                                                             lastName={comment.comment_user_ln}
-                                                                            submitted={comment.comment_submitted}
+                                                                            submitted={comment.comment_submitted.split(" ",4).join(" ")}
                                                                             key={i} />)}
                             </div>
                             <div className="container">
