@@ -8,8 +8,6 @@ import { addNewMarker } from '../redux/actions/addNewMarker';
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import config from '../config/config';
-import LoadingSpinner from '../components/map/loadingSpinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Alert } from 'reactstrap';
 
@@ -211,7 +209,6 @@ class EventFormContainer extends Component {
       }
 
     render() {
-        console.log(this.state);
         const {files} = this.state;
         const thumbs = files.map(file => (
           <div style={thumb} key={file.name}>
@@ -317,11 +314,11 @@ class EventFormContainer extends Component {
 }
 
 
-const cloudinaryAPI = config.cloudinaryAPI;
+const cloudinaryAPI = process.env.REACT_APP_CLOUDINARY_API;
 
-const cloudinaryPreset = config.cloudinaryPreset;
+const cloudinaryPreset = process.env.REACT_APP_CLOUDINARY_PRESET;
 
-const cloudinaryUploadURL = config.cloudinaryUploadURL;
+const cloudinaryUploadURL = process.env.REACT_APP_CLOUDINARY_UPLOAD_URL;
 
 const thumbsContainer = {
     display: 'flex',

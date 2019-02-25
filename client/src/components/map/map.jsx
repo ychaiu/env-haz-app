@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import config from '../../config/config';
 import mapStyle from './mapStyle';
 import { withRouter } from 'react-router';
 import LoadingSpinner from './loadingSpinner';
@@ -13,7 +12,7 @@ import hazTypes from './mapHazards';
 import $ from 'jquery';
 
 
-const key = config.mapKey;
+const key = process.env.REACT_APP_GOOGLE_MAPS_API;
 const customStyle = mapStyle.styleArray;
 
 class Map extends Component {

@@ -1,2 +1,4 @@
 env/
 client/src/config
+.env
+server/config.py
