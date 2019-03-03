@@ -7,8 +7,35 @@ Tech Stack: React, Redux, React Router, PostgreSQL, Flask, SQLAlchemy, jQuery, B
 
 ## Installing
 
-### Step 1
+### Clone and Set Up Virtual Environment
+
+To start, you'll need these libraries and packages installed
+```
+git
+pip
+npm
+python3
+```
 
 Clone the repository
+```
+git clone https://github.com/ychaiu/env-haz-app.git
+```
 
-This project was bootstrapped with [Create-React-App](https://github.com/facebook/create-react-app), which is a great starter for first-time projects. Create-React-App comes with webpack, babel,  However, you can skip this step when cloning this repository.
+Inside the root folder, create and activate a virtual environment with [virtualenv](https://virtualenv.pypa.io/en/latest/installation/)
+```
+pip install virtualenv
+virtualenv en
+source env/bin/activate
+```
+
+In `.gitignore`, verify that `env/` is ignored.
+
+# Set Up Backend Server
+```
+cd server
+
+
+
+
+This project was bootstrapped with [Create-React-App](https://github.com/facebook/create-react-app), which is a great starter for first-time projects. Create-React-App comes with Webpack, Babel, and other configurations for easy setup. However, you can skip this step when cloning this repository.
