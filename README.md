@@ -8,8 +8,17 @@ APIs: Google Maps, Cloudinary
 
 ## Getting API Keys
 
+#### Google Maps Javascript API Key
+To get a Maps Javscript API Key, follow the instructions [here](https://developers.google.com/maps/documentation/javascript/get-api-key).
+To protect your key, you can set restrictions to allow only approved websites/IP addresses, and also limit the number of daily/hourly calls.
 
-## Installing
+#### Cloudinary API Key
+Set up a [Cloudinary](https://cloudinary.com/) account. You'll need the following in later parts of the setup:
+1. API Key: On the Dashboard, under Account Details
+2. Upload URL: On the Dashboard, under Account Details, click the arrow for `More`, and find the API Base URL. Click the down arrow, and a pop-up will show the Image Upload URL
+3. Preset: In Settings, navigate to Upload, and scroll to the bottom. You can have multiple presets depending on image transformation needs
+
+## Installation
 
 ### Clone and Set Up Virtual Environment
 
@@ -88,17 +97,20 @@ cd client
 npm install
 ```
 
-2. Set API keys
+2. Setup environmental variables
 **Note: API keys and API calls are currently made on the front end, which presents a security vulnerability. This is less of a concern for the Google Maps API key, which allows owner restrictions. Google also suggests the [same thing] (https://developers.google.com/maps/documentation/javascript/get-api-key). However, the Cloudinary API key is at risk. Future versions of this project will store API keys and make API calls from the backend.
 
 ```
 cd client
 touch .env
 ```
-In your `.env` file, include the following:
+In your `.env` file, include the following. When `REACT_APP_` is prepended to the front of your environmental variable, React knows how to locate and use that constant:
 ```
 REACT_APP_CLOUDINARY_API = <CLOUDINARY API KEY>
 REACT_APP_CLOUDINARY_PRESET = <CLOUDINARY PRESET>
 REACT_APP_CLOUDINARY_UPLOAD_URL = <CLOUDINARY UPLOAD URL>
 REACT_APP_GOOGLE_MAPS_API = <GOOGLE MAPS API KEY>
 ```
+
+3. Run the application
+```npm start```
