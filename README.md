@@ -19,7 +19,6 @@ Set up a [Cloudinary](https://cloudinary.com/) account. You'll need the followin
 3. Preset: In Settings, navigate to Upload, and scroll to the bottom. You can have multiple presets depending on image transformation needs
 
 ## Installation
-
 ### Clone and Set Up Virtual Environment
 
 1. To start, you'll need these libraries and packages installed
@@ -111,3 +110,15 @@ REACT_APP_GOOGLE_MAPS_API = <GOOGLE MAPS API KEY>
 
 3. Run the application
 ```npm start```
+
+## Future Iterations
+Work to be done in the future:
+
+1. Unit and integrations tests
+2. Rewrite API calls to the backend
+3. Deploy
+
+Desired features:
+1. Voting feature for reports
+2. Marker filtering
+3. Loading spinner for image upload
