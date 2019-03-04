@@ -126,13 +126,13 @@ class Map extends Component {
             this.props.getActiveEvent(eventObj);
     
             maps.event.addListener(infowindow, 'domready', () => {
-              var iwOuter = $('.gm-style-iw');
+              let iwOuter = $('.gm-style-iw');
 
               /* The DIV we want to change is above the .gm-style-iw DIV.
-               * So, we use jQuery and create a iwBackground variable,
+               * So, use jQuery and create a iwBackground variable,
                * and took advantage of the existing reference to .gm-style-iw for the previous DIV with .prev().
                */
-              var iwBackground = iwOuter.prev();
+              let iwBackground = iwOuter.prev();
            
               // Remove the background shadow DIV
               iwBackground.children(':nth-child(2)').css({'display' : 'none'});
