@@ -13,14 +13,13 @@ To start, you'll need these libraries and packages installed
 ```
 git
 pip
-npm
+npm 
 python3
+postgres 10.6
 ```
 
 Clone the repository
-```
-git clone https://github.com/ychaiu/env-haz-app.git
-```
+`git clone https://github.com/ychaiu/env-haz-app.git`
 
 Inside the root folder, create and activate a virtual environment with [virtualenv](https://virtualenv.pypa.io/en/latest/installation/)
 ```
@@ -31,11 +30,30 @@ source env/bin/activate
 
 In `.gitignore`, verify that `env/` is ignored.
 
-# Set Up Backend Server
+### 
+
+### Set Up Backend Server
+
+With your virtual environment active, install requirements
 ```
 cd server
+pip3 install -r requirements.txt
+```
 
+With PostgreSQL installed, create your db, and load in the schema
+```
+createdb env-haz-app
+python3 -i model.py
+db.create_all()
+```
 
+If you ever need to drop the database
+`dropdb <DATABASE NAME>`
 
+Exit out of any active program and seed the database
+`python3 seed.py`
+
+To run the server
+`python3 server.py`
 
 This project was bootstrapped with [Create-React-App](https://github.com/facebook/create-react-app), which is a great starter for first-time projects. Create-React-App comes with Webpack, Babel, and other configurations for easy setup. However, you can skip this step when cloning this repository.
