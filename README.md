@@ -1,4 +1,7 @@
 # HAZMAP
+
+![alt text](screenshots/readme_screenshot.png)
+
 https://drive.google.com/file/d/1oA3VnZhp29AKkrps9KA3EI16ChDfZg8M/view?usp=sharing
 
 
