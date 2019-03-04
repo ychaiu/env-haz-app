@@ -42,7 +42,7 @@ git clone https://github.com/ychaiu/env-haz-app.git
 3. Inside the root folder, create and activate a virtual environment with [virtualenv](https://virtualenv.pypa.io/en/latest/installation/)
 ```
 pip install virtualenv
-virtualenv en
+virtualenv env
 source env/bin/activate
 ```
 In `.gitignore`, verify that `env/` is ignored.
