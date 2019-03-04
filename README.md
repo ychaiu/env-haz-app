@@ -32,7 +32,9 @@ postgres >= 10.6
 ```
 
 2. Clone the repository
-```git clone https://github.com/ychaiu/env-haz-app.git```
+```
+git clone https://github.com/ychaiu/env-haz-app.git
+```
 
 3. Inside the root folder, create and activate a virtual environment with [virtualenv](https://virtualenv.pypa.io/en/latest/installation/)
 ```
@@ -46,7 +48,6 @@ In `.gitignore`, verify that `env/` is ignored.
 
 1. With your virtual environment active(env), install requirements
 ```
-(env)
 cd server
 pip3 install -r requirements.txt
 ```
@@ -63,7 +64,6 @@ Add this file to `.gitignore` as `server/config.py`
 
 2. With PostgreSQL installed, create your database, and load in the schema
 ```
-(env)
 createdb env-haz-app
 python3 -i model.py
 db.create_all()
@@ -71,19 +71,16 @@ db.create_all()
 
 If you ever need to drop the database
 ```
-(env)
 dropdb <DATABASE NAME>
 ```
 
 3. Exit out of any active program and seed the database
 ```
-(env)
 python3 seed.py
 ```
 
 4. To run the server
 ```
-(env)
 python3 server.py
 ```
 
