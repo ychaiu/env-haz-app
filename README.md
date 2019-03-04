@@ -98,7 +98,7 @@ npm install
 ```
 
 2. Setup environmental variables
-**Note: API keys and API calls are currently made on the front end, which presents a security vulnerability. This is less of a concern for the Google Maps API key, which allows owner restrictions. Google also suggests the [same thing] (https://developers.google.com/maps/documentation/javascript/get-api-key). However, the Cloudinary API key is at risk. Future versions of this project will store API keys and make API calls from the backend.
+**Note: API keys and API calls are currently made on the front end, which presents a security vulnerability. This is less of a concern for the Google Maps API key, which allows owner restrictions. Google also suggests the [same thing](https://developers.google.com/maps/documentation/javascript/get-api-key). However, the Cloudinary API key is at risk. Future versions of this project will store API keys and make API calls from the backend.
 
 ```
 cd client
@@ -126,3 +126,4 @@ Desired features:
 1. Voting feature for reports
 2. Marker filtering
 3. Loading spinner for image upload
+4. Signin and Login
