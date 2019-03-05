@@ -72,14 +72,14 @@ class Map extends Component {
             for (i = 0; i < photoArray.length; i++) {
               if (i === 0) {
                 carouselHTML += 
-                  `<div class="carousel-item active">
-                    <img id="carousel-image" class="d-block w-100" src="${photoArray[i]}">
+                  `<div className="carousel-item active">
+                    <img id="carousel-image" className="d-block w-100" src="${photoArray[i]}">
                   </div>`
               }
               else {
                 carouselHTML +=
-                `<div class="carousel-item">
-                  <img id="carousel-image" class="d-block w-100" src="${photoArray[i]}"> 
+                `<div className="carousel-item">
+                  <img id="carousel-image" className="d-block w-100" src="${photoArray[i]}"> 
                 </div>`
               }
             }
@@ -87,30 +87,30 @@ class Map extends Component {
           .then(()=>{
             const contentString = `
             <div id="infowindow-container">
-              <div class="infowindow-title">${eventObj.event_title}
+              <div className="infowindow-title">${eventObj.event_title}
               </div>
               
-              <div id="carouselSlides" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
+              <div id="carouselSlides" className="carousel slide" data-ride="carousel">
+                <div className="carousel-inner">
                   ${carouselHTML}
                 </div>
-                <a class="carousel-control-prev" href="#carouselSlides" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Previous</span>
+                <a className="carousel-control-prev" href="#carouselSlides" role="button" data-slide="prev">
+                  <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span className="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carouselSlides" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Next</span>
+                <a className="carousel-control-next" href="#carouselSlides" role="button" data-slide="next">
+                  <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span className="sr-only">Next</span>
                 </a>
               </div>
               
-              <div class="infowindow-category">Date Seen: <span id="infowindow-data">${eventObj.datetime_seen.split(" ",4).join(" ")}</span> </div>
-              <div class="infowindow-category">Description: <span id="infowindow-data">${eventObj.description}</span></div> 
-              <div class="haztype-flag">
+              <div className="infowindow-category">Date Seen: <span id="infowindow-data">${eventObj.datetime_seen.split(" ",4).join(" ")}</span> </div>
+              <div className="infowindow-category">Description: <span id="infowindow-data">${eventObj.description}</span></div> 
+              <div className="haztype-flag">
               <img src ="${hazTypes[`${eventObj.haz_id}`]["url"]}" />
               &nbsp;${hazType}
               </div>
-              <button type="button" id= "button-link" class="btn btn-primary view-comment">View Comments</a>
+              <button type="button" id= "button-link" className="btn btn-primary view-comment">View Comments</a>
               </div>
               `;
             let infowindow = new maps.InfoWindow({
@@ -270,7 +270,7 @@ class Map extends Component {
               right: "0px"
             }}
           >
-          <input id="pac-input" class="controls" type="text" placeholder="Search for a Place"/>
+          <input id="pac-input" className="controls" type="text" placeholder="Search for a Place"/>
 
             <GoogleMapReact
               bootstrapURLKeys={{ key: key }}

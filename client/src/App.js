@@ -19,7 +19,6 @@ class App extends Component {
               lat: '',
               lng: '',
           },
-          onHomePage: false,
       }
       this.handleCoordinates = this.handleCoordinates.bind(this);
     }
