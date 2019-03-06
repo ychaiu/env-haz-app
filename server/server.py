@@ -120,22 +120,32 @@ def submit_comment(event_id):
 
     return jsonify(new_comment_obj)
   
-@app.route("/api/submit_photos", methods=['POST'])
+@app.route("/api/submit_photos", methods=['GET', 'POST'])
 def post_photos():
     """When a user uploads photos, post the URL to the database."""
 
-    content = request.get_json()
-    print(content)
-    photo_urls = content['urls']
+    files = request.get_json()
+    print(files)
+    # r = requests.post("http://example.com/other-endpoint")
+    
+    # return Response(
+    #     r.text
+    #     status=r.status_code,
+    #     content_type=r.headers['content-type'],
 
-    for url in photo_urls:
-        new_photo = Photo(
-            user_id = 1,
-            event_id = content['eventId'],
-            url = url
-        )
-        db.session.add(new_photo)
-    db.session.commit()
+    
+    # content = request.get_json()
+    # print(content)
+    # photo_urls = content['urls']
+
+    # for url in photo_urls:
+    #     new_photo = Photo(
+    #         user_id = 1,
+    #         event_id = content['eventId'],
+    #         url = url
+    #     )
+    #     db.session.add(new_photo)
+    # db.session.commit()
 
     return "Photo successfully added to database!"
 

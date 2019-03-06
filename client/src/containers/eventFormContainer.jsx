@@ -104,7 +104,6 @@ class EventFormContainer extends Component {
         evt.preventDefault();
         let formData = this.state.newEvent;
         let eventId;
-        console.log(formData);
 
         formData['latitude'] = this.props.newMarker.lat
         formData['longitude'] = this.props.newMarker.lng
@@ -125,7 +124,6 @@ class EventFormContainer extends Component {
             .then(data => {
                 this.props.addNewMarker(data);
                 eventId = data.event_id;
-                console.log("handleformsubmit", eventId)
                 return eventId
             })
             .then(eventId => {this.uploadPhotos(this.state.files, eventId)
@@ -140,50 +138,61 @@ class EventFormContainer extends Component {
         let storeEventId = eventId;
         let data;
         let fileURLS = [];
-        // Push all the axios request promise into a single array
-        const uploaders = files.map(file => {
-          // Initial FormData
-          const formData = new FormData();
-          formData.append("file", file);
-          formData.append("tags", `codeinfuse, medium, gist`);
-          formData.append("upload_preset", cloudinaryPreset); // Replace the preset name with your own
-          formData.append("api_key", cloudinaryAPI); // Replace API key with your own Cloudinary key
-          formData.append("timestamp", (Date.now() / 1000) | 0);
 
-          // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
-          return axios
-            .post(cloudinaryUploadURL, formData, {
-              headers: { "X-Requested-With": "XMLHttpRequest" }
-            })
-            .then(response => {
-              data = response.data;
-              fileURLS.push(data.secure_url); // You should store this URL for future references in your app
-            });
-        });
-
-        this.setState({
-            files: files.map(file => Object.assign(file, {
-            preview: URL.createObjectURL(file)
-            }))
-        });        
-
-        // Once all the files are uploaded 
-        axios.all(uploaders).then(() => {
-            let photoObj = {
-                urls: fileURLS,
-                eventId: storeEventId
-            }
-
-            fetch('http://localhost:5000/api/submit_photos', {
-                method: "POST",
-                body: JSON.stringify(photoObj),
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-            })
-        });
+        console.log(files);
+        fetch('http://localhost:5000/api/submit_photos', {
+            method: "GET",
+            body: JSON.stringify({"files": files, "event_id": eventId}),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
     }
+        // // Push all the axios request promise into a single array
+        // const uploaders = files.map(file => {
+        //   // Initial FormData
+        //   const formData = new FormData();
+        //   formData.append("file", file);
+        //   formData.append("tags", `codeinfuse, medium, gist`);
+        //   formData.append("upload_preset", cloudinaryPreset); // Replace the preset name with your own
+        //   formData.append("api_key", cloudinaryAPI); // Replace API key with your own Cloudinary key
+        //   formData.append("timestamp", (Date.now() / 1000) | 0);
+
+        //   // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
+        //   return axios
+        //     .post(cloudinaryUploadURL, formData, {
+        //       headers: { "X-Requested-With": "XMLHttpRequest" }
+        //     })
+        //     .then(response => {
+        //       data = response.data;
+        //       fileURLS.push(data.secure_url); // You should store this URL for future references in your app
+        //     });
+        // });
+
+        // this.setState({
+        //     files: files.map(file => Object.assign(file, {
+        //     preview: URL.createObjectURL(file)
+        //     }))
+        // });        
+
+        // // Once all the files are uploaded 
+        // axios.all(uploaders).then(() => {
+        //     let photoObj = {
+        //         urls: fileURLS,
+        //         eventId: storeEventId
+        //     }
+
+        //     fetch('http://localhost:5000/api/submit_photos', {
+        //         method: "POST",
+        //         body: JSON.stringify(photoObj),
+        //         headers: {
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         },
+        //     })
+        // });
+    
 
     handleClearForm(evt) {
         evt.preventDefault();
